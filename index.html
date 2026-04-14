@@ -135,6 +135,15 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
         <input type="number" min="0" step="1" value="0" id="inp_travel" style="width:100%;box-sizing:border-box;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:7px 10px;font-size:14px" oninput="travelCost=parseFloat(this.value)||0;updatePrices()">
       </div>
     </div>
+    <div id="expressPill" onclick="expressDelivery=!expressDelivery;var ep=document.getElementById('expressPill');ep.style.borderColor=expressDelivery?'#E8461E':'#666';ep.style.background=expressDelivery?'rgba(232,70,30,.18)':'rgba(0,0,0,.2)';document.getElementById('expressTrack').style.background=expressDelivery?'#E8461E':'#666';document.getElementById('expressThumb').style.left=expressDelivery?'20px':'2px';updatePrices()" style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px;cursor:pointer;transition:all .2s;user-select:none">
+      <div>
+        <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">&#9889; Express Delivery Surcharge (10%)</div>
+        <div style="color:#888;font-size:10px;margin-top:3px">~5 working days &middot; applies to blinds, accessories &amp; motors &middot; excl. installation &amp; travel</div>
+      </div>
+      <div id="expressTrack" style="width:40px;height:22px;border-radius:11px;background:#666;position:relative;flex-shrink:0;margin-left:12px;transition:background .2s">
+        <div id="expressThumb" style="width:18px;height:18px;border-radius:9px;background:#fff;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>
+      </div>
+    </div>
   </div>
   <div id="summaryContainer"></div>
 </div>
@@ -283,7 +292,7 @@ function rowHTML(r,idx){
     h+='<div><label class="lbl">Roll</label><select onchange="getRow('+r.id+').rt=this.value"><option'+(r.rt==="Standard"?' selected':'')+'>Standard</option><option'+(r.rt==="Waterfall"?' selected':'')+'>Waterfall</option></select></div>';
   }
   h+='</div>';
-  var noMotor=(isWood||isVen||isCellular||isVertical||isAllusion);
+  var noMotor=(isWood||isVen||(isCellular&&r.bt!=="Cellular Free Hang"&&r.bt!=="Cellular Shaped")||isVertical||isAllusion);
   if(!noMotor){
     h+='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px">';
     h+='<div><label class="lbl">Motor</label><select onchange="getRow('+r.id+').mot=this.value;updatePrices()">'+optsGroup(MOTOR_GROUPS,MOTOR_P,r.mot||"None")+'</select></div>';
@@ -312,7 +321,7 @@ function renderAllRows(){
   document.getElementById("rowsContainer").innerHTML=rows.map(function(r,i){return rowHTML(r,i);}).join("");
   updatePrices();
 }
-var installCost=0,travelCost=0;
+var installCost=0,travelCost=0,expressDelivery=false;
 function updatePrices(){
   var fc=0,bt2=0,fr=[];
   rows.forEach(function(r){
@@ -330,13 +339,14 @@ function updatePrices(){
     if(r.loc&&total!=null){fc++;bt2+=total;fr.push({r:r,p:total,base:base,mot:motorP,adp:adpP,rem:remP});}
   });
   document.getElementById("filledCount").textContent=fc+" priced";
-  var sub=bt2+(installCost||0)+(travelCost||0),vat2=sub*0.15,tot=sub+vat2;
+  var expSurcharge=expressDelivery?bt2*0.10:0;var sub=bt2+expSurcharge+(installCost||0)+(travelCost||0),vat2=sub*0.15,tot=sub+vat2;
   var sh="";
   if(fc>0){
     sh='<div class="summary"><h2>Costing Summary</h2>';
-    fr.forEach(function(x){var det=x.r.bt;if(x.r.bt==="Double Roller"){if(x.r.dr_bo)det+=' · '+x.r.dr_bo;if(x.r.dr_sc)det+=' + '+x.r.dr_sc;}else if(x.r.rng){det+=' · '+x.r.rng;}sh+='<div class="sline"><span class="sn">'+esc(x.r.loc)+' <span style="font-size:11px;color:#cc6030">('+det+')</span></span><span class="sv">'+fmt(x.base)+'</span></div>';if(x.mot>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Motor: '+esc(x.r.mot)+'</span><span class="sv" style="font-size:12px">'+fmt(x.mot)+'</span></div>';if(x.adp>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Adaptor: '+esc(x.r.adp)+'</span><span class="sv" style="font-size:12px">'+fmt(x.adp)+'</span></div>';if(x.rem>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Remote: '+esc(x.r.rem)+'</span><span class="sv" style="font-size:12px">'+fmt(x.rem)+'</span></div>';});
+    fr.forEach(function(x){var det=x.r.bt;if(x.r.bt==="Double Roller"){if(x.r.dr_bo)det+=' · '+x.r.dr_bo;if(x.r.dr_sc)det+=' + '+x.r.dr_sc;}else if(x.r.rng){det+=' · '+x.r.rng;}sh+='<div class="sline"><span class="sn">'+esc(x.r.loc)+' <span style="font-size:11px;color:#cc6030">('+det+')</span></span><span class="sv">'+fmt(x.base)+'</span></div>';if(x.mot>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Motor: '+esc(x.r.mot)+'</span><span class="sv" style="font-size:12px">'+fmt(x.mot)+'</span></div>';if(x.adp>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Adaptor: '+esc(x.r.adp)+'</span><span class="sv" style="font-size:12px">'+fmt(x.adp)+'</span></div>';if(x.rem>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Remote: '+esc(x.r.rem)+'</span><span class="sv" style="font-size:12px">'+fmt(x.rem)+'</span></div>';if(expressDelivery)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#E8461E">&#9889; Express (10%)</span><span class="sv" style="font-size:12px;color:#E8461E">'+fmt(x.p*0.10)+'</span></div>';});
     if(installCost>0)sh+='<div class="sline"><span class="sn">Installation</span><span class="sv">'+fmt(installCost)+'</span></div>';
     if(travelCost>0)sh+='<div class="sline"><span class="sn">Travel</span><span class="sv">'+fmt(travelCost)+'</span></div>';
+    if(expSurcharge>0)sh+='<div class="sline"><span class="sn" style="color:#E8461E;font-weight:600">&#9889; Express Delivery (10%)</span><span class="sv" style="color:#E8461E">'+fmt(expSurcharge)+'</span></div>';
     sh+='<div class="tsec"><div class="trow"><span class="tl">Sub Total</span><span class="tv">'+fmt(sub)+'</span></div>';
     sh+='<div class="trow"><span class="tl">VAT (15%)</span><span class="tv">'+fmt(vat2)+'</span></div>';
     sh+='<div class="trow big"><span class="tl">TOTAL incl VAT</span><span class="tv">'+fmt(tot)+'</span></div>';
@@ -394,7 +404,8 @@ function savePDF(){
   rows.forEach(function(r){if(r.bt==="Double Roller")r.rng=drCombo(r);var w=parseInt(r.w)||0,d=parseInt(r.d)||0;var p=calc(r.bt,r.rng,w,d,r.sbc,r.cas);var addons=(r.intc?PRICE_INTC:0)+(r.rbc?PRICE_RBC:0)+(r.fbi?R_FBI[fb(parseInt(r.w)||0,R_W)]:0);var motorP=MOTOR_P[r.mot]||0,adpP=ADP_P[r.adp]||0,remP=REMOTE_P[r.rem]||0;var total=p!=null?p+addons+motorP+adpP+remP:null;if(r.loc||r.w||r.d)filled.push({r:r,p:total});});
   pricedRows=filled.filter(function(x){return x.p!=null;});
   var bt3=pricedRows.reduce(function(s,x){return s+x.p;},0);
-  var sub=bt3+(installCost||0)+(travelCost||0),vat3=sub*0.15,tot=sub+vat3;
+  var expSurcharge3=expressDelivery?bt3*0.10:0;
+  var sub=bt3+expSurcharge3+(installCost||0)+(travelCost||0),vat3=sub*0.15,tot=sub+vat3;
   doc.setFillColor(255,255,255);doc.rect(0,0,W,28,'F');
   // Logo first, then red bar drawn on top so it's edge-to-edge with no gaps
   try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'JPEG',M,0,_pw,_ph);}catch(e){}
@@ -414,18 +425,21 @@ function savePDF(){
   var gn=v("c_gn");if(gn){y+=5;doc.setFontSize(7);doc.setTextColor(100);doc.text('Notes: '+gn,M,y);}
   y+=5;
   var tH=[['#','Location','Type','Range','Col','W','D','Ctrl','Fix','Opts','Price']];var tB=[];
-  filled.forEach(function(x,i){var r=x.r,lt=i<26?al[i]:""+i;var o2=[];if(r.mot&&r.mot!=="None")o2.push("MOT:"+r.mot);if(r.adp&&r.adp!=="None")o2.push("KIT:"+r.adp);if(r.rem&&r.rem!=="None")o2.push("REM:"+r.rem);if(r.sbc)o2.push("SC");if(r.cas)o2.push("Cas");if(r.fbi)o2.push("FI");if(r.intc)o2.push("Int/C");if(r.rbc)o2.push("NoBrk");if(r.rt==="Waterfall")o2.push("WF");var colTxt=r.col||"";if(r.bt==="Double Roller")colTxt=(r.dr_bo_col||"")+"/"+(r.dr_sc_col||"");tB.push([lt,r.loc||"",r.bt||"",r.rng||"",colTxt,r.w||"",r.d||"",r.ctrl||"",r.fx||"",o2.join(","),x.p!=null?fmt(x.p):""]);});
-  doc.autoTable({startY:y,margin:{left:M,right:M},head:tH,body:tB,theme:'grid',styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},columnStyles:{0:{cellWidth:7,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:24},2:{cellWidth:18},3:{cellWidth:26},4:{cellWidth:14},5:{cellWidth:11,halign:'center'},6:{cellWidth:11,halign:'center'},7:{cellWidth:13},8:{cellWidth:11},9:{cellWidth:16,fontSize:5.5},10:{cellWidth:22,halign:'right',fontStyle:'bold'}},alternateRowStyles:{fillColor:[248,248,245]}});
+  var pdfSubIdx=[],pdfExpIdx=[];
+  filled.forEach(function(x,i){var r=x.r,lt=i<26?al[i]:""+i;var o2=[];if(r.sbc)o2.push("SC");if(r.cas)o2.push("Cas");if(r.fbi)o2.push("FI");if(r.intc)o2.push("Int/C");if(r.rbc)o2.push("NoBrk");if(r.rt==="Waterfall")o2.push("WF");var colTxt=r.col||"";if(r.bt==="Double Roller")colTxt=(r.dr_bo_col||"")+"/"+(r.dr_sc_col||"");var mP=MOTOR_P[r.mot]||0,aP=ADP_P[r.adp]||0,rP=REMOTE_P[r.rem]||0;var baseP=x.p!=null?x.p-mP-aP-rP:null;tB.push([lt,r.loc||"",r.bt||"",r.rng||"",colTxt,r.w||"",r.d||"",r.ctrl||"",r.fx||"",o2.join(","),baseP!=null?fmt(baseP):""]);if(mP>0){pdfSubIdx.push(tB.length);tB.push(['','\u21b3 Motor: '+(r.mot||''),'','','','','','','','',fmt(mP)]);}if(aP>0){pdfSubIdx.push(tB.length);tB.push(['','\u21b3 Adaptor: '+(r.adp||''),'','','','','','','','',fmt(aP)]);}if(rP>0){pdfSubIdx.push(tB.length);tB.push(['','\u21b3 Remote: '+(r.rem||''),'','','','','','','','',fmt(rP)]);}if(expressDelivery&&x.p!=null){pdfExpIdx.push(tB.length);tB.push(['','\u26a1 Express Surcharge (10%)','','','','','','','','',fmt(x.p*0.10)]);}});
+  doc.autoTable({startY:y,margin:{left:M,right:M},head:tH,body:tB,theme:'grid',styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},columnStyles:{0:{cellWidth:7,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:24},2:{cellWidth:18},3:{cellWidth:26},4:{cellWidth:14},5:{cellWidth:11,halign:'center'},6:{cellWidth:11,halign:'center'},7:{cellWidth:13},8:{cellWidth:11},9:{cellWidth:16,fontSize:5.5},10:{cellWidth:22,halign:'right',fontStyle:'bold'}},alternateRowStyles:{fillColor:[248,248,245]},didParseCell:function(d){if(pdfSubIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[150,150,150];d.cell.styles.fontSize=5.5;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[252,252,250];if(d.column.index===1)d.cell.styles.cellPadding={top:0.8,bottom:0.8,left:10,right:1};}if(pdfExpIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[232,70,30];d.cell.styles.fontSize=5.5;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[255,248,245];if(d.column.index===1)d.cell.styles.cellPadding={top:0.8,bottom:0.8,left:10,right:1};}}});
   y=doc.lastAutoTable.finalY+6;var tx=W-M,tfw=60;
   function tl2(lb,vl,bd,bg){doc.setFontSize(bg?9:7.5);doc.setFont('helvetica',bd?'bold':'normal');doc.setTextColor(80);doc.text(lb,tx-tfw,y);doc.setTextColor(30);doc.text(vl,tx,y,{align:'right'});y+=bg?5:4;}
   doc.setDrawColor(180);doc.setLineWidth(0.2);doc.line(tx-tfw,y-2,tx,y-2);
   if(installCost>0)tl2('Installation',fmt(installCost),false,false);
   if(travelCost>0)tl2('Travel',fmt(travelCost),false,false);
+  if(expSurcharge3>0){doc.setTextColor(232,70,30);tl2('\u26a1 Express Delivery (10%)',fmt(expSurcharge3),false,false);doc.setTextColor(80);}
   tl2('Sub Total',fmt(sub),true,false);tl2('VAT (15%)',fmt(vat3),false,false);
   doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.line(tx-tfw,y-3.5,tx,y-3.5);doc.setLineWidth(0.2);
   tl2('TOTAL incl VAT',fmt(tot),true,true);
   doc.setDrawColor(150);doc.line(tx-tfw,y-3,tx,y-3);
   tl2('80% Deposit',fmt(tot*0.8),false,false);
+  if(expressDelivery){y+=3;doc.setFontSize(6);doc.setFont('helvetica','italic');doc.setTextColor(232,70,30);doc.text('\u26a1 Express Delivery: approx. 5 working days. 10% surcharge applied to blinds, accessories & motors. Excludes installation, travel & VAT.',M,y,{maxWidth:W-M*2});y+=6;doc.setTextColor(80);doc.setFont('helvetica','normal');}
   // ── Banking Details — fixed at bottom of page 1 ──
   var bky=H-34,bkW=W-M*2,bkH=26;
   doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
