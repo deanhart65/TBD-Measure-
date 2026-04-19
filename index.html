@@ -2017,16 +2017,16 @@ function od_updatePrices(){
     var acc=od_calcAddons(r);
     var motP=od_calcMotor(r);
     var total=base!=null?base+acc+motP:null;
-    var el=document.getElementById("od_price_"+r.id);
-    var brow=document.getElementById("od_brow_"+r.id);
+    var el=document.getElementById("price_"+r.id);
+    var brow=document.getElementById("brow_"+r.id);
     if(el){el.textContent=total!=null?od_fmt(total):"—";el.className="bcard-price"+(total!=null?"":" empty");}
     if(brow){brow.className="bcard"+(total!=null?" priced":r.loc?" partial":"");}
     // Size warnings
     var isFH=(r.bt==="Free Hang"),isSX=!isFH;
     var over=(isFH&&(w>5800||d>4000))||(isSX&&(w>5100||d>3000));
-    var warn=document.getElementById("od_sz_warn_"+r.id);
+    var warn=document.getElementById("sz_warn_"+r.id);
     if(warn)warn.style.display=over?"block":"none";
-    var winp=document.getElementById("od_winp_"+r.id),dinp=document.getElementById("od_dinp_"+r.id);
+    var winp=document.getElementById("winp_"+r.id),dinp=document.getElementById("dinp_"+r.id);
     if(winp)winp.style.border=over?"2px solid #cc3333":"";
     if(dinp)dinp.style.border=over?"2px solid #cc3333":"";
     if(total!=null){fc++;blindsTotal+=base!=null?base:0;accTotal+=acc+motP;}
