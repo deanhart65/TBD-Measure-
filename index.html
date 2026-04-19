@@ -115,8 +115,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 .ct-card{background:#fff;border-radius:10px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid #ddd}
 .ct-card.priced{border-left-color:#E8461E}
 .ct-card.double-priced{border-left-color:#7a4ae8}
-.ct-card-top{padding:8px 10px;display:grid;grid-template-columns:22px minmax(100px,0.5fr) 110px 110px auto 110px 30px;gap:5px;align-items:center;position:relative;overflow:visible}
-@media(max-width:600px){.ct-card-top{overflow-x:auto;-webkit-overflow-scrolling:touch}}
+.ct-card-top{padding:8px 10px 6px;display:grid;grid-template-columns:22px minmax(80px,1fr) 90px 90px 30px;grid-template-rows:auto auto;gap:5px;align-items:center;position:relative;overflow:visible}
 .ct-hdr-drop-btn{font-size:11px;font-weight:600;padding:4px 8px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8;cursor:pointer;white-space:nowrap;color:#4A4A4A;min-width:62px;text-align:center}
 .ct-hdr-drop-btn.open{border-color:#E8461E;color:#E8461E;background:#fff8f7}
 .ct-hdr-drop-panel{position:absolute;top:calc(100% + 2px);background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:200;white-space:nowrap}
@@ -2816,7 +2815,7 @@ function ct_buildCard(r){
   function pillFab(lbl,val){return '<button class="ct-pill'+(r.fabW===val?' on':'')+'" onclick="ct_getRow('+r.id+').fabW='+val+';ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">'+lbl+'</button>';}
   function pillType(lbl,val,cls){return '<button class="ct-pill'+(r.trackType===val?' '+cls:'')+'" onclick="ct_getRow('+r.id+').trackType=\''+val+'\';ct_updatePrices();ct_renderRow('+r.id+')">'+lbl+'</button>';}
   function pillLined(panel,lbl,val,cls){return '<button class="ct-pill'+(r['t'+panel+'lined']===val?' '+cls:'')+'" onclick="ct_getRow('+r.id+').t'+panel+'lined='+val+';ct_updatePrices();ct_renderRow('+r.id+')">'+lbl+'</button>';}
-  function pillCurtStyle(lbl,val){return '<button class="ct-pill'+(r.curtainStyle===val?' on-p':'')+'" onclick="var _r=ct_getRow('+r.id+');_r.curtainStyle=\''+val+'\';if(val===\'Pinch Pleat\'&&_r.trkStyle===\'Ripple\'){_r.trkStyle=\'Glide\';_r.trkModel=\'Avant Hand Drawn\';}ct_updatePrices();ct_renderRow('+r.id+')">'+lbl+'</button>';}
+  function pillCurtStyle(lbl,val){var extra=val==='Pinch Pleat'?';if(_r.trkStyle===\'Ripple\'){_r.trkStyle=\'Glide\';_r.trkModel=\'Avant Hand Drawn\';}':'';return '<button class="ct-pill'+(r.curtainStyle===val?' on-p':'')+'" onclick="var _r=ct_getRow('+r.id+');_r.curtainStyle=\''+val+'\''+extra+';ct_updatePrices();ct_renderRow('+r.id+')">'+lbl+'</button>';}
   function pillPinch(lbl,val){return '<button class="ct-pill'+(r.pinchType===val?' on':'')+'" onclick="ct_getRow('+r.id+').pinchType=\''+val+'\';ct_renderRow('+r.id+')">'+lbl+'</button>';}
   function optBtn(key,lbl,price,cls){
     return '<button class="ct-opt-btn'+(r[key]?(cls||' on'):'')+'" onclick="ct_getRow('+r.id+').'+key+'=!ct_getRow('+r.id+').'+key+';ct_updatePrices();ct_renderRow('+r.id+')">'+lbl+'<span class="ct-opt-price">'+ct_fmtR(price)+'</span></button>';
@@ -2985,6 +2984,7 @@ function ct_buildCard(r){
 
   return '<div class="'+cardCls+'" id="ctcard_'+r.id+'">'
     +'<div class="ct-card-top">'
+    // Row 1: letter | location | W | D | arrow
     +'<span class="'+letCls+'">'+lt+'</span>'
     +'<input class="ct-inp" value="'+ct_esc(r.loc)+'" placeholder="Location" style="text-align:left" oninput="ct_getRow('+r.id+').loc=this.value">'
     +'<input class="ct-inp" value="'+(r.w||'')+'" placeholder="W mm" oninput="ct_getRow('+r.id+').w=this.value.replace(/\\D/g,\'\');ct_checkRR('+r.id+')" onchange="ct_updatePrices()">'
@@ -2992,26 +2992,26 @@ function ct_buildCard(r){
     +'<input class="ct-inp" value="'+(r.d||'')+'" placeholder="D mm" oninput="ct_getRow('+r.id+').d=this.value.replace(/\\D/g,\'\');ct_checkRR('+r.id+')" onchange="ct_updatePrices()">'
     +(rawD&&d!==rawD?'<div style="font-size:9px;font-weight:700;color:#E8461E;text-align:center;margin-top:2px">\u2192 '+d+'mm</div>':'')
     +'</div>'
-    +'<div style="display:flex;align-items:center;gap:6px;white-space:nowrap;position:relative">'+badge
+    +'<span class="ct-arrow" onclick="ct_toggleRow('+r.id+')">'+(isOpen?'&#9650;':'&#9660;')+'</span>'
+    // Row 2: badge | FABRIC W | STACK | FLOOR | price (spans all cols)
+    +'<div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;border-top:1px solid #eeebe6;padding-top:6px;flex-wrap:wrap">'+badge
     +'<div style="position:relative"><div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">FABRIC W</div>'
     +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'fabW\',this)">'
     +r.fabW+'m \u25be</button>'
     +'</div>'
-    // Stack dropdown
     +'<div style="position:relative">'
     +'<div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">STACK</div>'
     +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'stack\',this)">'
     +({'Left Stack':'\u2190L','Centre Split':'\u21d4','Right Stack':'R\u2192'}[r.stack]||'\u21d4')+' \u25be</button>'
     +'</div>'
-    // Floor dropdown
     +'<div style="position:relative">'
     +'<div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">FLOOR</div>'
     +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'floor\',this)">'
     +({'Touching':'Touch','5mm Off':'5mm\u2191','10mm Off':'10mm\u2191','On Floor':'Pool'}[r.floorClear]||'Touch')+' \u25be</button>'
     +'</div>'
-    +'</div>'
+    +'<div style="flex:1"></div>'
     +'<span class="'+priceCls+'">'+priceStr+'</span>'
-    +'<span class="ct-arrow" onclick="ct_toggleRow('+r.id+')">'+(isOpen?'&#9650;':'&#9660;')+'</span>'
+    +'</div>'
     +'</div>'
     +bodyContent
     +'</div>';
