@@ -1107,7 +1107,7 @@ function savePDF(){
   // Logo first, then red bar drawn on top so it's edge-to-edge with no gaps
   try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
   doc.setFillColor(232,70,30);doc.rect(0,28,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrder?'ORDER':'QUOTATION',W-M,10,{align:'right'});
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrder?'BLINDS ORDER':'BLINDS QUOTATION',W-M,10,{align:'right'});
   doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100);
   doc.text('Total Blind Design cc',W-M,15,{align:'right'});
   doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
@@ -2239,7 +2239,7 @@ function od_pwaExportPDF(){
   doc.setFillColor(255,255,255);doc.rect(0,H-28,W,28,"F");
   try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
   doc.setFillColor(232,70,30);doc.rect(0,28,W,1.5,"F");
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrd?'ORDER':'QUOTATION',W-M,10,{align:'right'});
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrd?'OUTDOOR ORDER':'OUTDOOR QUOTATION',W-M,10,{align:'right'});
   doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
   doc.text('Total Blind Design cc',W-M,15,{align:'right'});
   doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
@@ -2680,13 +2680,13 @@ function ct_newRow(){
     curtainStyle:'Ripple',pinchType:'Single',floorClear:'Touching',floorPool:0,ctHdrDrop:null,
     t1lined:false,t1fabPrice:0,t1linPrice:0,
     t2lined:false,t2fabPrice:0,t2linPrice:0,
-    trkStyle:'Glide',trkModel:'Avant Hand Drawn',trkFix:'Single Face Fix',trkColour:'White',
+    trkStyle:'Ripple',trkModel:'Hand Drawn',trkFix:'Top Fix',trkColour:'White',
     trkSomfyType:'Single',trkRemoteType:'None',trkRemote:'None',
     opt90:false,opt45:false,optContBend:false,optSingleWand:false,optDoubleWand:false};
 }
 function ct_getRow(id){for(var i=0;i<ct_rows.length;i++)if(ct_rows[i].id===id)return ct_rows[i];return null;}
 function ct_trackDeduction(r){
-  if(r.trkStyle==='Somfy')return 30;
+  if(r.trkStyle==='Somfy')return 40;
   if(r.trkModel==='Urban Hand Drawn')return 40;
   if(r.trkModel==='Avant Hand Drawn')return 45;
   if(r.trkModel==='Hand Drawn')return 35;
@@ -2748,7 +2748,7 @@ function ct_calcPanel(w,d,fullness,fabW,lined,fabPrice,linPrice,curtainStyle){
   var wm=w/1000,dm=d/1000;
   var drops=curtainStyle==='Pinch Pleat'
     ?Math.ceil((wm+0.2)*2.25/fabW)
-    :Math.ceil((wm*fullness)/fabW);
+    :Math.ceil((wm*fullness)/1.4);
   var meterage=Math.ceil((dm+0.3)*drops);
   var fabCost=fabPrice*meterage;
   var linCost=lined?(linPrice*meterage):0;
@@ -2984,7 +2984,10 @@ function ct_buildCard(r){
     +'<span class="'+letCls+'">'+lt+'</span>'
     +'<input class="ct-inp" value="'+ct_esc(r.loc)+'" placeholder="Location" style="text-align:left" oninput="ct_getRow('+r.id+').loc=this.value">'
     +'<input class="ct-inp" value="'+(r.w||'')+'" placeholder="W mm" oninput="ct_getRow('+r.id+').w=this.value.replace(/\\D/g,\'\');ct_checkRR('+r.id+')" onchange="ct_updatePrices()">'
+    +'<div style="position:relative">'
     +'<input class="ct-inp" value="'+(r.d||'')+'" placeholder="D mm" oninput="ct_getRow('+r.id+').d=this.value.replace(/\\D/g,\'\');ct_checkRR('+r.id+')" onchange="ct_updatePrices()">'
+    +(rawD&&d!==rawD?'<div style="font-size:9px;font-weight:700;color:#E8461E;text-align:center;margin-top:2px">\u2192 '+d+'mm</div>':'')
+    +'</div>'
     +'<div style="display:flex;align-items:center;gap:6px;white-space:nowrap;position:relative">'+badge
     +'<div style="position:relative"><div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">FABRIC W</div>'
     +'<button class="ct-hdr-drop-btn'+(r.ctHdrDrop==='fabW'?' open':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.ctHdrDrop=_r.ctHdrDrop===\'fabW\'?null:\'fabW\';ct_renderRow('+r.id+')">'
@@ -2993,6 +2996,8 @@ function ct_buildCard(r){
       ?'<div class="ct-hdr-drop-panel"><div class="ct-pill-row" style="margin:0;flex-direction:column;align-items:flex-start;gap:4px">'
         +'<button class="ct-pill'+(r.fabW===1.4?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=1.4;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">1.4m</button>'
         +'<button class="ct-pill'+(r.fabW===2.8?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=2.8;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">2.8m</button>'
+        +'<button class="ct-pill'+(r.fabW===3.0?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=3.0;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">3.0m</button>'
+        +'<button class="ct-pill'+(r.fabW===3.2?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=3.2;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">3.2m</button>'
         +'</div></div>'
       :'')
     +'</div>'
@@ -3221,7 +3226,7 @@ function ct_pwaExportPDF(isOrd){
       }
     }
   }
-  var cols=isOrd?['Window','Description','W','D','Drops','Mtg','Fabric','Lining','Labour','Track','Total']:['Window','Description','Drops','Mtg','Fabric','Lining','Labour','Track','Total'];
+  var cols=isOrd?['Window','Description','W mm','Fin.D mm','Drops','Mtg','Fabric','Lining','Labour','Track','Total']:['Window','Description','Drops','Mtg','Fabric','Lining','Labour','Track','Total'];
   var colStyles=isOrd?{0:{cellWidth:16},1:{cellWidth:40},2:{cellWidth:10},3:{cellWidth:10},4:{cellWidth:11},5:{cellWidth:13},6:{cellWidth:14},7:{cellWidth:14},8:{cellWidth:14},9:{cellWidth:14},10:{cellWidth:16}}:{0:{cellWidth:18},1:{cellWidth:55},2:{cellWidth:13},3:{cellWidth:16},4:{cellWidth:16},5:{cellWidth:16},6:{cellWidth:16},7:{cellWidth:16},8:{cellWidth:16}};
   doc.autoTable({startY:y,head:[cols],body:bodyData,theme:'striped',headStyles:{fillColor:[232,70,30],textColor:[255,255,255],fontSize:7,fontStyle:'bold'},bodyStyles:{fontSize:7},columnStyles:colStyles,margin:{left:M,right:M}});
   y=doc.lastAutoTable.finalY+5;
