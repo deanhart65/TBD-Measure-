@@ -41,7 +41,7 @@ textarea{resize:vertical;min-height:50px}
 /* Blind cards */
 .bcard{background:#fff;border-radius:10px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid #ddd;overflow:hidden}
 .bcard.priced{border-left-color:#E8461E}.bcard.partial{border-left-color:#e0a040}
-.bcard-top{padding:8px;display:grid;grid-template-columns:22px minmax(60px,1fr) 52px 52px minmax(80px,1.2fr) minmax(80px,1.2fr) 80px 28px;gap:4px;align-items:center}
+.bcard-top{padding:8px;display:grid;grid-template-columns:22px minmax(60px,1fr) 52px 52px minmax(80px,1.2fr) minmax(80px,1.2fr) 110px 28px;gap:4px;align-items:center}
 .bcard-letter{font-size:16px;font-weight:800;color:#E8461E;text-align:center;flex-shrink:0}
 .bcard-inp{padding:7px 5px;font-size:14px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8;color:#1a1a1a;outline:none;font-family:inherit;-webkit-appearance:none;width:100%}
 .bcard-sel{padding:7px 3px;font-size:12px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8;color:#1a1a1a;outline:none;font-family:inherit;-webkit-appearance:none;width:100%;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;padding-right:16px}
@@ -70,7 +70,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 .trow .tl{color:#ffb090}.trow .tv{color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
 .trow.big{font-size:17px;font-weight:700;padding:6px 0}
 .dep{margin-top:4px;padding-top:4px;border-top:1px dashed #666666}
-@media(max-width:699px){.g6{grid-template-columns:1fr 1fr 1fr}.bcard-top{grid-template-columns:22px 1fr 46px 46px 80px 28px;font-size:12px}.bcard-top .bcard-sel{display:none}.bcard-price{font-size:12px}.mob-fab,.mob-type{display:block!important}}
+@media(max-width:699px){.g6{grid-template-columns:1fr 1fr 1fr}.bcard-top{grid-template-columns:22px 1fr 46px 46px 110px 28px;font-size:12px}.bcard-top .bcard-sel{display:none}.bcard-price{font-size:12px}.mob-fab,.mob-type{display:block!important}}
 .mob-fab,.mob-type{display:none}
 @media(min-width:700px){
   .save-bar{grid-template-columns:repeat(4,1fr)}
@@ -233,30 +233,31 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
         <div id="expressThumb" style="width:18px;height:18px;border-radius:9px;background:#fff;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>
       </div>
     </div>
-    <!-- Discount: Blinds -->
-    <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
-      <div>
-        <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Blinds</div>
-        <div style="color:#888;font-size:10px;margin-top:3px">Applied to blind prices before VAT</div>
+    <!-- Discount: Blinds + Accessories side by side -->
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Blinds</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Applied to blind prices before VAT</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="discountPct=Math.max(0,discountPct-1);document.getElementById('discPctVal').textContent=discountPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="discPctVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="discountPct=Math.min(100,discountPct+1);document.getElementById('discPctVal').textContent=discountPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="100" value="0" placeholder="%" id="discPctInp" oninput="discountPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('discPctVal').textContent=discountPct+'%';updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
-        <button onclick="discountPct=Math.max(0,discountPct-1);document.getElementById('discPctVal').textContent=discountPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
-        <span id="discPctVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
-        <button onclick="discountPct=Math.min(100,discountPct+1);document.getElementById('discPctVal').textContent=discountPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
-        <input type="number" min="0" max="100" value="0" placeholder="%" id="discPctInp" oninput="discountPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('discPctVal').textContent=discountPct+'%';updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
-      </div>
-    </div>
-    <!-- Discount: Accessories -->
-    <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
-      <div>
-        <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Accessories</div>
-        <div style="color:#888;font-size:10px;margin-top:3px">Motors, adaptors, remotes &amp; add-ons</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
-        <button onclick="discountAccPct=Math.max(0,discountAccPct-1);document.getElementById('discAccVal').textContent=discountAccPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
-        <span id="discAccVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
-        <button onclick="discountAccPct=Math.min(100,discountAccPct+1);document.getElementById('discAccVal').textContent=discountAccPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
-        <input type="number" min="0" max="100" value="0" placeholder="%" id="discAccInp" oninput="discountAccPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('discAccVal').textContent=discountAccPct+'%';updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Accessories</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Motors, adaptors, remotes &amp; add-ons</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="discountAccPct=Math.max(0,discountAccPct-1);document.getElementById('discAccVal').textContent=discountAccPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="discAccVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="discountAccPct=Math.min(100,discountAccPct+1);document.getElementById('discAccVal').textContent=discountAccPct+'%';updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="100" value="0" placeholder="%" id="discAccInp" oninput="discountAccPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('discAccVal').textContent=discountAccPct+'%';updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
       </div>
     </div>
   </div>
@@ -306,30 +307,31 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
         <input type="number" min="0" step="1" value="0" id="od_inp_travel" style="width:100%;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:7px 10px;font-size:14px" oninput="od_travelCost=parseFloat(this.value)||0;od_updatePrices()">
       </div>
     </div>
-    <!-- Discount Blinds -->
-    <div style="margin-top:12px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
-      <div>
-        <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Blinds</div>
-        <div style="color:#888;font-size:10px;margin-top:3px">Applied to blind prices before VAT</div>
+    <!-- Discount Blinds + Accessories side by side -->
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Blinds</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Applied to blind prices before VAT</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="od_discountPct=Math.max(0,od_discountPct-1);document.getElementById('od_discPctVal').textContent=od_discountPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="od_discPctVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="od_discountPct=Math.min(100,od_discountPct+1);document.getElementById('od_discPctVal').textContent=od_discountPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="100" value="0" placeholder="%" id="od_discPctInp" oninput="od_discountPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('od_discPctVal').textContent=od_discountPct+'%';od_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
-        <button onclick="od_discountPct=Math.max(0,od_discountPct-1);document.getElementById('od_discPctVal').textContent=od_discountPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
-        <span id="od_discPctVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
-        <button onclick="od_discountPct=Math.min(100,od_discountPct+1);document.getElementById('od_discPctVal').textContent=od_discountPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
-        <input type="number" min="0" max="100" value="0" placeholder="%" id="od_discPctInp" oninput="od_discountPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('od_discPctVal').textContent=od_discountPct+'%';od_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
-      </div>
-    </div>
-    <!-- Discount Accessories -->
-    <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
-      <div>
-        <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Accessories</div>
-        <div style="color:#888;font-size:10px;margin-top:3px">Motors, adaptors, remotes &amp; add-ons</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
-        <button onclick="od_discountAccPct=Math.max(0,od_discountAccPct-1);document.getElementById('od_discAccVal').textContent=od_discountAccPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
-        <span id="od_discAccVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
-        <button onclick="od_discountAccPct=Math.min(100,od_discountAccPct+1);document.getElementById('od_discAccVal').textContent=od_discountAccPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
-        <input type="number" min="0" max="100" value="0" placeholder="%" id="od_discAccInp" oninput="od_discountAccPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('od_discAccVal').textContent=od_discountAccPct+'%';od_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Accessories</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Motors, adaptors, remotes &amp; add-ons</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="od_discountAccPct=Math.max(0,od_discountAccPct-1);document.getElementById('od_discAccVal').textContent=od_discountAccPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="od_discAccVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="od_discountAccPct=Math.min(100,od_discountAccPct+1);document.getElementById('od_discAccVal').textContent=od_discountAccPct+'%';od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="100" value="0" placeholder="%" id="od_discAccInp" oninput="od_discountAccPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('od_discAccVal').textContent=od_discountAccPct+'%';od_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
       </div>
     </div>
   </div>
@@ -615,7 +617,7 @@ function wa2BlindMinW(d){if(d<=1200)return 1980;if(d<=1400)return 1830;if(d<=160
 function lu(t,ws,ds,w,d){var wi=fb(w,ws),di=fb(d,ds);if(di>=t.length||wi>=t[di].length)return null;return t[di][wi];}
 function calc(type,fabric,w,d,sbc,cas){if(!w||!d||w<=0||d<=0)return null;var b=null,ex=0,t=type.toLowerCase();
   if(t==="roller"&&w>3200)return null;
-  if(t==="roller"&&d>3200)return null;
+  if(t==="roller"&&d>3400)return null;
   if(t==="double roller"&&w>3000)return null;
   if(t==="double roller"&&d>3000)return null;
   if(t==="wood venetian"&&w>2700)return null;
@@ -628,11 +630,13 @@ function calc(type,fabric,w,d,sbc,cas){if(!w||!d||w<=0||d<=0)return null;var b=n
   if((t==="35mm aluminium"||t==="retro venetian")&&d>3000)return null;
   if(t==="romashade"&&w>2400)return null;
   if(t==="romashade"&&d>3000)return null;
-  if((t==="cellular free hang"||t==="cellular shaped"||t==="cellular lantern")&&w>3000)return null;
-  if((t==="cellular free hang"||t==="cellular shaped"||t==="cellular lantern")&&d>3000)return null;
+  if((t==="cellular free hang"||t==="cellular shaped")&&w>3000)return null;
+  if((t==="cellular free hang"||t==="cellular shaped")&&d>3000)return null;
+  if(t==="cellular lantern"&&(w<1000||w>2000))return null;
+  if(t==="cellular lantern"&&d>2200)return null;
   if(t==="cellular skylight"&&w>1400)return null;
-  if(t==="cellular skylight"&&d>3000)return null;
-  if(t==="perfect fit cellular"&&w>3000)return null;
+  if(t==="cellular skylight"&&d>2200)return null;
+  if(t==="perfect fit cellular"&&w>1400)return null;
   if(t==="perfect fit cellular"&&d>2400)return null;
   if(t==="90mm vertical"&&w>5000)return null;
   if(t==="90mm vertical"&&d>3000)return null;
@@ -716,7 +720,7 @@ function rowHTML(r,idx){
   h+='<span class="bcard-price'+(total==null?' empty':'')+'" id="price_'+r.id+'">'+(total!=null?fmt(total):'\u2014')+'</span>';
   h+='<span class="bcard-arrow" id="arrow_'+r.id+'" onclick="toggleRow('+r.id+')">'+(expanded===r.id?'\u25B2':'\u25BC')+'</span></div>';
   h+='<div id="w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 3200mm \u2014 out of spec for Roller blinds, no price calculated</div>';
-  h+='<div id="d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 3200mm \u2014 out of spec for Roller blinds, no price calculated</div>';
+  h+='<div id="d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 3400mm \u2014 out of spec for Roller blinds, no price calculated</div>';
   h+='<div id="wv_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 2700mm \u2014 out of spec for Wood Venetian, no price calculated</div>';
   h+='<div id="wv_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 3000mm \u2014 out of spec for Wood Venetian, no price calculated</div>';
   h+='<div id="wa_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 2130mm \u2014 out of spec for Wood Alloy, no price calculated</div>';
@@ -732,7 +736,12 @@ function rowHTML(r,idx){
   h+='<div id="rs_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 3000mm \u2014 out of spec for RomaShade, no price calculated</div>';
   h+='<div id="cel_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 3000mm \u2014 out of spec for this Cellular type, no price calculated</div>';
   h+='<div id="sk_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 1400mm \u2014 out of spec for Cellular Skylight, no price calculated</div>';
+  h+='<div id="sk_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 2200mm \u2014 out of spec for Cellular Skylight, no price calculated</div>';
+  h+='<div id="cl_w_min_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width below 1000mm \u2014 out of spec for Cellular Lantern, no price calculated</div>';
+  h+='<div id="cl_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 2000mm \u2014 out of spec for Cellular Lantern, no price calculated</div>';
+  h+='<div id="cl_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 2200mm \u2014 out of spec for Cellular Lantern, no price calculated</div>';
   h+='<div id="cel_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 3000mm \u2014 out of spec for this Cellular type, no price calculated</div>';
+  h+='<div id="pfc_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 1400mm \u2014 out of spec for Perfect Fit Cellular, no price calculated</div>';
   h+='<div id="pfc_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 2400mm \u2014 out of spec for Perfect Fit Cellular, no price calculated</div>';
   h+='<div id="vt_w_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Width exceeds 5000mm \u2014 out of spec for 90mm Vertical, no price calculated</div>';
   h+='<div id="vt_d_warn_'+r.id+'" style="display:none;color:#cc3333;font-size:11px;padding:4px 12px;background:#fff0f0;border-top:1px solid #ffd0d0">\u26A0\uFE0F Drop exceeds 3000mm \u2014 out of spec for 90mm Vertical, no price calculated</div>';
@@ -771,7 +780,8 @@ function rowHTML(r,idx){
   h+='<div><label class="lbl">Fix</label><select onchange="getRow('+r.id+').fx=this.value"><option'+(r.fx==="Reveal"?' selected':'')+ '>Reveal</option><option'+(r.fx==="Face"?' selected':'')+'>Face</option><option'+(r.fx==="Side Fix"?' selected':'')+'>Side Fix</option></select></div>';
   if(isCellular){
     h+='<div><label class="lbl">Trim Colour</label><select onchange="getRow('+r.id+').bb=this.value"><option'+(r.bb==="White"?' selected':'')+'>White</option><option'+(r.bb==="Light Grey"?' selected':'')+'>Light Grey</option><option'+(r.bb==="Anthracite"?' selected':'')+'>Anthracite</option></select></div>';
-    if(isSkylight){h+='<div><label class="lbl">Operation</label><select onchange="getRow('+r.id+').sklop=this.value;updatePrices()"><option'+(r.sklop==="Hand Drawn"?' selected':'')+'>Hand Drawn</option><option'+(r.sklop==="Twist Lock Pole"?' selected':'')+'>Twist Lock Pole (+R788)</option></select></div>';}
+    var isLantern=(r.bt==="Cellular Lantern");
+    if(isSkylight||isLantern){h+='<div><label class="lbl">Operation</label><select onchange="getRow('+r.id+').sklop=this.value;updatePrices()"><option'+(r.sklop==="Hand Drawn"?' selected':'')+'>Hand Drawn</option><option'+(r.sklop==="Twist Lock Pole"?' selected':'')+'>Twist Lock Pole (+R788)</option></select></div>';}
   } else if(isVertical||isAllusion){
     if(isVertical){h+='<div><label class="lbl">Headrail Colour</label><select onchange="getRow('+r.id+').bb=this.value">'+opts(BARS,r.bb)+'</select></div>';}
     if(isVertical){h+='<div><label class="lbl">Weights</label><select onchange="getRow('+r.id+').wt=this.value"><option'+((r.wt==="Float Weights"||!r.wt)?' selected':'')+'>Float Weights</option><option'+(r.wt==="Chain Weights"?' selected':'')+'>Chain Weights</option></select></div>';}
@@ -830,7 +840,7 @@ function updatePrices(){
     var p=calc(r.bt,r.rng,w,d,r.sbc,r.cas);
     var addons=(r.intc?PRICE_INTC:0)+(r.rbc?PRICE_RBC:0)+(r.fbi?R_FBI[fb(parseInt(r.w)||0,R_W)]:0);
     var motorP=MOTOR_P[r.mot]||0,adpP=ADP_P[r.adp]||0,chgP=ADP_P[r.chg]||0,remP=REMOTE_P[r.rem]||0;
-    var sklopP=(r.bt==="Cellular Skylight"&&r.sklop==="Twist Lock Pole")?788:0;
+    var sklopP=((r.bt==="Cellular Skylight"||r.bt==="Cellular Lantern")&&r.sklop==="Twist Lock Pole")?788:0;
     var base=p!=null?p+addons:null;
     var accBase=motorP+adpP+chgP+remP+sklopP;
     var total=base!=null?base+accBase:null;
@@ -843,20 +853,21 @@ function updatePrices(){
     var isRS=(r.bt==="RomaShade");var isCFH=(r.bt==="Cellular Free Hang");var isCS=(r.bt==="Cellular Shaped");
     var isSky=(r.bt==="Cellular Skylight");var isCL=(r.bt==="Cellular Lantern");var isPFC=(r.bt==="Perfect Fit Cellular");
     var isVT=(r.bt==="90mm Vertical");var isAln=(r.bt==="Allusion");
-    var overW=isRoller&&w>3200;var overD=isRoller&&d>3200;
+    var overW=isRoller&&w>3200;var overD=isRoller&&d>3400;
     var overW_DR=isDR&&w>3000;var overD_DR=isDR&&d>3000;
     var overW_WV=isWoodVen&&w>2700;var overD_WV=isWoodVen&&d>3000;
     var overW_WA=isWoodAlloy&&w>2130;var overD_WA=isWoodAlloy&&d>waMaxDrop(w);
     var overW_VIS=isVision&&w>2200;var overD_VIS=isVision&&d>2800;
     var overW_ALM=(isAlum||isRetro)&&w>3000;var overD_ALM=(isAlum||isRetro)&&d>3000;
     var overW_RS=isRS&&w>2400;var overD_RS=isRS&&d>3000;
-    var overW_CEL=(isCFH||isCS||isCL||isPFC)&&w>3000;var overD_CEL=(isCFH||isCS||isCL)&&d>3000;
-    var overW_SK=isSky&&w>1400;var overD_SK=isSky&&d>3000;
-    var overD_PFC=isPFC&&d>2400;
+    var overW_CEL=(isCFH||isCS)&&w>3000;var overD_CEL=(isCFH||isCS)&&d>3000;
+    var overW_SK=isSky&&w>1400;var overD_SK=isSky&&d>2200;
+    var overW_CL=isCL&&w>2000;var underW_CL=isCL&&w>0&&w<1000;var overD_CL=isCL&&d>2200;
+    var overW_PFC=isPFC&&w>1400;var overD_PFC=isPFC&&d>2400;
     var overW_VT=isVT&&w>5000;var overD_VT=isVT&&d>3000;
     var overW_ALN=isAln&&w>4890;var overD_ALN=isAln&&d>3400;
-    var anyOverW=overW||overW_DR||overW_WV||overW_WA||overW_VIS||overW_ALM||overW_RS||overW_CEL||overW_SK||overW_VT||overW_ALN;
-    var anyOverD=overD||overD_DR||overD_WV||overD_WA||overD_VIS||overD_ALM||overD_RS||overD_CEL||overD_SK||overD_PFC||overD_VT||overD_ALN;
+    var anyOverW=overW||overW_DR||overW_WV||overW_WA||overW_VIS||overW_ALM||overW_RS||overW_CEL||overW_SK||overW_CL||underW_CL||overW_PFC||overW_VT||overW_ALN;
+    var anyOverD=overD||overD_DR||overD_WV||overD_WA||overD_VIS||overD_ALM||overD_RS||overD_CEL||overD_SK||overD_CL||overD_PFC||overD_VT||overD_ALN;
     var wInp=document.getElementById("winp_"+r.id);var wWarn=document.getElementById("w_warn_"+r.id);
     var dInp=document.getElementById("dinp_"+r.id);var dWarn=document.getElementById("d_warn_"+r.id);
     if(wInp){wInp.style.border=anyOverW?"2px solid #cc3333":"";}
@@ -880,7 +891,12 @@ function updatePrices(){
     if(g("rs_d_warn")){g("rs_d_warn").style.display=overD_RS?"block":"none";}
     if(g("cel_w_warn")){g("cel_w_warn").style.display=overW_CEL?"block":"none";}
     if(g("sk_w_warn")){g("sk_w_warn").style.display=overW_SK?"block":"none";}
-    if(g("cel_d_warn")){g("cel_d_warn").style.display=(overD_CEL||overD_SK)?"block":"none";}
+    if(g("sk_d_warn")){g("sk_d_warn").style.display=overD_SK?"block":"none";}
+    if(g("cl_w_min_warn")){g("cl_w_min_warn").style.display=underW_CL?"block":"none";}
+    if(g("cl_w_warn")){g("cl_w_warn").style.display=overW_CL?"block":"none";}
+    if(g("cl_d_warn")){g("cl_d_warn").style.display=overD_CL?"block":"none";}
+    if(g("cel_d_warn")){g("cel_d_warn").style.display=overD_CEL?"block":"none";}
+    if(g("pfc_w_warn")){g("pfc_w_warn").style.display=overW_PFC?"block":"none";}
     if(g("pfc_d_warn")){g("pfc_d_warn").style.display=overD_PFC?"block":"none";}
     if(g("vt_w_warn")){g("vt_w_warn").style.display=overW_VT?"block":"none";}
     if(g("vt_d_warn")){g("vt_d_warn").style.display=overD_VT?"block":"none";}
@@ -970,7 +986,7 @@ function savePDF(){
   var sub=discountedTotal3+expSurcharge3+(installCost||0)+(travelCost||0),vat3=sub*0.15,tot=sub+vat3;
   doc.setFillColor(255,255,255);doc.rect(0,0,W,28,'F');
   // Logo first, then red bar drawn on top so it's edge-to-edge with no gaps
-  try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'JPEG',M,0,_pw,_ph);}catch(e){}
+  try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
   doc.setFillColor(232,70,30);doc.rect(0,28,W,1.5,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrder?'ORDER':'QUOTATION',W-M,10,{align:'right'});
   doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100);
@@ -1079,6 +1095,15 @@ function savePDF(){
   tcSection('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.');
   tcSection('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.');
   tcSection('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.');
+  ty+=4;
+  doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);
+  ty+=6;
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+  doc.text('CLIENT ACCEPTANCE',M,ty);
+  ty+=6;
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(50);
+  var _fw=(W-M*2-12)/3;
+  ['Client Name (Print):','Signature:','Date:'].forEach(function(lbl,i){var _fx=M+i*(_fw+6);doc.text(lbl,_fx,ty);doc.setDrawColor(100);doc.setLineWidth(0.2);doc.line(_fx,ty+9,_fx+_fw,ty+9);});
   doc.setDrawColor(232,70,30);doc.setLineWidth(0.4);doc.line(M,H-14,W-M,H-14);
   doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(120);
   doc.text('By accepting this quotation and paying the required deposit, the client acknowledges having read and agreed to the above Terms & Conditions.',W/2,H-10,{align:'center'});
@@ -1913,9 +1938,10 @@ function od_rowHTML(r,idx){
   h+='</div>';
 
   h+='<div class="g4" style="margin-top:0">';
-  h+='<div><label class="lbl">Cassette</label><select class="bcard-sel" style="font-size:13px" onchange="od_getRow('+r.id+').cas=this.value;od_updatePrices()"><option'+(r.cas==="None"?" selected":"")+' value="None">None</option><option'+(r.cas==="135mm"?" selected":"")+'>135mm</option><option'+(r.cas==="150mm"?" selected":"")+'>150mm</option></select></div>';
+  h+='<div><label class="lbl">Cassette</label><select class="bcard-sel" style="font-size:13px" onchange="var _r=od_getRow('+r.id+');_r.cas=this.value;if(this.value!==\'None\')_r.rollType=\'Standard\';od_rebuildRow('+r.id+')"><option'+(r.cas==="None"?" selected":"")+' value="None">None</option><option'+(r.cas==="135mm"?" selected":"")+'>135mm</option><option'+(r.cas==="150mm"?" selected":"")+'>150mm</option></select></div>';
   h+='<div><label class="lbl">Cassette Fix</label><select class="bcard-sel" style="font-size:13px" onchange="od_getRow('+r.id+').casFix=this.value"><option'+(r.casFix==="Reveal"?" selected":"")+'>Reveal</option><option'+(r.casFix==="Face"?" selected":"")+'>Face</option><option'+(r.casFix==="Side"?" selected":"")+'>Side</option></select></div>';
-  h+='<div><label class="lbl">Roll Type</label><select class="bcard-sel" style="font-size:13px" onchange="od_getRow('+r.id+').rollType=this.value"><option'+(r.rollType==="Standard"?" selected":"")+'>Standard</option><option'+(r.rollType==="Waterfall"?" selected":"")+'>Waterfall</option></select></div>';
+  var casActive=r.cas&&r.cas!=="None";
+  h+='<div><label class="lbl">Roll Type'+(casActive?' <span style="color:#e09020;font-size:10px">(cassette: Standard only)</span>':'')+' </label><select class="bcard-sel" style="font-size:13px" onchange="od_getRow('+r.id+').rollType=this.value"><option'+(r.rollType==="Standard"?" selected":"")+'>Standard</option><option'+(r.rollType==="Waterfall"?" selected":"")+(casActive?' disabled style="color:#bbb"':'')+'>Waterfall</option></select></div>';
   h+='<div><label class="lbl">Bracket Colour</label><select class="bcard-sel" style="font-size:13px" onchange="od_getRow('+r.id+').bracketCol=this.value">'+od_opts(BRACKET_COLS,r.bracketCol)+'</select></div>';
   h+='</div>';
 
@@ -1972,7 +1998,7 @@ function od_rowHTML(r,idx){
   if(isFH){
     h+='<label class="chk"><input type="checkbox" '+(r.addCrank?"checked":"")+' onchange="od_getRow('+r.id+').addCrank=this.checked;od_updatePrices()"> Crank Handle (+R568)</label>';
     h+='<label class="chk"><input type="checkbox" '+(r.addSideChan?"checked":"")+' onchange="od_getRow('+r.id+').addSideChan=this.checked;od_updatePrices()"> Side Channels (+R2424)</label>';
-    h+='<label class="chk"><input type="checkbox" '+(r.addRCKit?"checked":"")+' onchange="od_getRow('+r.id+').addRCKit=this.checked;od_updatePrices()"> Roller+Crank Kit</label>';
+
     h+='<label class="chk"><input type="checkbox" '+(r.addIntBracket?"checked":"")+' onchange="od_getRow('+r.id+').addIntBracket=this.checked;od_updatePrices()"> Intermediate Bracket (+R652)</label>';
     h+='<label class="chk"><input type="checkbox" '+(r.addHoldDown?"checked":"")+' onchange="od_getRow('+r.id+').addHoldDown=this.checked;od_updatePrices()"> Add Hold Down (+R344)</label>';
   }
@@ -2088,7 +2114,7 @@ function od_pwaExportPDF(){
   function gv(id){var e=document.getElementById(id);return e?e.value:"";}
   // ── Header ──
   doc.setFillColor(255,255,255);doc.rect(0,H-28,W,28,"F");
-  try{var _li=document.getElementById('od_logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
+  try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
   doc.setFillColor(232,70,30);doc.rect(0,28,W,1.5,"F");
   doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrd?'ORDER':'QUOTATION',W-M,10,{align:'right'});
   doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
@@ -2211,6 +2237,15 @@ function od_pwaExportPDF(){
   tcSection('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.');
   tcSection('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.');
   tcSection('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.');
+  ty+=4;
+  doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);
+  ty+=6;
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+  doc.text('CLIENT ACCEPTANCE',M,ty);
+  ty+=6;
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(50);
+  var _fw=(W-M*2-12)/3;
+  ['Client Name (Print):','Signature:','Date:'].forEach(function(lbl,i){var _fx=M+i*(_fw+6);doc.text(lbl,_fx,ty);doc.setDrawColor(100);doc.setLineWidth(0.2);doc.line(_fx,ty+9,_fx+_fw,ty+9);});
   doc.setDrawColor(232,70,30);doc.setLineWidth(0.4);doc.line(M,H-14,W-M,H-14);
   doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(120,120,120);
   doc.text('By accepting this quotation and paying the required deposit, the client acknowledges having read and agreed to the above Terms & Conditions.',W/2,H-10,{align:'center'});
