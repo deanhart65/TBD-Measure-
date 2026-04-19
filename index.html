@@ -116,7 +116,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 .ct-card.priced{border-left-color:#E8461E}
 .ct-card.double-priced{border-left-color:#7a4ae8}
 .ct-card-top{padding:8px 10px;display:grid;grid-template-columns:22px minmax(100px,0.5fr) 110px 110px auto 110px 30px;gap:5px;align-items:center;position:relative;overflow:visible}
-.ct-hdr-drop-btn{font-size:11px;font-weight:600;padding:4px 8px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8;cursor:pointer;white-space:nowrap;color:#4A4A4A}
+.ct-hdr-drop-btn{font-size:11px;font-weight:600;padding:4px 8px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8;cursor:pointer;white-space:nowrap;color:#4A4A4A;min-width:62px;text-align:center}
 .ct-hdr-drop-btn.open{border-color:#E8461E;color:#E8461E;background:#fff8f7}
 .ct-hdr-drop-panel{position:absolute;top:calc(100% + 2px);background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:200;white-space:nowrap}
 .ct-letter{font-size:16px;font-weight:800;color:#E8461E;text-align:center}
@@ -159,9 +159,9 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 </head>
 <body>
 <div class="hdr">
-  <div class="hdr-inner" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+  <div class="hdr-inner" style="position:relative;display:flex;align-items:center;justify-content:center">
     <img id="logoImg" src="" alt="TBD" style="height:80px">
-    <div id="authBadge" style="display:none;align-items:center;gap:8px;font-size:12px">
+    <div id="authBadge" style="display:none;align-items:center;gap:8px;font-size:12px;position:absolute;right:0;top:50%;transform:translateY(-50%)">
       <span id="authUserEmail" style="color:#888;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span>
       <span id="syncBadge" style="padding:3px 10px;border-radius:12px;font-weight:600;font-size:11px"></span>
       <button onclick="_authLogout()" style="background:transparent;border:1px solid #ccc;color:#888;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer">Logout</button>
@@ -170,8 +170,8 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 </div>
 <!-- Mode Toggle -->
 <div id="mode-toggle-bar" style="background:#fff;border-radius:10px;padding:6px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;max-width:900px;margin-left:auto;margin-right:auto">
-  <button id="btn-indoor-mode" class="btn btn-full" style="background:#E8461E;color:#fff;font-size:13px;font-weight:700" onclick="switchAppMode('indoor')">&#127968; Indoor</button>
-  <button id="btn-outdoor-mode" class="btn btn-full" style="background:#e8e5df;color:#4A4A4A;font-size:13px;font-weight:700" onclick="switchAppMode('outdoor')">&#127807; Outdoor</button>
+  <button id="btn-indoor-mode" class="btn btn-full" style="background:#E8461E;color:#fff;font-size:13px;font-weight:700" onclick="switchAppMode('indoor')">&#127968; Indoor Blinds</button>
+  <button id="btn-outdoor-mode" class="btn btn-full" style="background:#e8e5df;color:#4A4A4A;font-size:13px;font-weight:700" onclick="switchAppMode('outdoor')">&#127807; Outdoor Blinds</button>
   <button id="btn-curtain-mode" class="btn btn-full" style="background:#e8e5df;color:#4A4A4A;font-size:13px;font-weight:700" onclick="switchAppMode('curtain')">&#129695; Curtains</button>
 </div>
 <!-- Unified Saved Jobs Panel (shared Indoor + Outdoor) -->
@@ -227,10 +227,10 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   <!-- PWA Toolbar -->
   <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
     <div style="margin-bottom:8px">
-      <button class="btn btn-full" style="background:#E8461E;color:#fff" onclick="pwaExportPDF()">📄 Save PDF</button>
-    </div>
-    <div style="margin-bottom:8px">
-      <button id="orderToggleBtn" class="btn btn-full" style="background:#4A4A4A;color:#fff;font-size:13px" onclick="toggleOrderMode()">🔄 Switch to ORDER</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn btn-full" style="background:#E8461E;color:#fff" onclick="isOrder=false;pwaExportPDF()">&#128196; Quote PDF</button>
+        <button class="btn btn-full" style="background:#4A4A4A;color:#fff" onclick="isOrder=true;pwaExportPDF()">&#128203; Order PDF</button>
+      </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
       <button class="btn" style="background:#4A4A4A;color:#fff;font-size:12px" onclick="pwaSaveJob()">💾 Save Job</button>
@@ -314,8 +314,10 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 <div class="wrap">
   <!-- Outdoor Toolbar -->
   <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
-    <div style="margin-bottom:8px"><button class="btn btn-full" style="background:#E8461E;color:#fff" onclick="od_pwaExportPDF()">&#128196; Save PDF</button></div>
-    <div style="margin-bottom:8px"><button id="od_orderToggleBtn" class="btn btn-full" style="background:#4A4A4A;color:#fff;font-size:13px" onclick="od_toggleOrderMode()">&#128260; Switch to ORDER</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <button class="btn btn-full" style="background:#E8461E;color:#fff" onclick="od_isOrder=false;od_pwaExportPDF()">&#128196; Quote PDF</button>
+      <button class="btn btn-full" style="background:#4A4A4A;color:#fff" onclick="od_isOrder=true;od_pwaExportPDF()">&#128203; Order PDF</button>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
       <button class="btn" style="background:#4A4A4A;color:#fff;font-size:12px" onclick="pwaSaveJob()">&#128190; Save Job</button>
       <button class="btn" style="background:#4A4A4A;color:#fff;font-size:12px" onclick="pwaToggleJobs()">&#128203; My Jobs</button>
@@ -390,7 +392,10 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 <div class="wrap">
   <!-- Toolbar -->
   <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06)">
-    <div style="margin-bottom:8px"><button class="btn btn-full" style="background:#E8461E;color:#fff" onclick="ct_pwaExportPDF()">&#128196; Save PDF</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <button class="btn btn-full" style="background:#E8461E;color:#fff" onclick="ct_pwaExportPDF(false)">&#128196; Quote PDF</button>
+      <button class="btn btn-full" style="background:#4A4A4A;color:#fff" onclick="ct_pwaExportPDF(true)">&#128203; Order PDF</button>
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
       <button class="btn" style="background:#4A4A4A;color:#fff;font-size:12px" onclick="pwaSaveJob()">&#128190; Save Job</button>
       <button class="btn" style="background:#4A4A4A;color:#fff;font-size:12px" onclick="pwaToggleJobs()">&#128203; My Jobs</button>
@@ -3148,127 +3153,159 @@ function ct_updatePrices(){
 
 <script>
 // ── Curtain PDF Export ─────────────────────────────────────
-function ct_pwaExportPDF(){
-  var nm=document.getElementById('ct_c_nm').value||'Client';
-  var pn=document.getElementById('ct_c_pn').value||'';
-  var ad=document.getElementById('ct_c_ad').value||'';
-  var em=document.getElementById('ct_c_em').value||'';
-  var cl=document.getElementById('ct_c_cl').value||'';
-  var md=document.getElementById('ct_c_md').value||'';
-  var re=document.getElementById('ct_c_re').value||'';
-  var notes=document.getElementById('ct_c_gn').value||'';
+function ct_pwaExportPDF(isOrd){
+  function gv(id){var e=document.getElementById(id);return e?e.value:'';}
+  var nm=gv('ct_c_nm')||'Client';
+  var pn=gv('ct_c_pn');
+  var ad=gv('ct_c_ad');
+  var em=gv('ct_c_em');
+  var cl=gv('ct_c_cl');
+  var md=gv('ct_c_md')||new Date().toISOString().split('T')[0];
+  var re=gv('ct_c_re');
+  var notes=gv('ct_c_gn');
 
-  var {jsPDF}=window.jspdf;
-  var doc=new jsPDF({unit:'mm',format:'a4'});
-  var M=14,PW=182,y=0;
+  var jsPDFlib=(typeof window.jspdf!=='undefined')?window.jspdf.jsPDF:jsPDF;
+  var doc=new jsPDFlib({orientation:'portrait',unit:'mm',format:'a4'});
+  var W=210,H=297,M=14,PW=W-M*2;
 
-  // logo
-  try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
+  // ── Header ──
+  try{var _li=document.getElementById('logoImg');var _ls=_li.src;var _lw=_li.naturalWidth||1;var _lh=_li.naturalHeight||1;var _pw=50;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',(W-_pw)/2,2,_pw,_ph);}catch(e){}
+  doc.setFillColor(232,70,30);doc.rect(0,28,W,1.5,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
+  doc.text(isOrd?'CURTAIN ORDER':'CURTAIN QUOTATION',W-M,10,{align:'right'});
+  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
+  doc.text('Total Blind Design cc',W-M,15,{align:'right'});
+  doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
+  doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
+  doc.text('Date: '+md,W-M,27,{align:'right'});
 
-  // header bar
-  doc.setFillColor(232,70,30);doc.rect(0,22,210,8,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(255,255,255);
-  doc.text('CURTAIN QUOTATION',M,27.5);
-  y=36;
+  // ── Customer ──
+  var y=34;doc.setTextColor(30,30,30);doc.setFontSize(8);
+  doc.setFont('helvetica','bold');doc.text('Name: ',M,y);doc.setFont('helvetica','normal');doc.text(nm,M+14,y);
+  doc.setFont('helvetica','bold');doc.text('Project: ',M+80,y);doc.setFont('helvetica','normal');doc.text(pn,M+96,y);
+  y+=5;doc.setFont('helvetica','bold');doc.text('Cell: ',M,y);doc.setFont('helvetica','normal');doc.text(cl,M+10,y);
+  doc.setFont('helvetica','bold');doc.text('Email: ',M+50,y);doc.setFont('helvetica','normal');doc.text(em,M+63,y);
+  doc.setFont('helvetica','bold');doc.text('Address: ',M+120,y);doc.setFont('helvetica','normal');doc.text(ad,M+138,y);
+  if(re){y+=5;doc.setFont('helvetica','bold');doc.text('Sales Rep: ',M,y);doc.setFont('helvetica','normal');doc.text(re,M+22,y);}
+  if(notes){y+=5;doc.setFontSize(7);doc.setTextColor(100,100,100);doc.text('Notes: '+notes,M,y,{maxWidth:PW});}
+  y+=6;
 
-  // client details
-  doc.setTextColor(40,40,40);doc.setFontSize(9);doc.setFont('helvetica','normal');
-  doc.text('Client: '+nm,M,y);doc.text('Project: '+pn,M+65,y);doc.text('Date: '+md,M+130,y);y+=5;
-  doc.text('Address: '+ad,M,y);doc.text('Cell: '+cl,M+65,y);y+=5;
-  doc.text('Email: '+em,M,y);doc.text('Sales Rep: '+re,M+90,y);y+=8;
-
-  // curtain lines
+  // ── Items table ──
   var rows=ct_rows.filter(function(r){return ct_rowTotal(r)!==null;});
-  var bodyData=[];
-  var curtainSub=0,trkSub=0;
+  var bodyData=[];var curtainSub=0,trkSub=0;
   for(var i=0;i<rows.length;i++){
     var r=rows[i];
     var lt=String.fromCharCode(65+ct_rows.indexOf(r));
     var total=ct_rowTotal(r);
     var isDbl=r.trackType==='Double';
-    var trkP=ct_calcTrackPrice(r);
-    var optP=ct_calcOptPrice(r);
-    var ct_only=ct_rowCurtainTotal(r);
-    curtainSub+=ct_only;trkSub+=trkP+optP;
+    var trkP=ct_calcTrackPrice(r);var optP=ct_calcOptPrice(r);
+    curtainSub+=ct_rowCurtainTotal(r);trkSub+=trkP+optP;
+    var styleLabel=(r.curtainStyle==='Pinch Pleat'?r.pinchType+' Pinch Pleat':r.curtainStyle)+' · '+(r.t1lined?'Lined':'Unlined')+' · '+r.trkModel+' '+r.trkColour+' · '+r.stack;
     if(isDbl){
       var p1=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
       var p2=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
-      bodyData.push([lt+' '+( r.loc||''),'Trk1 '+(r.t1lined?'Lined':'Unlined'),r.w,r.d,p1.drops,p1.meterage.toFixed(2),'R'+Math.round(p1.fabCost),'R'+Math.round(p1.linCost),'R'+Math.round(p1.labCost),'-','R'+Math.round(p1.subtotal)]);
-      bodyData.push(['','Trk2 '+(r.t2lined?'Lined':'Unlined'),r.w,r.d,p2.drops,p2.meterage.toFixed(2),'R'+Math.round(p2.fabCost),'R'+Math.round(p2.linCost),'R'+Math.round(p2.labCost),'-','R'+Math.round(p2.subtotal)]);
-      bodyData.push(['','Track: '+r.trkModel+' DFF '+r.trkColour,'','','','','','','','R'+Math.round(trkP+optP),'']);
+      if(isOrd){
+        bodyData.push([lt+' '+(r.loc||''),'Trk1 '+(r.t1lined?'Lined':'Unlined'),r.w,ct_effectiveDrop(r),p1.drops,p1.meterage,'R'+Math.round(p1.fabCost),'R'+Math.round(p1.linCost),'R'+Math.round(p1.labCost),'-','R'+Math.round(p1.subtotal)]);
+        bodyData.push(['','Trk2 '+(r.t2lined?'Lined':'Unlined'),r.w,ct_effectiveDrop(r),p2.drops,p2.meterage,'R'+Math.round(p2.fabCost),'R'+Math.round(p2.linCost),'R'+Math.round(p2.labCost),'-','R'+Math.round(p2.subtotal)]);
+        bodyData.push(['','Track: '+r.trkModel+' DFF '+r.trkColour,'','','','','','','','R'+Math.round(trkP+optP),'R'+Math.round(total)]);
+      } else {
+        bodyData.push([lt+' '+(r.loc||''),'Trk1 '+(r.t1lined?'Lined':'Unlined')+' · '+r.trkModel+' '+r.trkColour,p1.drops,p1.meterage,'R'+Math.round(p1.fabCost),'R'+Math.round(p1.linCost),'R'+Math.round(p1.labCost),'-','R'+Math.round(p1.subtotal)]);
+        bodyData.push(['','Trk2 '+(r.t2lined?'Lined':'Unlined'),p2.drops,p2.meterage,'R'+Math.round(p2.fabCost),'R'+Math.round(p2.linCost),'R'+Math.round(p2.labCost),'R'+Math.round(trkP+optP),'R'+Math.round(total)]);
+      }
     } else {
       var p=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-      bodyData.push([lt+' '+(r.loc||''),r.trackType+' '+(r.t1lined?'Lined':'Unlined')+' '+r.trkModel+' '+r.trkColour+' '+r.stack,r.w,r.d,p.drops,p.meterage.toFixed(2),'R'+Math.round(p.fabCost),'R'+Math.round(p.linCost),'R'+Math.round(p.labCost),'R'+Math.round(trkP+optP),'R'+Math.round(total)]);
+      if(isOrd){
+        bodyData.push([lt+' '+(r.loc||''),styleLabel,r.w,ct_effectiveDrop(r),p.drops,p.meterage,'R'+Math.round(p.fabCost),'R'+Math.round(p.linCost),'R'+Math.round(p.labCost),'R'+Math.round(trkP+optP),'R'+Math.round(total)]);
+      } else {
+        bodyData.push([lt+' '+(r.loc||''),styleLabel,p.drops,p.meterage,'R'+Math.round(p.fabCost),'R'+Math.round(p.linCost),'R'+Math.round(p.labCost),'R'+Math.round(trkP+optP),'R'+Math.round(total)]);
+      }
     }
   }
-  doc.autoTable({startY:y,head:[['Window','Description','W mm','D mm','Drops','Meterage','Fabric','Lining','Labour','Track','Total']],body:bodyData,theme:'striped',headStyles:{fillColor:[232,70,30],textColor:[255,255,255],fontSize:7,fontStyle:'bold'},bodyStyles:{fontSize:7},columnStyles:{0:{cellWidth:18},1:{cellWidth:45},2:{cellWidth:12},3:{cellWidth:12},4:{cellWidth:12},5:{cellWidth:16},6:{cellWidth:15},7:{cellWidth:15},8:{cellWidth:15},9:{cellWidth:15},10:{cellWidth:17}},margin:{left:M,right:M}});
-  y=doc.lastAutoTable.finalY+6;
+  var cols=isOrd?['Window','Description','W','D','Drops','Mtg','Fabric','Lining','Labour','Track','Total']:['Window','Description','Drops','Mtg','Fabric','Lining','Labour','Track','Total'];
+  var colStyles=isOrd?{0:{cellWidth:16},1:{cellWidth:40},2:{cellWidth:10},3:{cellWidth:10},4:{cellWidth:11},5:{cellWidth:13},6:{cellWidth:14},7:{cellWidth:14},8:{cellWidth:14},9:{cellWidth:14},10:{cellWidth:16}}:{0:{cellWidth:18},1:{cellWidth:55},2:{cellWidth:13},3:{cellWidth:16},4:{cellWidth:16},5:{cellWidth:16},6:{cellWidth:16},7:{cellWidth:16},8:{cellWidth:16}};
+  doc.autoTable({startY:y,head:[cols],body:bodyData,theme:'striped',headStyles:{fillColor:[232,70,30],textColor:[255,255,255],fontSize:7,fontStyle:'bold'},bodyStyles:{fontSize:7},columnStyles:colStyles,margin:{left:M,right:M}});
+  y=doc.lastAutoTable.finalY+5;
 
-  // totals
+  // ── Totals ──
   var discAmt=ct_discPct>0?Math.round(curtainSub*(ct_discPct/100)):0;
   var discTrkAmt=ct_discTrkPct>0?Math.round(trkSub*(ct_discTrkPct/100)):0;
   var sub=curtainSub+trkSub-discAmt-discTrkAmt+ct_installCost+ct_travelCost;
   var vat=Math.round(sub*0.15);var grand=sub+vat;
   var totData=[];
-  if(discAmt>0)totData.push(['Discount — Curtains ('+ct_discPct+'%)','- R'+discAmt.toLocaleString('en-ZA')]);
-  if(discTrkAmt>0)totData.push(['Discount — Tracks ('+ct_discTrkPct+'%)','- R'+discTrkAmt.toLocaleString('en-ZA')]);
-  if(ct_installCost)totData.push(['Installation','R'+ct_installCost.toLocaleString('en-ZA')]);
-  if(ct_travelCost)totData.push(['Travel','R'+ct_travelCost.toLocaleString('en-ZA')]);
-  totData.push(['Subtotal (excl. VAT)','R'+sub.toLocaleString('en-ZA')]);
-  totData.push(['VAT (15%)','R'+vat.toLocaleString('en-ZA')]);
-  totData.push(['TOTAL (incl. VAT)','R'+grand.toLocaleString('en-ZA')]);
-  doc.autoTable({startY:y,body:totData,theme:'plain',bodyStyles:{fontSize:8},columnStyles:{0:{cellWidth:140},1:{cellWidth:42,halign:'right'}},margin:{left:M,right:M}});
-  y=doc.lastAutoTable.finalY+4;
+  if(discAmt>0)totData.push({lb:'Discount — Curtains ('+ct_discPct+'%)',vl:'- R'+discAmt.toLocaleString('en-ZA'),tag:'disc'});
+  if(discTrkAmt>0)totData.push({lb:'Discount — Tracks ('+ct_discTrkPct+'%)',vl:'- R'+discTrkAmt.toLocaleString('en-ZA'),tag:'disc'});
+  if(ct_installCost)totData.push({lb:'Installation',vl:'R'+ct_installCost.toLocaleString('en-ZA'),tag:''});
+  if(ct_travelCost)totData.push({lb:'Travel',vl:'R'+ct_travelCost.toLocaleString('en-ZA'),tag:''});
+  totData.push({lb:'Subtotal (excl. VAT)',vl:'R'+sub.toLocaleString('en-ZA'),tag:'sub'});
+  totData.push({lb:'VAT (15%)',vl:'R'+vat.toLocaleString('en-ZA'),tag:''});
+  totData.push({lb:'TOTAL (incl. VAT)',vl:'R'+grand.toLocaleString('en-ZA'),tag:'total'});
+  totData.push({lb:'60% Deposit',vl:'R'+Math.round(grand*0.6).toLocaleString('en-ZA'),tag:'dep'});
+  totData.push({lb:'35% Delivery Balance',vl:'R'+Math.round(grand*0.35).toLocaleString('en-ZA'),tag:'dep'});
+  totData.push({lb:'5% Final Balance',vl:'R'+Math.round(grand*0.05).toLocaleString('en-ZA'),tag:'dep'});
+  doc.autoTable({startY:y,body:totData.map(function(r){return[r.lb,r.vl];}),theme:'grid',styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},columnStyles:{0:{cellWidth:PW-32},1:{cellWidth:32,halign:'right',fontStyle:'bold'}},didParseCell:function(d){var tag=totData[d.row.index]?totData[d.row.index].tag:'';if(tag==='disc'){d.cell.styles.textColor=[39,174,96];d.cell.styles.fontStyle='bold';}else if(tag==='sub'){d.cell.styles.fontStyle='bold';d.cell.styles.fillColor=[245,245,245];d.cell.styles.fontSize=8;}else if(tag==='total'){d.cell.styles.fontStyle='bold';d.cell.styles.fontSize=9.5;d.cell.styles.fillColor=[232,70,30];d.cell.styles.textColor=[255,255,255];d.cell.styles.lineColor=[232,70,30];}else if(tag==='dep'){d.cell.styles.fillColor=[250,250,250];}},margin:{left:M,right:M}});
 
-  // payment stages
-  doc.setFillColor(245,243,240);doc.roundedRect(M,y,PW,22,2,2,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(40,40,40);
-  doc.text('PAYMENT STAGES',M+3,y+5);
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);
-  doc.text('60% Deposit (to start manufacturing):  R'+Math.round(grand*0.6).toLocaleString('en-ZA'),M+3,y+10);
-  doc.text('35% Delivery Balance (24-48hrs before installation):  R'+Math.round(grand*0.35).toLocaleString('en-ZA'),M+3,y+15);
-  doc.text('5% Final Balance (upon installation completion):  R'+Math.round(grand*0.05).toLocaleString('en-ZA'),M+3,y+20);
-  y+=27;
+  // ── Banking details ──
+  var bky=H-34,bkW=PW,bkH=26;
+  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
+  doc.setFillColor(250,250,250);doc.rect(M,bky,bkW,bkH-7,'F');
+  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,'S');
+  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+  doc.text('BANKING DETAILS',M+3,bky+5);doc.text('Payment Ref: '+nm,M+bkW-3,bky+5,{align:'right'});
+  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130,130,130);
+  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
+  doc.setDrawColor(210,210,210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30,30,30);
+  doc.text('FNB Hout Bay',bc1,bky+21);doc.text('Total Blind Design cc',bc2,bky+21);doc.text('62401898658',bc3,bky+21);doc.text('204009',bc4,bky+21);
+  doc.setFontSize(6);doc.setTextColor(170,170,170);
+  doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
 
-  if(notes){doc.setFontSize(8);doc.setFont('helvetica','italic');doc.setTextColor(100,100,100);doc.text('Notes: '+notes,M,y,{maxWidth:PW});y+=8;}
-
-  // T&Cs
-  if(y>220)doc.addPage();
-  y=Math.max(y,180);
-  doc.setDrawColor(200,200,200);doc.line(M,y,M+PW,y);y+=4;
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(40,40,40);doc.text('TERMS & CONDITIONS',M,y);y+=4;
-  doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(80,80,80);
-  var tcs=[
-    '1. Quotation Validity: This quotation is valid for 30 days from the date of issue.',
-    '2. Deposit & Payment: A 60% deposit is required to commence manufacturing. 35% is due 24-48 hours prior to installation. The remaining 5% is payable upon installation completion. All payments via EFT only.',
-    '3. Lead Times: Standard lead time is 10-15 working days from receipt of deposit and signed acceptance.',
-    '4. Measurements & Site Responsibility: Where measurements are supplied by the client or their representative, Total Blind Design accepts no liability for incorrect sizing.',
-    '5. Manufacturing & Cancellations: All products are custom-manufactured. Once production has commenced, cancellations will result in forfeiture of the deposit.',
-    '6. Installation: Installation is included in this quotation unless otherwise stated. Additional charges may apply for difficult access, high ceilings, or non-standard conditions.',
-    '7. Functional Completion: Functional completion (FC) is defined as the product being securely mounted and operational for its intended purpose.',
-    '8. Snag Retention Limit: Any retention withheld pending snag resolution shall not exceed 200% of the reasonable cost to remedy the snag.',
-    '9. Warranty: All products carry a 3-year warranty from the date of installation against manufacturing defects under normal use conditions.',
-    '10. Fabric & Colour Variation: Minor colour and texture variations are inherent in soft furnishing fabrics and are not grounds for rejection or refund.',
-    '11. Returns & Refunds: Custom-manufactured products cannot be returned or exchanged.',
-    '12. Governing Law: This agreement is governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court.'
-  ];
-  for(var ti=0;ti<tcs.length;ti++){
-    if(y>285){doc.addPage();y=14;}
-    var lines=doc.splitTextToSize(tcs[ti],PW);
-    doc.text(lines,M,y);y+=lines.length*3.5+1;
+  // ── Page 2: T&Cs ──
+  doc.addPage();
+  doc.setFillColor(255,255,255);doc.rect(0,0,W,H,'F');
+  doc.setFillColor(232,70,30);doc.rect(0,0,W,18,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
+  doc.text('TERMS & CONDITIONS',W/2,12,{align:'center'});
+  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(255,255,255);
+  doc.text('Total Blind Design cc',W/2,16.5,{align:'center'});
+  var ty=26;
+  function tcSection(title,body){
+    doc.setFillColor(245,245,245);doc.rect(M,ty-2,PW,6,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.3);doc.line(M,ty-2,M+3,ty-2);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);doc.text(title,M+5,ty+2.5);
+    ty+=8;
+    doc.setFont('helvetica','normal');doc.setFontSize(7.2);doc.setTextColor(50,50,50);
+    var lines=doc.splitTextToSize(body,PW);doc.text(lines,M,ty);
+    ty+=lines.length*3.2+4;
   }
-  y+=4;
-  doc.setDrawColor(200,200,200);doc.line(M,y,M+PW,y);y+=5;
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(40,40,40);doc.text('CLIENT ACCEPTANCE',M,y);y+=5;
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);
-  doc.text('By signing below, the client confirms acceptance of this quotation and all terms and conditions stated herein.',M,y,{maxWidth:PW});y+=8;
-  doc.line(M,y,M+60,y);doc.line(M+70,y,M+130,y);doc.line(M+140,y,M+PW,y);y+=4;
-  doc.setFontSize(7);doc.text('Client Name (Print)',M,y);doc.text('Signature',M+70,y);doc.text('Date',M+140,y);
+  tcSection('1. QUOTATION VALIDITY','This quotation is valid for 30 days from the date of issue. Prices are subject to change without notice after this period. Re-measurement may be required if measurements have not been confirmed in writing.');
+  tcSection('2. DEPOSIT & PAYMENT','Payment is structured in three stages: (1) A deposit of 60% of the total quoted amount is required to confirm your order and initiate production — no manufacturing will commence until this deposit is received; (2) a Delivery Balance of 35% is payable 24–48 hours prior to the scheduled installation date; (3) a Final Balance of 5% is payable immediately upon the installation team leaving the site. EFT payments only.');
+  tcSection('3. LEAD TIMES','Standard lead times are 10–15 working days from receipt of deposit and confirmed measurements. Motorised or custom products may require additional lead time.');
+  tcSection('4. MEASUREMENTS & SITE RESPONSIBILITY','All measurements are taken by a qualified Total Blind Design consultant. Should the client supply their own measurements, Total Blind Design accepts no liability for incorrect sizing.');
+  tcSection('5. MANUFACTURING & CANCELLATIONS','Once a deposit is received and an order placed, manufacturing commences immediately. Cancellations after this point will forfeit the deposit in full. Alterations to confirmed orders may incur additional charges.');
+  tcSection('6. INSTALLATION','Installation is included where quoted. The client is responsible for ensuring clear, safe access to all installation areas. Additional charges may apply for difficult access, high ceilings, or work outside standard working hours.');
+  tcSection('7. FUNCTIONAL COMPLETION','Functional Completion is defined as the point at which window treatments are securely mounted and operational for their intended purpose. The existence of a minor snag does not negate Functional Completion or entitle the client to withhold payment.');
+  tcSection('8. SNAG RETENTION LIMIT','Any amount withheld shall not exceed 200% of the estimated cost to remedy the specific snag(s) in question. This retention cap applies per individual snag item.');
+  tcSection('9. WARRANTY','All products carry a 3-year product warranty from date of installation. Fabric and component warranties are subject to respective manufacturer terms. Warranty is void in the event of misuse or unauthorised alterations.');
+  tcSection('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.');
+  tcSection('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.');
+  tcSection('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.');
+  ty+=4;
+  doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
+  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(50,50,50);
+  var _fw=(PW-12)/3;
+  ['Client Name (Print):','Signature:','Date:'].forEach(function(lbl,i){var _fx=M+i*(_fw+6);doc.text(lbl,_fx,ty);doc.setDrawColor(100);doc.setLineWidth(0.2);doc.line(_fx,ty+9,_fx+_fw,ty+9);});
+  doc.setDrawColor(232,70,30);doc.setLineWidth(0.4);doc.line(M,H-14,W-M,H-14);
+  doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(120,120,120);
+  doc.text('By accepting this quotation and paying the required deposit, the client acknowledges having read and agreed to the above Terms & Conditions.',W/2,H-10,{align:'center'});
+  doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(232,70,30);
+  doc.text('Total Blind Design cc | 368 Voortrekker Rd, Maitland, Cape Town | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
 
-  var fn='TBD_Curtains_'+(nm.replace(/\s/g,'_')||'Quote')+'.pdf';
+  // ── Save ──
+  var fn='TBD-Curtains'+(isOrd?'-Order':'-Quote')+(nm?'-'+nm.replace(/\s+/g,'_'):'')+'.pdf';
   doc.save(fn);
-  var toast=document.getElementById('od_pwaToast');
-  if(toast){toast.textContent='\uD83D\uDCC4 PDF saved: '+fn;toast.style.display='block';setTimeout(function(){toast.style.display='none';},4000);}
+  if(typeof od_showToast==='function')od_showToast('\uD83D\uDCC4 PDF saved: '+fn);
 }
 </script>
 </body>
