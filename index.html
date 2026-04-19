@@ -116,6 +116,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 .ct-card.priced{border-left-color:#E8461E}
 .ct-card.double-priced{border-left-color:#7a4ae8}
 .ct-card-top{padding:8px 10px;display:grid;grid-template-columns:22px minmax(100px,0.5fr) 110px 110px auto 110px 30px;gap:5px;align-items:center;position:relative;overflow:visible}
+@media(max-width:600px){.ct-card-top{overflow-x:auto;-webkit-overflow-scrolling:touch}}
 .ct-hdr-drop-btn{font-size:11px;font-weight:600;padding:4px 8px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8;cursor:pointer;white-space:nowrap;color:#4A4A4A;min-width:62px;text-align:center}
 .ct-hdr-drop-btn.open{border-color:#E8461E;color:#E8461E;background:#fff8f7}
 .ct-hdr-drop-panel{position:absolute;top:calc(100% + 2px);background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.12);z-index:200;white-space:nowrap}
@@ -458,6 +459,8 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   <div id="ct_summaryContainer"></div>
 </div>
 </div> <!-- /curtain-section -->
+
+<div id="ct-hdr-overlay" style="display:none;position:fixed;z-index:2000;background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.18)"></div>
 
 <script>
 // ── Supabase ────────────────────────────────────────────────
@@ -2991,44 +2994,20 @@ function ct_buildCard(r){
     +'</div>'
     +'<div style="display:flex;align-items:center;gap:6px;white-space:nowrap;position:relative">'+badge
     +'<div style="position:relative"><div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">FABRIC W</div>'
-    +'<button class="ct-hdr-drop-btn'+(r.ctHdrDrop==='fabW'?' open':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.ctHdrDrop=_r.ctHdrDrop===\'fabW\'?null:\'fabW\';ct_renderRow('+r.id+')">'
+    +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'fabW\',this)">'
     +r.fabW+'m \u25be</button>'
-    +(r.ctHdrDrop==='fabW'
-      ?'<div class="ct-hdr-drop-panel"><div class="ct-pill-row" style="margin:0;flex-direction:column;align-items:flex-start;gap:4px">'
-        +'<button class="ct-pill'+(r.fabW===1.4?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=1.4;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">1.4m</button>'
-        +'<button class="ct-pill'+(r.fabW===2.8?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=2.8;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">2.8m</button>'
-        +'<button class="ct-pill'+(r.fabW===3.0?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=3.0;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">3.0m</button>'
-        +'<button class="ct-pill'+(r.fabW===3.2?' on':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.fabW=3.2;_r.ctHdrDrop=null;ct_checkRR('+r.id+');ct_updatePrices();ct_renderRow('+r.id+')">3.2m</button>'
-        +'</div></div>'
-      :'')
     +'</div>'
     // Stack dropdown
     +'<div style="position:relative">'
     +'<div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">STACK</div>'
-    +'<button class="ct-hdr-drop-btn'+(r.ctHdrDrop==='stack'?' open':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.ctHdrDrop=_r.ctHdrDrop===\'stack\'?null:\'stack\';ct_renderRow('+r.id+')">'
-    +({  'Left Stack':'\u2190L','Centre Split':'\u21d4','Right Stack':'R\u2192'}[r.stack]||'\u21d4')+' \u25be</button>'
-    +(r.ctHdrDrop==='stack'
-      ?'<div class="ct-hdr-drop-panel"><div class="ct-pill-row" style="margin:0;flex-direction:column;align-items:flex-start;gap:4px">'
-        +'<button class="ct-pill'+(r.stack==='Left Stack'?' on':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').stack=\'Left Stack\';ct_getRow('+r.id+').ctHdrDrop=null;ct_renderAllRows()">\u2190L Left Stack</button>'
-        +'<button class="ct-pill'+(r.stack==='Centre Split'?' on':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').stack=\'Centre Split\';ct_getRow('+r.id+').ctHdrDrop=null;ct_renderAllRows()">\u21d4 Centre Split</button>'
-        +'<button class="ct-pill'+(r.stack==='Right Stack'?' on':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').stack=\'Right Stack\';ct_getRow('+r.id+').ctHdrDrop=null;ct_renderAllRows()">R\u2192 Right Stack</button>'
-        +'</div></div>'
-      :'')
+    +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'stack\',this)">'
+    +({'Left Stack':'\u2190L','Centre Split':'\u21d4','Right Stack':'R\u2192'}[r.stack]||'\u21d4')+' \u25be</button>'
     +'</div>'
     // Floor dropdown
     +'<div style="position:relative">'
     +'<div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">FLOOR</div>'
-    +'<button class="ct-hdr-drop-btn'+(r.ctHdrDrop==='floor'?' open':'')+'" onclick="event.stopPropagation();var _r=ct_getRow('+r.id+');_r.ctHdrDrop=_r.ctHdrDrop===\'floor\'?null:\'floor\';ct_renderRow('+r.id+')">'
+    +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'floor\',this)">'
     +({'Touching':'Touch','5mm Off':'5mm\u2191','10mm Off':'10mm\u2191','On Floor':'Pool'}[r.floorClear]||'Touch')+' \u25be</button>'
-    +(r.ctHdrDrop==='floor'
-      ?'<div class="ct-hdr-drop-panel"><div class="ct-pill-row" style="margin:0;flex-direction:column;align-items:flex-start;gap:4px">'
-        +'<button class="ct-pill'+(r.floorClear==='Touching'?' on':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').floorClear=\'Touching\';ct_getRow('+r.id+').ctHdrDrop=null;ct_updatePrices();ct_renderRow('+r.id+')">Just Touching</button>'
-        +'<button class="ct-pill'+(r.floorClear==='5mm Off'?' on':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').floorClear=\'5mm Off\';ct_getRow('+r.id+').ctHdrDrop=null;ct_updatePrices();ct_renderRow('+r.id+')">5mm Off Floor</button>'
-        +'<button class="ct-pill'+(r.floorClear==='10mm Off'?' on':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').floorClear=\'10mm Off\';ct_getRow('+r.id+').ctHdrDrop=null;ct_updatePrices();ct_renderRow('+r.id+')">10mm Off Floor</button>'
-        +'<button class="ct-pill'+(r.floorClear==='On Floor'?' on-p':'')+'" onclick="event.stopPropagation();ct_getRow('+r.id+').floorClear=\'On Floor\';ct_getRow('+r.id+').ctHdrDrop=null;ct_updatePrices();ct_renderRow('+r.id+')">On Floor (Pool)</button>'
-        +(r.floorClear==='On Floor'?'<div style="display:flex;align-items:center;gap:4px;margin-top:2px"><input type="number" min="0" max="300" value="'+(r.floorPool||0)+'" placeholder="0" style="width:54px;padding:4px 6px;font-size:12px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8" onchange="ct_getRow('+r.id+').floorPool=Math.min(300,Math.max(0,parseInt(this.value)||0));ct_updatePrices()"><span style="font-size:12px;color:#666">mm pooling</span></div>':'')
-        +'</div></div>'
-      :'')
     +'</div>'
     +'</div>'
     +'<span class="'+priceCls+'">'+priceStr+'</span>'
@@ -3065,6 +3044,54 @@ function ct_toggleRow(id){ct_expanded=ct_expanded===id?null:id;ct_renderAllRows(
 function ct_duplicateRow(id){var r=ct_getRow(id);if(!r)return;var nr=JSON.parse(JSON.stringify(r));nr.id=++ct_rowId;ct_rows.splice(ct_rows.indexOf(r)+1,0,nr);ct_renderAllRows();ct_updatePrices();}
 function ct_clrForm(){ct_rows=[ct_newRow(),ct_newRow(),ct_newRow()];ct_expanded=null;ct_labourUnlined=0;ct_labourLined=0;ct_discPct=0;ct_discTrkPct=0;ct_installCost=0;ct_travelCost=0;document.getElementById('ct_labour_unlined').value=0;document.getElementById('ct_labour_lined').value=0;document.getElementById('ct_discVal').textContent='0%';document.getElementById('ct_discTrkVal').textContent='0%';document.getElementById('ct_inp_install').value=0;document.getElementById('ct_inp_travel').value=0;ct_renderAllRows();ct_updatePrices();}
 
+var ct_hdrDropState={id:null,type:null,btn:null};
+function _ct_renderHdrOverlay(id,type){
+  var r=ct_getRow(id);if(!r)return;
+  var html='';
+  if(type==='fabW'){
+    [[1.4,'1.4m'],[2.8,'2.8m'],[3.0,'3.0m'],[3.2,'3.2m']].forEach(function(v){
+      html+='<button class="ct-pill'+(r.fabW===v[0]?' on':'')+'" onclick="ct_getRow('+id+').fabW='+v[0]+';ct_checkRR('+id+');ct_updatePrices();ct_renderRow('+id+');ct_closeHdrDrop()">'+v[1]+'</button>';
+    });
+  } else if(type==='stack'){
+    [['Left Stack','\u2190L Left Stack'],['Centre Split','\u21d4 Centre Split'],['Right Stack','R\u2192 Right Stack']].forEach(function(v){
+      html+='<button class="ct-pill'+(r.stack===v[0]?' on':'')+'" onclick="ct_getRow('+id+').stack=\''+v[0]+'\';ct_renderAllRows();ct_closeHdrDrop()">'+v[1]+'</button>';
+    });
+  } else if(type==='floor'){
+    [['Touching','Just Touching'],['5mm Off','5mm Off Floor'],['10mm Off','10mm Off Floor'],['On Floor','On Floor (Pool)']].forEach(function(v){
+      var isPool=v[0]==='On Floor';
+      html+='<button class="ct-pill'+(r.floorClear===v[0]?(isPool?' on-p':' on'):'')+'" onclick="ct_getRow('+id+').floorClear=\''+v[0]+'\';ct_updatePrices();ct_renderRow('+id+');'+(isPool?'ct_refreshHdrDrop()':'ct_closeHdrDrop()')+'">'+v[1]+'</button>';
+    });
+    if(r.floorClear==='On Floor'){
+      html+='<div style="display:flex;align-items:center;gap:4px;margin-top:4px"><input type="number" min="0" max="300" value="'+(r.floorPool||0)+'" style="width:54px;padding:4px 6px;font-size:12px;border:1.5px solid #ddd;border-radius:6px;background:#fafaf8" onchange="ct_getRow('+id+').floorPool=Math.min(300,Math.max(0,parseInt(this.value)||0));ct_updatePrices()"><span style="font-size:12px;color:#666">mm pooling</span></div>';
+    }
+  }
+  document.getElementById('ct-hdr-overlay').innerHTML='<div class="ct-pill-row" style="margin:0;flex-direction:column;align-items:flex-start;gap:4px">'+html+'</div>';
+}
+function ct_openHdrDrop(id,type,btn){
+  if(ct_hdrDropState.btn===btn){ct_closeHdrDrop();return;}
+  if(ct_hdrDropState.btn)ct_hdrDropState.btn.classList.remove('open');
+  ct_hdrDropState={id:id,type:type,btn:btn};
+  _ct_renderHdrOverlay(id,type);
+  btn.classList.add('open');
+  var ov=document.getElementById('ct-hdr-overlay');
+  var rect=btn.getBoundingClientRect();
+  ov.style.top=(rect.bottom+window.scrollY+4)+'px';
+  ov.style.left=Math.min(rect.left+window.scrollX,window.innerWidth-170)+'px';
+  ov.style.display='block';
+}
+function ct_closeHdrDrop(){
+  var ov=document.getElementById('ct-hdr-overlay');
+  if(ov){ov.style.display='none';ov.innerHTML='';}
+  if(ct_hdrDropState.btn)ct_hdrDropState.btn.classList.remove('open');
+  ct_hdrDropState={id:null,type:null,btn:null};
+}
+function ct_refreshHdrDrop(){
+  if(!ct_hdrDropState.btn)return;
+  _ct_renderHdrOverlay(ct_hdrDropState.id,ct_hdrDropState.type);
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#ct-hdr-overlay')&&!e.target.classList.contains('ct-hdr-drop-btn'))ct_closeHdrDrop();
+});
 function ct_checkRR(id){
   var r=ct_getRow(id);if(!r||!r.d)return;
   var dm=(parseInt(r.d)||0)/1000;
