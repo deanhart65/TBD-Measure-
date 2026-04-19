@@ -552,8 +552,10 @@ async function syncQueue() {
             delete jobs[idx].pending_sync;
             localStorage.setItem('tbd_jobs', JSON.stringify(jobs));
           }
+        } else {
+          pwaToast('⚠️ Auto-sync failed: ' + (result.error.message || 'unknown error'));
         }
-      } catch(e) {}
+      } catch(e) { pwaToast('⚠️ Auto-sync error: ' + (e.message || e)); }
     }
     _updateSyncBadge();
   } catch(e) {}
@@ -1452,8 +1454,11 @@ async function _syncLocalJob(id) {
     if (!result.error) {
       var idx = jobs.findIndex(function(j) { return j.id === id; });
       if (idx !== -1) { delete jobs[idx].pending_sync; localStorage.setItem('tbd_jobs', JSON.stringify(jobs)); }
+      _updateSyncBadge();
       pwaRenderJobs();
       pwaToast('\u2705 Synced to cloud.');
+    } else {
+      pwaToast('⚠️ Sync failed: ' + (result.error.message || 'unknown error'));
     }
   } catch(e) { pwaToast('⚠️ Sync failed.'); }
 }
@@ -2061,7 +2066,7 @@ function od_updatePrices(){
 function od_addRow(){od_rows.push(od_newRow());od_renderAllRows();
   setTimeout(function(){var c=document.getElementById("od_rowsContainer");if(c)c.lastElementChild&&c.lastElementChild.scrollIntoView({behavior:"smooth",block:"nearest"});},100);
 }
-function od_rebuildRow(id){var r=od_getRow(id),idx=od_rows.indexOf(r);if(!r)return;document.getElementById("od_brow_"+id).outerHTML=od_rowHTML(r,idx);od_updatePrices();}
+function od_rebuildRow(id){var r=od_getRow(id),idx=od_rows.indexOf(r);if(!r)return;document.getElementById("brow_"+id).outerHTML=od_rowHTML(r,idx);od_updatePrices();}
 function od_toggleRow(id){od_expanded=od_expanded===id?null:id;od_renderAllRows();}
 function od_dupRow(id){var r=od_getRow(id);if(!r)return;var n=JSON.parse(JSON.stringify(r));n.id=od_uid++;n.loc=(r.loc?r.loc+" copy":"copy");od_rows.splice(od_rows.indexOf(r)+1,0,n);od_renderAllRows();}
 function od_remRow(id){if(od_rows.length<=1){alert("Keep at least one row.");return;}od_rows=od_rows.filter(function(r){return r.id!==id;});od_renderAllRows();}
