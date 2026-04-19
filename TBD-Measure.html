@@ -1347,10 +1347,9 @@ async function _syncLocalJob(id) {
       pwaRenderJobs();
       pwaToast('\u2705 Synced to cloud.');
     } else {
-      alert('Sync failed:\n\n' + JSON.stringify(result.error, null, 2));
       pwaToast('⚠️ Sync failed.');
     }
-  } catch(e) { alert('Sync exception:\n\n' + (e && e.message ? e.message : String(e))); pwaToast('⚠️ Sync failed.'); }
+  } catch(e) { pwaToast('⚠️ Sync failed.'); }
 }
 
 function pwaLoadJob(i) {
