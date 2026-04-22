@@ -1,5 +1,5 @@
 // TBD Measure service worker — minimal offline shell cache
-const CACHE = 'tbd-measure-v1';
+const CACHE = 'tbd-measure-v2';
 const CORE = ['./', './index.html'];
 
 self.addEventListener('install', (e) => {
