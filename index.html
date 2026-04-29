@@ -1591,7 +1591,7 @@ function savePDF(){
   doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
   doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
   var _repE=(typeof _currentUser!=='undefined'&&_currentUser&&_currentUser.email)?_currentUser.email:'';
-  if(_repE){doc.text('Rep: '+_repE,W-M,27,{align:'right'});doc.text('Date: '+date,W-M,31,{align:'right'});}else{doc.text('Date: '+date,W-M,27,{align:'right'});}
+  if(_repE){doc.text('Rep: '+_repE+'  ·  Date: '+date,W-M,27,{align:'right'});}else{doc.text('Date: '+date,W-M,27,{align:'right'});}
   var y=34;doc.setTextColor(30,30,30);doc.setFontSize(8);
   doc.setFont('helvetica','bold');doc.text('Name: ',M,y);doc.setFont('helvetica','normal');doc.text(v("c_nm")||"",M+14,y);
   doc.setFont('helvetica','bold');doc.text('Project: ',M+80,y);doc.setFont('helvetica','normal');doc.text(v("c_pn")||"",M+96,y);
@@ -1605,7 +1605,7 @@ function savePDF(){
   var pdfSubIdx=[],pdfExpIdx=[];
   filled.forEach(function(x,i){var r=x.r,lt=i<26?al[i]:""+i;var o2=[];if(r.sbc)o2.push("Steel Chain");if(r.cas)o2.push("70mm Cassette");if(r.fbi)o2.push("Fabric Insert");if(r.intc)o2.push("Int/Coupled");if(r.rbc)o2.push("Remove Bracket Covers");if(r.rt==="Waterfall")o2.push("Waterfall");var colTxt=r.col||"";if(r.bt==="Double Roller")colTxt=(r.dr_bo_col||"")+"/"+(r.dr_sc_col||"");var mP=MOTOR_P[r.mot]||0,aP=x._adpP||ADP_P[r.adp]||0,cP=x._chgP||ADP_P[r.chg]||0,rP=REMOTE_P[r.rem]||0;var sP=(r.bt==="Cellular Skylight"&&r.sklop==="Twist Lock Pole")?788:0;var baseP=x.base3!=null?x.base3:x.p!=null?x.p-mP-aP-cP-rP-sP:null;tB.push(isOrder?[lt,r.loc||"",r.bt||"",r.rng||"",colTxt,r.w||"",r.d||"",r.ctrl||"",r.fx||"",o2.join(","),baseP!=null?fmt(baseP):""]:[lt,r.loc||"",r.bt||"",r.rng||"",colTxt,r.ctrl||"",r.fx||"",o2.join(","),baseP!=null?fmt(baseP):""]);if(mP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Motor: '+(r.mot||''),'','','','','','','','',fmt(mP)]:['','','','','','','','Motor: '+(r.mot||''),fmt(mP)]);}if(aP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Adaptor: '+(r.adp||''),'','','','','','','','',fmt(aP)]:['','','','','','','','Adaptor: '+(r.adp||''),fmt(aP)]);}if(cP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Charger: '+(r.chg||''),'','','','','','','','',fmt(cP)]:['','','','','','','','Charger: '+(r.chg||''),fmt(cP)]);}if(rP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Remote: '+(r.rem||''),'','','','','','','','',fmt(rP)]:['','','','','','','','Remote: '+(r.rem||''),fmt(rP)]);}
     if(sP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Twist Lock Pole','','','','','','','','',fmt(sP)]:['','','','','','','','Twist Lock Pole',fmt(sP)]);}if(expressDelivery&&x.p!=null){pdfExpIdx.push(tB.length);tB.push(isOrder?['','  * Express Surcharge (10%)','','','','','','','','',fmt(x.p*0.10)]:['','','','','','','','Express Surcharge (10%)',fmt(x.p*0.10)]);}});
-  doc.autoTable({startY:y,margin:{left:M,right:M},head:tH,body:tB,theme:'grid',styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},columnStyles:isOrder?{0:{cellWidth:7,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:24},2:{cellWidth:18},3:{cellWidth:26},4:{cellWidth:14},5:{cellWidth:11,halign:'center'},6:{cellWidth:11,halign:'center'},7:{cellWidth:13},8:{cellWidth:11},9:{cellWidth:16,fontSize:5.5},10:{cellWidth:22,halign:'right',fontStyle:'bold'}}:{0:{cellWidth:7,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:23},2:{cellWidth:18},3:{cellWidth:22},4:{cellWidth:12},5:{cellWidth:13},6:{cellWidth:11},7:{cellWidth:45,fontSize:6},8:{cellWidth:22,halign:'right',fontStyle:'bold'}},alternateRowStyles:{fillColor:[248,248,245]},didParseCell:function(d){if(pdfSubIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[150,150,150];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[252,252,250];}if(pdfExpIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[232,70,30];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[255,248,245];}}});
+  doc.autoTable({startY:y,margin:{left:M,right:M},head:tH,body:tB,theme:'grid',styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},columnStyles:isOrder?{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:35},2:{cellWidth:22},3:{cellWidth:50},4:{cellWidth:20},5:{cellWidth:14,halign:'center'},6:{cellWidth:14,halign:'center'},7:{cellWidth:16},8:{cellWidth:14},9:{cellWidth:60,fontSize:5.5},10:{cellWidth:28,halign:'right',fontStyle:'bold'}}:{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:35},2:{cellWidth:25},3:{cellWidth:50},4:{cellWidth:20},5:{cellWidth:18},6:{cellWidth:15},7:{cellWidth:80,fontSize:6},8:{cellWidth:30,halign:'right',fontStyle:'bold'}},alternateRowStyles:{fillColor:[248,248,245]},didParseCell:function(d){if(pdfSubIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[150,150,150];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[252,252,250];}if(pdfExpIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[232,70,30];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[255,248,245];}}});
   y=doc.lastAutoTable.finalY+3;
   // ── Totals Table — aligned with main table ──
   var totData=[];
@@ -1624,7 +1624,7 @@ function savePDF(){
     body:totData.map(function(r){return[r.lb,r.vl];}),
     theme:'grid',
     styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},
-    columnStyles:{0:{cellWidth:143},1:{cellWidth:30,halign:'right',fontStyle:'bold'}},
+    columnStyles:{0:{cellWidth:251},1:{cellWidth:30,halign:'right',fontStyle:'bold'}},
     didParseCell:function(d){
       var tag=totData[d.row.index]?totData[d.row.index].tag:'';
       if(tag==='disc'){d.cell.styles.textColor=[39,174,96];d.cell.styles.fontStyle='bold';}
@@ -1688,7 +1688,7 @@ function savePDF(){
   tyR=_tcRender('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcR,_tcW,tyR);
   tyR=_tcRender('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcR,_tcW,tyR);
   tyR=_tcRender('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcR,_tcW,tyR);
-  var ty=Math.max(tyL,tyR)+6;
+  var ty=H-44;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
   doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
@@ -2789,7 +2789,7 @@ function od_pwaExportPDF(){
   doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
   doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
   var _repE=(typeof _currentUser!=='undefined'&&_currentUser&&_currentUser.email)?_currentUser.email:'';
-  if(_repE){doc.text('Rep: '+_repE,W-M,27,{align:'right'});doc.text('Date: '+date,W-M,31,{align:'right'});}else{doc.text('Date: '+date,W-M,27,{align:'right'});}
+  if(_repE){doc.text('Rep: '+_repE+'  ·  Date: '+date,W-M,27,{align:'right'});}else{doc.text('Date: '+date,W-M,27,{align:'right'});}
   // ── Customer ──
   var y=34;doc.setTextColor(30,30,30);doc.setFontSize(8);
   doc.setFont('helvetica','bold');doc.text('Name: ',M,y);doc.setFont('helvetica','normal');doc.text(gv("od_c_nm")||"",M+14,y);
@@ -2801,9 +2801,10 @@ function od_pwaExportPDF(){
   var gn=gv("od_c_gn");if(gn){y+=5;doc.setFontSize(7);doc.setTextColor(100,100,100);doc.text('Notes: '+gn,M,y);}
   y+=5;
   // ── Items table ──
-  var cols=isOrd?["#","Location","Type","Range","W","D","Ctrl","Cassette","Motor","Remote","H-L","H-R","Notes","Price"]:["#","Location","Type","Range","Ctrl","Cassette","Motor","Add-ons","Price"];
+  var cols=isOrd?["#","Location","Type","Range","W","D","Ctrl","Cassette","Motor","Remote","Notes","Price"]:["#","Location","Type","Range","Ctrl","Cassette","Motor","Price"];
   var al="abcdefghijklmnopqrstuvwxyz";
-  var tBdy=[],accTotal2=0,blindsTotal2=0;
+  var PW=W-M*2;
+  var tBdy=[],subRowIdx={},subRowData={},accTotal2=0,blindsTotal2=0;
   od_rows.forEach(function(r,i){
     var w2=parseInt(r.w)||0,d2=parseInt(r.d)||0;
     var base=od_calc(r.bt,r.rng,w2,d2);
@@ -2813,12 +2814,36 @@ function od_pwaExportPDF(){
     var lt=i<26?al[i]:""+i;
     var cas=r.cas==="None"?"—":r.cas+" ("+r.casFix+")";
     var mot=r.mot==="None"?"—":(r.mot+(r.motAdp?" +Adp":""));
-    var addons=[];
-    if(r.addCrank)addons.push("Crank");if(r.addSideChan)addons.push("S.Chan");
-    if(r.addRCKit)addons.push("RC Kit");if(r.addIntBracket)addons.push("Int.Brkt");
-    if(r.addPullPole||r.pullPole==="Yes")addons.push("Pull Pole");if(r.addHoldDown)addons.push("H.Down");
-    if(isOrd){tBdy.push([lt,r.loc,r.bt,r.rng.replace("+SheerWeave ","·SW"),w2||"",d2||"",r.ctrl,cas,mot,r.rem==="None"?"—":r.rem,r.hdL||"",r.hdR||"",r.n,total!=null?od_fmt(total):"—"]);}
-    else{tBdy.push([lt,r.loc,r.bt,r.rng.replace("+SheerWeave ","·SW"),r.ctrl,cas,mot,addons.join(", ")||"—",total!=null?od_fmt(total):"—"]);}
+    var NC=isOrd?12:8;
+    function subRow(desc,price){
+      var idx=tBdy.length;
+      subRowIdx[idx]=1;
+      subRowData[idx]={desc:desc,price:price!=null?od_fmt(price):null};
+      var row=[];for(var _s=0;_s<NC;_s++)row.push('');
+      tBdy.push(row);
+    }
+    if(isOrd){tBdy.push([lt,r.loc,r.bt,r.rng.replace("+SheerWeave ","·SW"),w2||"",d2||"",r.ctrl,cas,mot,r.rem==="None"?"—":r.rem,r.n,total!=null?od_fmt(total):"—"]);}
+    else{tBdy.push([lt,r.loc,r.bt,r.rng.replace("+SheerWeave ","·SW"),r.ctrl,cas,mot,total!=null?od_fmt(total):"—"]);}
+    var colParts=[];
+    if(r.col)colParts.push('Fabric: '+r.col);
+    if(r.tubeCol)colParts.push('PC: '+r.tubeCol);
+    if(r.bracketCol&&r.bracketCol!=='None')colParts.push('Bracket: '+r.bracketCol);
+    if(colParts.length)subRow(colParts.join('  |  '),null);
+    if(r.bt==='Free Hang'){
+      var fhParts=[];
+      if(r.crankHandle&&r.crankHandle!=='None')fhParts.push('Crank Hndl: '+r.crankHandle);
+      if(r.bottomFlap&&r.bottomFlap!=='None')fhParts.push('Bot Flap: '+r.bottomFlap);
+      if(r.sideChKit&&r.sideChKit!=='None')fhParts.push('Side Ch: '+r.sideChKit);
+      if(r.holdDowns&&r.holdDowns!=='None')fhParts.push('Hold Downs: '+r.holdDowns+(r.holdDownType?' ('+r.holdDownType+')':''));
+      if(fhParts.length)subRow(fhParts.join('  |  '),null);
+    }
+    var isFH=r.bt==='Free Hang';
+    if(r.addCrank)subRow('Crank Handle',isFH?PRICE_FH_CRANK:PRICE_SX_CRANK);
+    if(r.addSideChan)subRow('Side Channels',PRICE_FH_SIDECHAN);
+    if(r.addIntBracket)subRow('Intermediate Bracket',PRICE_FH_INTBRACKET);
+    if(r.addHoldDown)subRow('Hold Down',PRICE_FH_HOLDDOWN);
+    if(r.addRCKit){var wi_f=od_fb(w2,FH_W);subRow('RC Kit',FH_RCKIT[wi_f]);}
+    if(r.addPullPole)subRow('Pull Pole',PRICE_SX_PULLPOLE);
   });
   doc.autoTable({
     head:[cols],body:tBdy,startY:y,margin:{left:M,right:M},
@@ -2826,7 +2851,25 @@ function od_pwaExportPDF(){
     headStyles:{fillColor:[232,70,30],textColor:255,fontStyle:"bold",fontSize:7},
     alternateRowStyles:{fillColor:[250,248,245]},
     columnStyles:(function(){var cs={};cs[cols.length-1]={halign:'right',fontStyle:'bold'};if(isOrd){cs[4]={halign:'center'};cs[5]={halign:'center'};}return cs;})(),
-    didParseCell:function(d){if(d.section==="body"&&d.column.index===cols.length-1&&d.cell.raw!=="—")d.cell.styles.fontStyle="bold";}
+    didParseCell:function(d){
+      if(d.section==='body'&&subRowIdx[d.row.index]){
+        d.cell.styles.fillColor=[255,255,255];
+        d.cell.styles.lineColor=[200,185,150];
+        d.cell.styles.lineWidth=0.2;
+        d.cell.styles.minCellHeight=6;
+        d.cell.text=[];
+      } else if(d.section==="body"&&d.column.index===cols.length-1&&d.cell.raw!=="—"){
+        d.cell.styles.fontStyle="bold";
+      }
+    },
+    didDrawCell:function(d){
+      if(d.section!=='body'||!subRowIdx[d.row.index]||d.column.index!==cols.length-1)return;
+      var sd=subRowData[d.row.index];if(!sd)return;
+      var cy=d.cell.y+d.cell.height*0.62;
+      doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(80,80,80);
+      doc.text('- '+sd.desc,M+3,cy,{maxWidth:PW-(sd.price?32:6)});
+      if(sd.price){doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(30,30,30);doc.text(sd.price,M+PW-2,cy,{align:'right'});}
+    }
   });
   y=doc.lastAutoTable.finalY+3;
   // ── Totals ──
@@ -2911,7 +2954,7 @@ function od_pwaExportPDF(){
   tyR=_tcRenderOD('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcR,_tcW,tyR);
   tyR=_tcRenderOD('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcR,_tcW,tyR);
   tyR=_tcRenderOD('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcR,_tcW,tyR);
-  var ty=Math.max(tyL,tyR)+6;
+  var ty=H-44;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
   doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
@@ -3969,7 +4012,7 @@ function ct_pwaExportPDF(isOrd){
   doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
   doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
   var _repE=(typeof _currentUser!=='undefined'&&_currentUser&&_currentUser.email)?_currentUser.email:'';
-  if(_repE){doc.text('Rep: '+_repE,W-M,27,{align:'right'});doc.text('Date: '+md,W-M,31,{align:'right'});}else{doc.text('Date: '+md,W-M,27,{align:'right'});}
+  if(_repE){doc.text('Rep: '+_repE+'  ·  Date: '+md,W-M,27,{align:'right'});}else{doc.text('Date: '+md,W-M,27,{align:'right'});}
 
   // ── Customer ──
   var y=34;doc.setTextColor(30,30,30);doc.setFontSize(8);
@@ -3987,8 +4030,16 @@ function ct_pwaExportPDF(isOrd){
   var curtainSub=0,trkSub=0;
 
   if(isOrd){
-    // ── Card-per-window order layout ──
-    function ordNeedPage(needed){if(y+needed>H-18){doc.addPage();y=14;}}
+    // ── Workshop card-per-window order layout ──
+    function ordNeedPage(needed){if(y+needed>H-16){doc.addPage();y=14;}}
+    var LH=5.5,CPAD=4,MID=M+PW/2;
+    function wLbl(lbl,val,x,indent,maxW,fy){
+      var _y=fy!==undefined?fy:by;
+      doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(120,120,120);
+      doc.text(lbl,x,_y);
+      doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(30,30,30);
+      doc.text(String(val||'-'),x+(indent||16),_y,{maxWidth:maxW||(PW/2-20)});
+    }
     for(var oi=0;oi<ordRows.length;oi++){
       var r=ordRows[oi];
       var lt=String.fromCharCode(65+ct_rows.indexOf(r));
@@ -3996,93 +4047,79 @@ function ct_pwaExportPDF(isOrd){
       var isSomfy=r.trkStyle==='Somfy';
       var eff=ct_effectiveDrop(r);
       var dedLbl=ct_trackDeductionLabel(r);
-      var floorLbl=r.floorClear==='5mm Off'?'5mm off floor':r.floorClear==='10mm Off'?'10mm off floor':r.floorClear==='On Floor'?'On Floor (+'+(r.floorPool||0)+'mm)':'Touching';
       var isPinchR=r.curtainStyle==='Pinch Pleat';
+      var _rail=r.fabW>=2.8&&(eff/1000)<=(r.fabW-0.3);
+      var floorStr=r.floorClear==='5mm Off'?'5mm off floor':r.floorClear==='10mm Off'?'10mm off floor':r.floorClear==='On Floor'?'On floor (+'+(r.floorPool||0)+'mm)':'Touching floor';
+      var p1=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
+      var p2=isDbl?ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle):null;
+      var opts=[];
+      if(r.opt90)opts.push('90 Bend');if(r.opt45)opts.push('45 Bend');
+      if(r.optContBend)opts.push('Cont. Bend');if(r.optSingleWand)opts.push('Single Wand');if(r.optDoubleWand)opts.push('Double Wand');
 
-      // pre-calc lines for card body height
-      var nLines=1; // style
-      if(isDbl){nLines+=2;}
-      else{nLines+=1;if(r.t1lined&&r.t1linName)nLines++;}
-      nLines+=1; // track
-      var _rail=r.fabW>=2.8;
-      if(_rail)nLines+=1; // railroaded badge line
-      if(isDbl)nLines+=2; else nLines+=1; // calc breakdown lines
-      nLines+=1; // track cost line
-      var opts=[];if(r.opt90)opts.push('90\u00b0 Bend');if(r.opt45)opts.push('45\u00b0 Bend');if(r.optContBend)opts.push('Cont. Bend');if(r.optSingleWand)opts.push('Single Wand');if(r.optDoubleWand)opts.push('Double Wand');
-      if(opts.length)nLines+=1; // options only if present
-      if(r.notes)nLines+=Math.ceil(r.notes.length/80)||1;
-      var LH=4.8,PAD=5,bodyH=nLines*LH+PAD*2,cardH=7+bodyH;
-      ordNeedPage(cardH+4);
+      var leftLines=3+(opts.length?1:0)+(_rail?1:0);
+      var notesLines=r.notes?Math.ceil((r.notes||'').length/45)+1:0;
+      var rightLines=2+(isDbl?((r.t1lined?2:1)+(r.t2lined?2:1)):((r.t1lined?2:1)))+notesLines;
+      var bodyH=Math.max(leftLines,rightLines)*LH+CPAD*2.5+LH;
+      ordNeedPage(9+bodyH+4);
 
-      // header bar
-      doc.setFillColor(232,70,30);doc.rect(M,y,PW,7,'F');
-      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(255,255,255);
-      doc.text('['+lt+']  '+(r.loc||'Window '+lt),M+2,y+5,{maxWidth:PW*0.45});
-      var hdrRight='W: '+(r.w||'\u2014')+'mm   Fin. Drop: '+(eff||'\u2014')+'mm'+(dedLbl?'  ('+dedLbl+(r.floorClear!=='Touching'&&r.floorClear!=='On Floor'?' \u00b7 '+floorLbl:'')+')':'');
-      doc.text(hdrRight,M+PW-2,y+5,{align:'right',maxWidth:PW*0.55});
-      y+=7;
+      // Card header bar — window name only
+      doc.setFillColor(232,70,30);doc.rect(M,y,PW,9,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);
+      doc.text('['+lt+']  '+(r.loc||'Window '+lt),M+3,y+6.5,{maxWidth:PW-6});
+      y+=9;
 
-      // body bg
-      doc.setFillColor(250,250,250);doc.rect(M,y,PW,bodyH,'F');
-      doc.setDrawColor(220,220,220);doc.setLineWidth(0.2);doc.rect(M,y,PW,bodyH,'S');
+      // Card body — white bg, bordered, vertical mid-divider
+      doc.setFillColor(255,255,255);doc.rect(M,y,PW,bodyH,'F');
+      doc.setDrawColor(210,210,210);doc.setLineWidth(0.25);doc.rect(M,y,PW,bodyH,'S');
+      doc.setDrawColor(230,230,230);doc.setLineWidth(0.15);doc.line(MID,y+1,MID,y+bodyH-1);
 
-      var bx=M+3,by=y+PAD;
-      function ordLbl(lbl,val,bxO){doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(100,100,100);doc.text(lbl,bx,by);doc.setFont('helvetica','normal');doc.setTextColor(25,25,25);doc.text(val,bx+(bxO||16),by,{maxWidth:PW-20});}
+      var by=y+CPAD+LH*0.8;
+      var L=M+4,R=MID+2;
+      // Measurements line — full width, black
+      var measStr='W: '+(r.w||'-')+'mm  x  Drop: '+eff+'mm  |  '+p1.drops+' drop'+(p1.drops!==1?'s':'');
+      doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30,30,30);
+      doc.text(measStr,L,by);
+      by+=LH;
+      var rby=by;
 
-      // style line
-      var styleStr=(isDbl?'Double Track':'Single Track')+' \u00b7 '+(isPinchR?r.pinchType+' Pinch Pleat':r.curtainStyle);
-      if(!isDbl)styleStr+=' \u00b7 '+(r.t1lined?'Lined':'Unlined');
-      if(!isPinchR&&!isDbl)styleStr+=' \u00b7 '+(r.tapeType||'Stud 25mm');
-      styleStr+=' \u00b7 '+r.stack+' \u00b7 FabW: '+r.fabW+'m \u00b7 '+r.fullness+'\u00d7';
-      ordLbl('Style:',styleStr,14);by+=LH;
+      // LEFT: Style / Stack / Track / Options / Notes  (all indent=26)
+      var styleStr=(isPinchR?(r.pinchType+' Pinch Pleat'):r.curtainStyle);
+      if(!isPinchR&&!isDbl)styleStr+='  -  '+(r.tapeType||'Stud 25mm');
+      wLbl('Style:',styleStr,L,26,PW/2-30);by+=LH;
+
+      wLbl('Stack:',r.stack+'   Fullness: '+r.fullness+'x   Fab W: '+r.fabW+'m',L,26,PW/2-30);by+=LH;
+
+      wLbl('Track Colour:',r.trkColour||'-',L,26,PW/2-30);by+=LH;
+
+      if(_rail){doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(40,130,40);doc.text('Railroaded - '+r.fabW+'m fabric, drop within limit',L,by);by+=LH;}
+      if(opts.length){doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(80,80,80);doc.text('Options: '+opts.join(', '),L,by);by+=LH;}
+
+      // RIGHT: Type / Fabric / Lining / Notes
+      var liStr=(isDbl?'Double Track':'Single Track')+'   '+(r.t1lined?'Lined':'Unlined');
+      wLbl('Type:',liStr,R,14,PW/2-18,rby);rby+=LH;
 
       if(isDbl){
-        var p1o=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-        var p2o=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
-        var t1f=(r.t1fabName||'\u2014')+(r.t1fabColour?' \u2014 '+r.t1fabColour:'');
-        var t1l=r.t1lined?((r.t1linName||'\u2014')+(r.t1linColour?' \u2014 '+r.t1linColour:'')):'';
-        ordLbl('Trk 1:',(r.t1lined?'Lined':'Unlined')+' \u00b7 Fabric: '+t1f+(t1l?'  Lining: '+t1l:'')+'  Drops: '+p1o.drops+'  Mtg: '+p1o.meterage+'m',14);by+=LH;
-        var t2f=(r.t2fabName||'\u2014')+(r.t2fabColour?' \u2014 '+r.t2fabColour:'');
-        var t2l=r.t2lined?((r.t2linName||'\u2014')+(r.t2linColour?' \u2014 '+r.t2linColour:'')):'';
-        ordLbl('Trk 2:',(r.t2lined?'Lined':'Unlined')+' \u00b7 Fabric: '+t2f+(t2l?'  Lining: '+t2l:'')+'  Drops: '+p2o.drops+'  Mtg: '+p2o.meterage+'m',14);by+=LH;
+        var t1fS=(r.t1fabName||'-')+(r.t1fabColour?' - '+r.t1fabColour:'')+'   Mtg: '+p1.meterage+'m';
+        wLbl('T1 Fabric:',t1fS,R,14,PW/2-18,rby);rby+=LH;
+        if(r.t1lined){var t1lS=(r.t1linName||'-')+(r.t1linColour?' - '+r.t1linColour:'');wLbl('T1 Lining:',t1lS,R,14,PW/2-18,rby);rby+=LH;}
+        var t2fS=(r.t2fabName||'-')+(r.t2fabColour?' - '+r.t2fabColour:'')+'   Mtg: '+p2.meterage+'m';
+        wLbl('T2 Fabric:',t2fS,R,14,PW/2-18,rby);rby+=LH;
+        if(r.t2lined){var t2lS=(r.t2linName||'-')+(r.t2linColour?' - '+r.t2linColour:'');wLbl('T2 Lining:',t2lS,R,14,PW/2-18,rby);rby+=LH;}
       } else {
-        var po=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-        var fabStr=(r.t1fabName||'\u2014')+(r.t1fabColour?' \u2014 '+r.t1fabColour:'');
-        ordLbl('Fabric:',fabStr+'   Drops: '+po.drops+'   Mtg: '+po.meterage+'m',14);by+=LH;
-        if(r.t1lined&&r.t1linName){ordLbl('Lining:',(r.t1linName||'\u2014')+(r.t1linColour?' \u2014 '+r.t1linColour:''),14);by+=LH;}
+        var fabS=(r.t1fabName||'-')+(r.t1fabColour?' - '+r.t1fabColour:'')+'   Mtg: '+p1.meterage+'m';
+        wLbl('Fabric:',fabS,R,14,PW/2-18,rby);rby+=LH;
+        if(r.t1lined){var linS=(r.t1linName||'-')+(r.t1linColour?' - '+r.t1linColour:'');wLbl('Lining:',linS,R,14,PW/2-18,rby);rby+=LH;}
+      }
+      if(r.notes){
+        doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(120,120,120);
+        doc.text('Notes:',R,rby);
+        doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(50,80,160);
+        var rnls=doc.splitTextToSize(r.notes,PW/2-18);
+        doc.text(rnls,R+14,rby,{maxWidth:PW/2-18});rby+=rnls.length*LH;
       }
 
-      // track
-      var trkStr=r.trkModel+' \u00b7 '+(isSomfy?r.trkSomfyType:r.trkFix)+' \u00b7 '+r.trkColour+' \u00b7 '+r.trkStyle;
-      if(isSomfy&&r.trkRemote&&r.trkRemote!=='None')trkStr+=' \u00b7 Remote: '+r.trkRemote;
-      if(isSomfy&&r.trkSmartConnect&&r.trkSmartConnect!=='None')trkStr+=' \u00b7 Smart Connect: '+r.trkSmartConnect;
-      ordLbl('Track:',trkStr,14);by+=LH;
-
-      // railroaded badge
-      if(_rail){ordLbl('Orient.:','\u2713 Railroaded \u2014 '+r.fabW+'m fabric. Drop '+(eff/1000).toFixed(2)+'m \u2264 '+(r.fabW-0.3).toFixed(1)+'m limit.',14);by+=LH;}
-
-      // calc breakdown — match on-screen CALCULATED panel
-      var _trkCostOvr=ct_ovrVal(r.trkOvr,ct_calcTrackPrice(r));
-      if(isDbl){
-        var _p1=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-        var _p2=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
-        ordLbl('T1 Calc:','Eff '+eff+'mm \u00b7 '+_p1.drops+' drops \u00b7 '+_p1.meterage+'m \u00b7 Fab R'+Math.round(_p1.fabCost)+' \u00b7 Lin R'+Math.round(_p1.linCost)+' \u00b7 Lab R'+Math.round(_p1.labCost),16);by+=LH;
-        ordLbl('T2 Calc:','Eff '+eff+'mm \u00b7 '+_p2.drops+' drops \u00b7 '+_p2.meterage+'m \u00b7 Fab R'+Math.round(_p2.fabCost)+' \u00b7 Lin R'+Math.round(_p2.linCost)+' \u00b7 Lab R'+Math.round(_p2.labCost),16);by+=LH;
-      } else {
-        var _p=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-        ordLbl('Calc:','Eff '+eff+'mm \u00b7 '+_p.drops+' drops \u00b7 '+_p.meterage+'m \u00b7 Fab R'+Math.round(_p.fabCost)+' \u00b7 Lin R'+Math.round(_p.linCost)+' \u00b7 Lab R'+Math.round(_p.labCost),14);by+=LH;
-      }
-      ordLbl('Track Cost:','R'+Math.round(_trkCostOvr),18);by+=LH;
-
-      // options — only show if any selected
-      if(opts.length){ordLbl('Options:',opts.join(' \u00b7 '),18);by+=LH;}
-
-      // notes
-      if(r.notes){ordLbl('Notes:',r.notes,14);by+=LH;}
-
-      y+=bodyH+3;
+      y+=bodyH+4;
     }
-    // footer line
     doc.setDrawColor(232,70,30);doc.setLineWidth(0.4);doc.line(M,H-10,W-M,H-10);
     doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(120,120,120);
     doc.text('Total Blind Design cc | 368 Voortrekker Rd, Maitland, Cape Town | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
@@ -4125,7 +4162,7 @@ function ct_pwaExportPDF(isOrd){
       }
     }
     var cols=['Window','Description','Drops','Mtg','Fabric','Lining','Labour','Track','Total'];
-    var colStyles={0:{cellWidth:18},1:{cellWidth:55},2:{cellWidth:13},3:{cellWidth:16},4:{cellWidth:16},5:{cellWidth:16},6:{cellWidth:16},7:{cellWidth:16},8:{cellWidth:16}};
+    var colStyles={0:{cellWidth:24},1:{cellWidth:115},2:{cellWidth:14},3:{cellWidth:14},4:{cellWidth:18},5:{cellWidth:18},6:{cellWidth:18},7:{cellWidth:20},8:{cellWidth:28,halign:'right',fontStyle:'bold'}};
     doc.autoTable({startY:y,head:[cols],body:bodyData,theme:'striped',headStyles:{fillColor:[232,70,30],textColor:[255,255,255],fontSize:7,fontStyle:'bold'},bodyStyles:{fontSize:7},columnStyles:colStyles,margin:{left:M,right:M},didParseCell:function(d){if(d.section==='body'&&subRowIdx[d.row.index]){d.cell.styles.fontStyle='italic';d.cell.styles.textColor=[130,130,130];d.cell.styles.fontSize=6.5;}}});
     y=doc.lastAutoTable.finalY+5;
   }
@@ -4203,7 +4240,7 @@ function ct_pwaExportPDF(isOrd){
   tyR=_tcRenderCt('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcRCt,_tcWCt,tyR);
   tyR=_tcRenderCt('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcRCt,_tcWCt,tyR);
   tyR=_tcRenderCt('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcRCt,_tcWCt,tyR);
-  var ty=Math.max(tyL,tyR)+6;
+  var ty=H-44;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(50,50,50);
@@ -4982,8 +5019,8 @@ function mq_exportPDF(){
   mq_tcSection('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.');
   mq_tcSection('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.');
   mq_tcSection('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.');
-  if(ty+38>H-18){doc.addPage();ty=20;}
-  ty+=4;
+  if(ty+38>H-18){doc.addPage();}
+  ty=H-44;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
   doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
@@ -5184,6 +5221,7 @@ function sh_updateDims(i){
   var r=SH_STATE.rows[i];
   r.width=r.wTop||r.wMid||r.wBot||0;
   r.drop=r.dLeft||r.dMid||r.dRight||0;
+  if(typeof sh_renderTotals==='function')sh_renderTotals();
 }
 function sh_calcRowBase(r){
   // Dbl configs → adh table; all others → ahi/product table
@@ -6070,8 +6108,7 @@ function sh_exportPDF(){
     doc.text('Total Blind Design cc',W-M,15,{align:'right'});
     doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
     doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-    if(_repE){doc.text('Rep: '+_repE,W-M,27,{align:'right'});doc.text('Date: '+(cust.md||''),W-M,31,{align:'right'});}
-    else{doc.text('Date: '+(cust.md||''),W-M,27,{align:'right'});}
+    if(_repE){doc.text('Rep: '+_repE+'  ·  Date: '+(cust.md||''),W-M,27,{align:'right'});}else{doc.text('Date: '+(cust.md||''),W-M,27,{align:'right'});}
   }
   addHeader();
   // Customer info — inline style matching indoor/outdoor
@@ -6872,9 +6909,28 @@ function ty_render(){
       var _letter=String.fromCharCode(65+i);
       var _prodLabel=(TY_PRODUCTS[prod]||prod).toUpperCase();
       var _isBifold=prod.indexOf('bifold')!==-1&&prod.indexOf('thermowood')===-1;
-      var bipassWarn=(_isBifold&&res.rw&&res.rw>=750)?'<div style="background:#fff3cd;border:1.5px solid #e0a800;border-radius:6px;padding:8px 10px;margin-top:4px;display:flex;align-items:flex-start;gap:8px"><span style="font-size:15px;flex-shrink:0">&#9888;&#65039;</span><div><div style="font-size:12px;font-weight:700;color:#7d5a00">BI-PASS TRACK REQUIRED</div><div style="font-size:11px;color:#7d5a00;margin-top:2px">Panel width '+res.rw+'mm is in the bolded zone — Bi-Pass track only. Face Fix not applicable for this size.</div></div></div>':'';
+      var bipassWarn='';
       var tbl=TY_T[prod]||TY_T.pro_bifold;
       var indoorWarn=tbl.indoorNote?'<div style="font-size:10px;color:#8b6914;margin-top:4px;background:#fff8e1;padding:4px 6px;border-radius:4px">&#9888; '+tbl.indoorNote+'</div>':'';
+      var panelSizeWarn='';
+      if(_isBifold&&r.width&&r.drop&&_panelW){
+        // Products that support extended spec: ≤700mm wide × ≤2900mm drop
+        var _supExt=['pro_bifold','std_bifold','style_bifold','hurricane_bifold'].indexOf(prod)!==-1;
+        var _inNormal=_panelW<=850&&r.drop<=2450;
+        var _inExtended=_supExt&&_panelW<=700&&r.drop<=2900;
+        // By-pass zone: 750–850mm wide + drop 2451–2900mm
+        var _needsBypass=!_inNormal&&!_inExtended&&_panelW>=750&&_panelW<=850&&r.drop>2450&&r.drop<=2900;
+        var _outOfSpec=!_inNormal&&!_inExtended&&!_needsBypass;
+        if(_needsBypass){
+          panelSizeWarn='<div style="background:#d97706;border-radius:6px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:10px"><span style="font-size:18px;flex-shrink:0;line-height:1">&#9888;</span><div><div style="font-size:12px;font-weight:700;color:#fff;letter-spacing:.3px">BY-PASS TRACK REQUIRED</div><div style="font-size:11px;color:#fef3c7;margin-top:4px">Panel '+_panelW+'mm wide × '+r.drop+'mm drop — panel width 750–850mm with drop >2450mm requires By-Pass track only.</div></div></div>';
+        } else if(_outOfSpec){
+          var _ooMsgs=[];
+          if(_panelW>850)_ooMsgs.push('Panel width '+_panelW+'mm exceeds max 850mm');
+          if(r.drop>2900)_ooMsgs.push('Drop '+r.drop+'mm exceeds max 2900mm');
+          if(!_ooMsgs.length)_ooMsgs.push('Panel '+_panelW+'mm × '+r.drop+'mm outside all valid size ranges');
+          panelSizeWarn='<div style="background:#dc2626;border-radius:6px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:10px"><span style="font-size:18px;flex-shrink:0;line-height:1">&#9888;</span><div><div style="font-size:12px;font-weight:700;color:#fff;letter-spacing:.3px">OUT OF SPEC — NOT MANUFACTURABLE</div><div style="font-size:11px;color:#fecaca;margin-top:4px">'+_ooMsgs.join(' · ')+'</div></div></div>';
+        }
+      }
       var rorText='';
       if(r.width&&r.drop&&_panelW){
         var _calcNote='Panel width: '+_panelW+'mm ('+r.width+'mm ÷ '+_panels+')';
@@ -6908,9 +6964,9 @@ function ty_render(){
         html+='</div>';
         html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">';
         html+='<div><label style="font-size:10px;color:#666;display:block;margin-bottom:2px;font-weight:600">Opening Width — total (mm)</label>';
-        html+='<input type="number" min="0" value="'+(r.width||'')+'" placeholder="e.g. 2400" style="'+_INP+'" oninput="TY_STATE.rows['+i+'].width=parseFloat(this.value)||0" onblur="ty_render()"></div>';
+        html+='<input type="number" min="0" value="'+(r.width||'')+'" placeholder="e.g. 2400" style="'+_INP+'" oninput="TY_STATE.rows['+i+'].width=parseFloat(this.value)||0;ty_renderTotals()" onblur="ty_render()"></div>';
         html+='<div><label style="font-size:10px;color:#666;display:block;margin-bottom:2px;font-weight:600">Opening Drop — total (mm)</label>';
-        html+='<input type="number" min="0" value="'+(r.drop||'')+'" placeholder="e.g. 2000" style="'+_INP+'" oninput="TY_STATE.rows['+i+'].drop=parseFloat(this.value)||0" onblur="ty_render()"></div>';
+        html+='<input type="number" min="0" value="'+(r.drop||'')+'" placeholder="e.g. 2000" style="'+_INP+'" oninput="TY_STATE.rows['+i+'].drop=parseFloat(this.value)||0;ty_renderTotals()" onblur="ty_render()"></div>';
         html+='</div>';
         // Skirting
         html+='<div style="margin-bottom:8px;background:#f7f6f3;border:1px solid #e0ddd8;border-radius:6px;padding:8px 10px">';
@@ -6934,6 +6990,7 @@ function ty_render(){
           html+='<div><label style="font-size:10px;color:#666;display:block;margin-bottom:2px;font-weight:600">Bottom Track (mm)</label><input type="number" min="0" placeholder="mm" value="'+(r.tk_bot||'')+'" style="padding:5px 6px;border:1px solid #ddd;border-radius:4px;font-size:11px;width:100%;box-sizing:border-box" oninput="TY_STATE.rows['+i+'].tk_bot=parseFloat(this.value)||0"></div>';
           html+='</div></div>';
         }
+        if(panelSizeWarn)html+=panelSizeWarn;
         if(rorText||bipassWarn||indoorWarn)html+='<div style="background:#f8f7f5;border-radius:5px;padding:6px 8px;margin-bottom:6px">'+rorText+bipassWarn+indoorWarn+'</div>';
         // Tubing + Angle side by side, then By-Pass Track (non-cottage / bi-fold only)
         if(prod.indexOf('cottage')===-1){
@@ -7209,8 +7266,7 @@ function ty_exportPDF(isOrder){
     doc.text('Total Blind Design cc',W-M,15,{align:'right'});
     doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
     doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-    if(_repE){doc.text('Rep: '+_repE,W-M,27,{align:'right'});doc.text('Date: '+(cust.md||''),W-M,31,{align:'right'});}
-    else{doc.text('Date: '+(cust.md||''),W-M,27,{align:'right'});}
+    if(_repE){doc.text('Rep: '+_repE+'  ·  Date: '+(cust.md||''),W-M,27,{align:'right'});}else{doc.text('Date: '+(cust.md||''),W-M,27,{align:'right'});}
   }
   addHeader();
   var cy=_hdrH+6;doc.setTextColor(30,30,30);doc.setFontSize(8);
@@ -7261,7 +7317,7 @@ function ty_exportPDF(isOrder){
       body:body,
       styles:{fontSize:7,cellPadding:2},
       headStyles:{fillColor:[232,70,30],textColor:255,fontStyle:'bold',fontSize:7},
-      columnStyles:{0:{cellWidth:8},1:{cellWidth:35},2:{cellWidth:90},3:{cellWidth:12},4:{cellWidth:55},5:{cellWidth:30,halign:'right',fontStyle:'bold',textColor:[232,70,30]}},
+      columnStyles:{0:{cellWidth:8},1:{cellWidth:35},2:{cellWidth:105},3:{cellWidth:12},4:{cellWidth:65},5:{cellWidth:44,halign:'right',fontStyle:'bold',textColor:[232,70,30]}},
       didDrawPage:function(){addHeader();}
     });
     cy=doc.lastAutoTable.finalY+3;
