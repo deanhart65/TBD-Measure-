@@ -1,7 +1,7 @@
 {
-  "name": "TBD Measure",
-  "short_name": "TBD Measure",
-  "description": "TBD blinds, outdoor, and curtain measure + quotation tool",
+  "name": "Finish Logic",
+  "short_name": "Finish Logic",
+  "description": "Blinds, outdoor, and curtain measure + quotation tool",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
