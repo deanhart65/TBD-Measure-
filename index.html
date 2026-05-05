@@ -198,11 +198,12 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 @media(max-width:600px){
   #flLogoBar{height:90px!important;}
   #flLogoBar img{height:160px!important;transform:scale(1)!important;}
-  #hdrGrid{grid-template-columns:auto 1fr!important;gap:6px;padding:0 6px!important;}
-  #hdrTBDLogo{height:70px!important;width:auto!important;display:block;}  #hdrBDLogo{height:36px!important;width:auto!important;}
+  #hdrGrid{padding:4px 8px!important;gap:6px!important;}
+  #hdrTBDLogo{height:52px!important;width:auto!important;display:block;flex-shrink:0;}  #hdrBDLogo{height:26px!important;width:auto!important;}  #hdrLogoSep{height:38px!important;margin:0 10px!important;}  #hdrGrid>div[style*="flex:1"]{min-width:0;}
   #authUserEmail{font-size:10px!important;min-width:0;}
   #syncBadge{padding:2px 6px!important;font-size:10px!important;}
   #authBadge button{padding:3px 7px!important;font-size:10px!important;}
+  .disc-2col{grid-template-columns:1fr!important;}
 }
 </style>
 </head>
@@ -358,7 +359,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       </div>
     </div>
     <!-- Discount: Blinds + Accessories stacked -->
-    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="disc-2col" style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
         <div>
           <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Blinds</div>
@@ -446,7 +447,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       </div>
     </div>
     <!-- Discount Blinds + Accessories stacked -->
-    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="disc-2col" style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
         <div>
           <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Blinds</div>
@@ -542,7 +543,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       <div><label style="font-size:11px;color:#aaa;display:block;margin-bottom:4px">Installation Cost (R)</label><input type="number" min="0" value="0" id="ct_inp_install" style="background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:7px 10px;font-size:14px" oninput="ct_installCost=parseFloat(this.value)||0;ct_updatePrices()"></div>
       <div><label style="font-size:11px;color:#aaa;display:block;margin-bottom:4px">Travel Cost (R)</label><input type="number" min="0" value="0" id="ct_inp_travel" style="background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:7px 10px;font-size:14px" oninput="ct_travelCost=parseFloat(this.value)||0;ct_updatePrices()"></div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="disc-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
         <div><div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Curtains</div><div style="color:#888;font-size:10px;margin-top:3px">Fabric, labour &amp; lining</div></div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
@@ -594,7 +595,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   <div class="toolbar-card" style="background:#3a3a3a;color:#fff;border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);max-width:900px;margin:0 auto 10px">
     <h3 style="margin:0 0 4px 0;font-size:14px;color:#fff">Per-Category Discount</h3>
     <div style="font-size:11px;color:#aaa;margin-bottom:10px">Applied on Master Quote only. Legacy per-tab discounts untouched.</div>
-    <div id="mq_disc_rows" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+    <div id="mq_disc_rows" class="disc-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
   </div>
   <div style="max-width:900px;margin:0 auto 10px">
     <h3 style="margin:6px 0 8px 4px;font-size:14px;color:#4A4A4A">Sections <span style="font-size:11px;font-weight:400;color:#999">&mdash; use ▲▼ to reorder</span></h3>
@@ -676,7 +677,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   <!-- Discount -->
   <div class="card" style="background:#2a2a2a;color:#fff">
     <h2 style="margin:0 0 10px;font-size:14px;color:#fff">Discount</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div class="disc-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
         <div>
           <div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Shutters</div>
