@@ -358,6 +358,21 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
         <div id="expressThumb" style="width:18px;height:18px;border-radius:9px;background:#fff;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3)"></div>
       </div>
     </div>
+    <!-- Markup % -->
+    <div style="margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #F07E1E;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#F07E1E;font-weight:700;font-size:12px;letter-spacing:.3px">% Markup</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Applied to all prices before discount</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="markupPct=Math.max(0,markupPct-1);document.getElementById('markupPctVal').textContent=markupPct+'%';document.getElementById('markupPctInp').value=markupPct;updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="markupPctVal" style="color:#F07E1E;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="markupPct=Math.min(200,markupPct+1);document.getElementById('markupPctVal').textContent=markupPct+'%';document.getElementById('markupPctInp').value=markupPct;updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="200" value="0" placeholder="%" id="markupPctInp" oninput="markupPct=Math.max(0,Math.min(200,parseFloat(this.value)||0));document.getElementById('markupPctVal').textContent=markupPct+'%';updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #F07E1E;border-radius:6px;color:#F07E1E;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
+      </div>
+    </div>
     <!-- Discount: Blinds + Accessories stacked -->
     <div class="disc-2col" style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
@@ -444,6 +459,21 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       <div>
         <label style="font-size:11px;color:#aaa;display:block;margin-bottom:4px">Travel Cost (R)</label>
         <input type="number" min="0" step="1" value="0" id="od_inp_travel" style="width:100%;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:7px 10px;font-size:14px" oninput="od_travelCost=parseFloat(this.value)||0;od_updatePrices()">
+      </div>
+    </div>
+    <!-- Markup % -->
+    <div style="margin-top:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #F07E1E;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#F07E1E;font-weight:700;font-size:12px;letter-spacing:.3px">% Markup</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Applied to all prices before discount</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="od_markupPct=Math.max(0,od_markupPct-1);document.getElementById('od_markupPctVal').textContent=od_markupPct+'%';document.getElementById('od_markupPctInp').value=od_markupPct;od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="od_markupPctVal" style="color:#F07E1E;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="od_markupPct=Math.min(200,od_markupPct+1);document.getElementById('od_markupPctVal').textContent=od_markupPct+'%';document.getElementById('od_markupPctInp').value=od_markupPct;od_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="200" value="0" placeholder="%" id="od_markupPctInp" oninput="od_markupPct=Math.max(0,Math.min(200,parseFloat(this.value)||0));document.getElementById('od_markupPctVal').textContent=od_markupPct+'%';od_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #F07E1E;border-radius:6px;color:#F07E1E;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
       </div>
     </div>
     <!-- Discount Blinds + Accessories stacked -->
@@ -545,7 +575,22 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
     </div>
     <div class="disc-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
-        <div><div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Curtains</div><div style="color:#888;font-size:10px;margin-top:3px">Fabric, labour &amp; lining</div></div>
+        <!-- Markup % -->
+      <div style="grid-column:1/-1;margin-bottom:4px">
+        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #F07E1E;border-radius:10px;padding:10px 14px">
+          <div>
+            <div style="color:#F07E1E;font-weight:700;font-size:12px;letter-spacing:.3px">% Markup</div>
+            <div style="color:#888;font-size:10px;margin-top:3px">Applied to all prices before discount</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+            <button onclick="ct_markupPct=Math.max(0,ct_markupPct-1);document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';document.getElementById('ct_markupPctInp').value=ct_markupPct;ct_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+            <span id="ct_markupPctVal" style="color:#F07E1E;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+            <button onclick="ct_markupPct=Math.min(200,ct_markupPct+1);document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';document.getElementById('ct_markupPctInp').value=ct_markupPct;ct_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+            <input type="number" min="0" max="200" value="0" placeholder="%" id="ct_markupPctInp" oninput="ct_markupPct=Math.max(0,Math.min(200,parseFloat(this.value)||0));document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';ct_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #F07E1E;border-radius:6px;color:#F07E1E;padding:5px 6px;font-size:13px;text-align:center">
+          </div>
+        </div>
+      </div>
+      <div><div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Curtains</div><div style="color:#888;font-size:10px;margin-top:3px">Fabric, labour &amp; lining</div></div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
           <button onclick="ct_discPct=Math.max(0,ct_discPct-1);document.getElementById('ct_discVal').textContent=ct_discPct+'%';ct_updatePrices()" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">&#8722;</button>
           <span id="ct_discVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
@@ -676,7 +721,21 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   </div>
   <!-- Discount -->
   <div class="card" style="background:#2a2a2a;color:#fff">
-    <h2 style="margin:0 0 10px;font-size:14px;color:#fff">Discount</h2>
+    <h2 style="margin:0 0 10px;font-size:14px;color:#fff">Markup &amp; Discount</h2>
+    <div style="margin-bottom:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #F07E1E;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#F07E1E;font-weight:700;font-size:12px;letter-spacing:.3px">% Markup</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Applied to all prices before discount</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="sh_markupPct=Math.max(0,sh_markupPct-1);document.getElementById('sh_markupPctVal').textContent=sh_markupPct+'%';document.getElementById('sh_markupPctInp').value=sh_markupPct;sh_renderTotals();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="sh_markupPctVal" style="color:#F07E1E;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="sh_markupPct=Math.min(200,sh_markupPct+1);document.getElementById('sh_markupPctVal').textContent=sh_markupPct+'%';document.getElementById('sh_markupPctInp').value=sh_markupPct;sh_renderTotals();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="200" value="0" placeholder="%" id="sh_markupPctInp" oninput="sh_markupPct=Math.max(0,Math.min(200,parseFloat(this.value)||0));document.getElementById('sh_markupPctVal').textContent=sh_markupPct+'%';sh_renderTotals()" style="width:52px;background:#4a4a4a;border:1px solid #F07E1E;border-radius:6px;color:#F07E1E;padding:5px 6px;font-size:13px;text-align:center">
+        </div>
+      </div>
+    </div>
     <div class="disc-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
         <div>
@@ -1505,7 +1564,7 @@ function renderAllRows(){
   if(c)c.innerHTML=rows.map(function(r,i){return rowHTML(r,i);}).join("");
   updatePrices();
 }
-var installCost=0,travelCost=0,expressDelivery=false,discountPct=0,discountAccPct=0;
+var installCost=0,travelCost=0,expressDelivery=false,discountPct=0,discountAccPct=0,markupPct=0;
 var isOrder=false;
 function toggleOrderMode(){isOrder=!isOrder;var btn=document.getElementById('orderToggleBtn');if(btn){btn.textContent=isOrder?'🔄 Switch to QUOTATION':'🔄 Switch to ORDER';btn.style.background=isOrder?'#F07E1E':'#4A4A4A';}}
 function updatePrices(){
@@ -1623,19 +1682,23 @@ function updatePrices(){
     if(r.loc&&total!=null){fc++;blindsTotal+=base;accTotal+=accBase;fr.push({r:r,p:total,base:base,acc:accBase,mot:motorP,adp:adpP,chg:chgP,rem:remP});}
   });
   document.getElementById("filledCount").textContent=fc+" priced";
-  var discountBlindAmt=discountPct>0?Math.round(blindsTotal*(discountPct/100)):0;
-  var discountAccAmt=discountAccPct>0?Math.round(accTotal*(discountAccPct/100)):0;
-  var discountedTotal=(blindsTotal-discountBlindAmt)+(accTotal-discountAccAmt);
+  var _mkF=1+(markupPct||0)/100;
+  var markedBlinds=Math.round(blindsTotal*_mkF);
+  var markedAcc=Math.round(accTotal*_mkF);
+  var discountBlindAmt=discountPct>0?Math.round(markedBlinds*(discountPct/100)):0;
+  var discountAccAmt=discountAccPct>0?Math.round(markedAcc*(discountAccPct/100)):0;
+  var discountedTotal=(markedBlinds-discountBlindAmt)+(markedAcc-discountAccAmt);
   var expSurcharge=expressDelivery?discountedTotal*0.10:0;
   window._mq_indoor_sub=discountedTotal+expSurcharge;
-  window._mq_indoor_blinds=blindsTotal;
-  window._mq_indoor_acc=accTotal;
+  window._mq_indoor_blinds=markedBlinds;
+  window._mq_indoor_acc=markedAcc;
   window._mq_indoor_express=expSurcharge;
   var sub=discountedTotal+expSurcharge+(installCost||0)+(travelCost||0),vat2=Math.round(sub*0.15),tot=sub+vat2;
   var sh="";
   {
     sh='<div class="summary"><h2>Costing Summary</h2>';
-    fr.forEach(function(x){var det=x.r.bt;if(x.r.bt==="Double Roller"){if(x.r.dr_bo)det+=' · '+x.r.dr_bo;if(x.r.dr_sc)det+=' + '+x.r.dr_sc;}else if(x.r.rng){det+=' · '+x.r.rng;}sh+='<div class="sline"><span class="sn">'+esc(x.r.loc)+' <span style="font-size:11px;color:#cc6030">('+det+')</span></span><span class="sv">'+fmt(x.base)+'</span></div>';if(x.mot>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Motor: '+esc(x.r.mot)+'</span><span class="sv" style="font-size:12px">'+fmt(x.mot)+'</span></div>';if(x.adp>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Adaptor: '+esc(x.r.adp)+'</span><span class="sv" style="font-size:12px">'+fmt(x.adp)+'</span></div>';if(x.chg>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Charger: '+esc(x.r.chg)+'</span><span class="sv" style="font-size:12px">'+fmt(x.chg)+'</span></div>';if(x.rem>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Remote: '+esc(x.r.rem)+'</span><span class="sv" style="font-size:12px">'+fmt(x.rem)+'</span></div>';if(expressDelivery)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#F07E1E">&#9889; Express (10%)</span><span class="sv" style="font-size:12px;color:#F07E1E">'+fmt(x.p*0.10)+'</span></div>';});
+    fr.forEach(function(x){var det=x.r.bt;var _mkFd=1+(markupPct||0)/100;if(x.r.bt==="Double Roller"){if(x.r.dr_bo)det+=' · '+x.r.dr_bo;if(x.r.dr_sc)det+=' + '+x.r.dr_sc;}else if(x.r.rng){det+=' · '+x.r.rng;}sh+='<div class="sline"><span class="sn">'+esc(x.r.loc)+' <span style="font-size:11px;color:#cc6030">('+det+')</span></span><span class="sv">'+fmt(Math.round(x.base*_mkFd))+'</span></div>';if(x.mot>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Motor: '+esc(x.r.mot)+'</span><span class="sv" style="font-size:12px">'+fmt(Math.round(x.mot*_mkFd))+'</span></div>';if(x.adp>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Adaptor: '+esc(x.r.adp)+'</span><span class="sv" style="font-size:12px">'+fmt(Math.round(x.adp*_mkFd))+'</span></div>';if(x.chg>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Charger: '+esc(x.r.chg)+'</span><span class="sv" style="font-size:12px">'+fmt(Math.round(x.chg*_mkFd))+'</span></div>';if(x.rem>0)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ Remote: '+esc(x.r.rem)+'</span><span class="sv" style="font-size:12px">'+fmt(Math.round(x.rem*_mkFd))+'</span></div>';if(expressDelivery)sh+='<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#F07E1E">&#9889; Express (10%)</span><span class="sv" style="font-size:12px;color:#F07E1E">'+fmt(x.p*0.10)+'</span></div>';});
+    if(markupPct>0&&isOrder)sh+='<div class="sline"><span class="sn" style="color:#F07E1E;font-weight:600">Markup ('+markupPct+'%)</span><span class="sv" style="color:#F07E1E">+'+fmt(markedBlinds+markedAcc-blindsTotal-accTotal)+'</span></div>';
     if(discountBlindAmt>0)sh+='<div class="sline"><span class="sn" style="color:#27ae60;font-weight:600">Blind Discount ('+discountPct+'%)</span><span class="sv" style="color:#27ae60">-'+fmt(discountBlindAmt)+'</span></div>';
     if(discountAccAmt>0)sh+='<div class="sline"><span class="sn" style="color:#27ae60;font-weight:600">Accessory Discount ('+discountAccPct+'%)</span><span class="sv" style="color:#27ae60">-'+fmt(discountAccAmt)+'</span></div>';
     if(installCost>0)sh+='<div class="sline"><span class="sn">Installation</span><span class="sv">'+fmt(installCost)+'</span></div>';
@@ -1666,18 +1729,20 @@ function rebuildRow(id){expanded=id;var ae=document.activeElement;if(ae&&ae.blur
 }
 
 // ===== SAVE / LOAD (iOS compatible) =====
-function getState(){return{cust:{nm:v("c_nm"),pn:v("c_pn"),ad:v("c_ad"),cl:v("c_cl"),em:v("c_em"),tl:v("c_tl"),re:v("c_re"),md:v("c_md")},gn:v("c_gn"),rows:rows,exp:expanded,installCost:installCost,travelCost:travelCost,expressDelivery:expressDelivery,discountPct:discountPct,discountAccPct:discountAccPct,isOrder:isOrder};}
+function getState(){return{cust:{nm:v("c_nm"),pn:v("c_pn"),ad:v("c_ad"),cl:v("c_cl"),em:v("c_em"),tl:v("c_tl"),re:v("c_re"),md:v("c_md")},gn:v("c_gn"),rows:rows,exp:expanded,installCost:installCost,travelCost:travelCost,expressDelivery:expressDelivery,discountPct:discountPct,discountAccPct:discountAccPct,markupPct:markupPct,isOrder:isOrder};}
 function loadState(s){
   if(s.cust){var c=s.cust;document.getElementById("c_nm").value=c.nm||"";document.getElementById("c_pn").value=c.pn||"";document.getElementById("c_ad").value=c.ad||"";document.getElementById("c_cl").value=c.cl||"";document.getElementById("c_em").value=c.em||"";document.getElementById("c_tl").value=c.tl||"";document.getElementById("c_re").value=c.re||"";document.getElementById("c_md").value=c.md||"";}
   document.getElementById("c_gn").value=s.gn||"";
   installCost=parseFloat(s.installCost)||0;travelCost=parseFloat(s.travelCost)||0;
   expressDelivery=!!s.expressDelivery;
-  discountPct=parseFloat(s.discountPct)||0;discountAccPct=parseFloat(s.discountAccPct)||0;
+  discountPct=parseFloat(s.discountPct)||0;discountAccPct=parseFloat(s.discountAccPct)||0;markupPct=parseFloat(s.markupPct)||0;
   isOrder=!!s.isOrder;
   var _ii=document.getElementById("inp_install");if(_ii)_ii.value=installCost;
   var _it=document.getElementById("inp_travel");if(_it)_it.value=travelCost;
   var _dp=document.getElementById("discPctVal");if(_dp)_dp.textContent=discountPct+"%";
   var _da=document.getElementById("discAccVal");if(_da)_da.textContent=discountAccPct+"%";
+  var _mk=document.getElementById("markupPctVal");if(_mk)_mk.textContent=markupPct+"%";
+  var _mki=document.getElementById("markupPctInp");if(_mki)_mki.value=markupPct;
   rows=s.rows||[newRow()];uid=Math.max.apply(null,rows.map(function(r){return r.id||0;}))+1;expanded=s.exp||null;renderAllRows();
 }
 function saveJSON(){
@@ -1985,14 +2050,20 @@ async function pwaConfirmSaveJob() {
   var nm = (document.getElementById(nmId) || {}).value || '';
   var pn = (document.getElementById(pnId) || {}).value || '';
   var rawLabel = (ni ? ni.value.trim() : '') || nm || pn || ('Job ' + new Date().toLocaleDateString('en-ZA'));
-  var label = isOut ? ('[Outdoor] ' + rawLabel.replace(/^\[Outdoor\] /,''))
-            : isCurt ? ('[Curtains] ' + rawLabel.replace(/^\[Curtains\] /,''))
-            : isShut ? ('[Shutters] ' + rawLabel.replace(/^\[Shutters\] /,''))
-            : rawLabel;
+
+  // Always save all tabs as unified master job
+  var label = '[Master] ' + rawLabel.replace(/^\[Master\] /,'');
 
   try {
     var savedAt = new Date().toISOString();
-    var state = JSON.stringify(isOut ? od_getState() : isCurt ? ct_getState() : isShut ? (function(){var ss=JSON.parse(JSON.stringify(typeof SH_STATE!=='undefined'?SH_STATE:{rows:[],extrusions:[]}));ss._discPct=typeof sh_discPct!=='undefined'?sh_discPct:0;return ss;})() : getState());
+    var _shState=(function(){var ss=JSON.parse(JSON.stringify(typeof SH_STATE!=='undefined'?SH_STATE:{rows:[],extrusions:[]}));ss._discPct=typeof sh_discPct!=='undefined'?sh_discPct:0;ss._markupPct=typeof sh_markupPct!=='undefined'?sh_markupPct:0;return ss;})();
+    var state = JSON.stringify({
+      kind:'master',
+      indoor:(typeof getState==='function')?getState():null,
+      outdoor:(typeof od_getState==='function')?od_getState():null,
+      curtains:(typeof ct_getState==='function')?ct_getState():null,
+      shutters:_shState
+    });
     var jobs = JSON.parse(localStorage.getItem('tbd_jobs') || '[]');
     var existingIdx = _currentUser
       ? jobs.findIndex(function(j) { return j.label === label && j.owner_email === _currentUser.email; })
@@ -2034,7 +2105,7 @@ async function pwaConfirmSaveJob() {
     if (ni) ni.value = '';
     _updateSyncBadge();
     pwaRenderJobs();
-    pwaToast('✅ Saved: ' + label);
+    pwaToast('✅ Saved: ' + rawLabel);
   } catch(e) {
     pwaToast('⚠️ Could not save job.');
   }
@@ -2209,11 +2280,13 @@ async function _cloudLoadJob(id) {
     } else if (lbl.indexOf('[Shutters] ') === 0) {
       if (typeof switchAppMode === 'function') switchAppMode('shutter');
       if (typeof SH_STATE !== 'undefined') {
-        var _sd=parsed._discPct||0; delete parsed._discPct;
+        var _sd=parsed._discPct||0;var _smk=parsed._markupPct||0; delete parsed._discPct;delete parsed._markupPct;
         SH_STATE = parsed;
-        sh_discPct=_sd;
+        sh_discPct=_sd;sh_markupPct=_smk;
         var _sdi=document.getElementById('sh_discPctInp');if(_sdi)_sdi.value=_sd;
         var _sdv=document.getElementById('sh_discPctVal');if(_sdv)_sdv.textContent=_sd+'%';
+        var _smki=document.getElementById('sh_markupPctInp');if(_smki)_smki.value=_smk;
+        var _smkv=document.getElementById('sh_markupPctVal');if(_smkv)_smkv.textContent=_smk+'%';
         if (typeof sh_render === 'function') sh_render();
       }
     } else {
@@ -2221,7 +2294,7 @@ async function _cloudLoadJob(id) {
       loadState(parsed);
     }
     document.getElementById('pwaJobsPanel').style.display = 'none';
-    pwaToast('\u2705 Job loaded: ' + lbl.replace(/^\[(Outdoor|Curtains|Shutters)\] /,''));
+    pwaToast('\u2705 Job loaded: ' + lbl.replace(/^\[(Master|Outdoor|Curtains|Shutters)\] /,''));
   } catch(e) { pwaToast('\u26a0\ufe0f Could not load job.'); }
 }
 
@@ -2277,7 +2350,7 @@ function pwaLoadJob(i) {
         try{if(parsed.indoor)loadState(parsed.indoor);}catch(e){}
         try{if(parsed.outdoor && typeof od_setState==='function')od_setState(parsed.outdoor);}catch(e){}
         try{if(parsed.curtains && typeof ct_loadState==='function')ct_loadState(parsed.curtains);}catch(e){}
-        try{if(parsed.shutters && typeof SH_STATE!=='undefined'){var _msd=parsed.shutters._discPct||0;delete parsed.shutters._discPct;SH_STATE=parsed.shutters;sh_discPct=_msd;var _msdi=document.getElementById('sh_discPctInp');if(_msdi)_msdi.value=_msd;var _msdv=document.getElementById('sh_discPctVal');if(_msdv)_msdv.textContent=_msd+'%';if(typeof sh_render==='function')sh_render();}}catch(e){}
+        try{if(parsed.shutters && typeof SH_STATE!=='undefined'){var _msd=parsed.shutters._discPct||0;var _mmk=parsed.shutters._markupPct||0;delete parsed.shutters._discPct;delete parsed.shutters._markupPct;SH_STATE=parsed.shutters;sh_discPct=_msd;sh_markupPct=_mmk;var _msdi=document.getElementById('sh_discPctInp');if(_msdi)_msdi.value=_msd;var _msdv=document.getElementById('sh_discPctVal');if(_msdv)_msdv.textContent=_msd+'%';var _mmki=document.getElementById('sh_markupPctInp');if(_mmki)_mmki.value=_mmk;var _mmkv=document.getElementById('sh_markupPctVal');if(_mmkv)_mmkv.textContent=_mmk+'%';if(typeof sh_render==='function')sh_render();}}catch(e){}
         if(parsed.master){
           var mi=document.getElementById('mq_inp_install');if(mi)mi.value=parsed.master.install||0;
           var mt=document.getElementById('mq_inp_travel');if(mt)mt.value=parsed.master.travel||0;
@@ -2298,10 +2371,12 @@ function pwaLoadJob(i) {
       } else if (lbl.indexOf('[Shutters] ') === 0) {
         if (typeof switchAppMode === 'function') switchAppMode('shutter');
         if (typeof SH_STATE !== 'undefined') {
-          var _sd2=parsed._discPct||0; delete parsed._discPct;
-          SH_STATE=parsed; sh_discPct=_sd2;
+          var _sd2=parsed._discPct||0;var _smk2=parsed._markupPct||0; delete parsed._discPct;delete parsed._markupPct;
+          SH_STATE=parsed; sh_discPct=_sd2;sh_markupPct=_smk2;
           var _sdi2=document.getElementById('sh_discPctInp');if(_sdi2)_sdi2.value=_sd2;
           var _sdv2=document.getElementById('sh_discPctVal');if(_sdv2)_sdv2.textContent=_sd2+'%';
+          var _smki2=document.getElementById('sh_markupPctInp');if(_smki2)_smki2.value=_smk2;
+          var _smkv2=document.getElementById('sh_markupPctVal');if(_smkv2)_smkv2.textContent=_smk2+'%';
           if(typeof sh_render==='function')sh_render();
         }
       } else {
@@ -2309,7 +2384,7 @@ function pwaLoadJob(i) {
         loadState(parsed);
       }
       document.getElementById('pwaJobsPanel').style.display = 'none';
-      pwaToast('✅ Job loaded: ' + lbl.replace(/^\[(Outdoor|Curtains|Shutters)\] /,''));
+      pwaToast('✅ Job loaded: ' + lbl.replace(/^\[(Master|Outdoor|Curtains|Shutters)\] /,''));
     }
   } catch(e) { pwaToast('⚠️ Could not load job.'); }
 }
@@ -2811,7 +2886,7 @@ function od_renderAllRows(){
 }
 
 // ===== GLOBAL STATE =====
-var od_installCost=0,od_travelCost=0,od_discountPct=0,od_discountAccPct=0,od_isOrder=false;
+var od_installCost=0,od_travelCost=0,od_discountPct=0,od_discountAccPct=0,od_isOrder=false,od_markupPct=0;
 
 function od_toggleOrderMode(){od_isOrder=!od_isOrder;var btn=document.getElementById('od_orderToggleBtn');if(btn){btn.textContent=od_isOrder?'🔄 Switch to QUOTATION':'🔄 Switch to ORDER';btn.style.background=od_isOrder?'#F07E1E':'#4A4A4A';}}
 
@@ -2840,12 +2915,15 @@ function od_updatePrices(){
   });
   document.getElementById("od_filledCount").textContent=fc>0?"("+fc+" priced)":"";
 
-  var discountBlindAmt=od_discountPct>0?Math.round(blindsTotal*(od_discountPct/100)):0;
-  var discountAccAmt=od_discountAccPct>0?Math.round(accTotal*(od_discountAccPct/100)):0;
-  var discountedTotal=(blindsTotal-discountBlindAmt)+(accTotal-discountAccAmt);
+  var _od_mkF=1+(od_markupPct||0)/100;
+  var od_markedBlinds=Math.round(blindsTotal*_od_mkF);
+  var od_markedAcc=Math.round(accTotal*_od_mkF);
+  var discountBlindAmt=od_discountPct>0?Math.round(od_markedBlinds*(od_discountPct/100)):0;
+  var discountAccAmt=od_discountAccPct>0?Math.round(od_markedAcc*(od_discountAccPct/100)):0;
+  var discountedTotal=(od_markedBlinds-discountBlindAmt)+(od_markedAcc-discountAccAmt);
   window._mq_outdoor_sub=discountedTotal;
-  window._mq_outdoor_blinds=blindsTotal;
-  window._mq_outdoor_acc=accTotal;
+  window._mq_outdoor_blinds=od_markedBlinds;
+  window._mq_outdoor_acc=od_markedAcc;
   var sub=discountedTotal+(od_installCost||0)+(od_travelCost||0),vat=Math.round(sub*0.15),tot=sub+vat;
 
   var hasPriced=fr.some(function(x){return x.total!=null;});
@@ -2854,10 +2932,10 @@ function od_updatePrices(){
   fr.forEach(function(x){
     if(x.total==null)return;
     var det=x.r.bt+' · '+x.r.rng;
-    sh+='<div class="sline"><span class="sn">'+od_esc(x.r.loc||'(unlabelled)')+' <span style="font-size:11px;color:#cc6030">('+det+')</span></span><span class="sv">'+od_fmt(x.base)+'</span></div>';
+    sh+='<div class="sline"><span class="sn">'+od_esc(x.r.loc||'(unlabelled)')+' <span style="font-size:11px;color:#cc6030">('+det+')</span></span><span class="sv">'+od_fmt(Math.round(x.base*_od_mkF))+'</span></div>';
     var _rr=x.r, _isFH=(_rr.bt==="Free Hang"), _isSX=(_rr.bt==="Channel X"||_rr.bt==="Wire X"||_rr.bt==="Zip X");
     var _w=parseInt(_rr.w)||0, _wifh=od_fb(_w,FH_W), _wisx=od_fb(_w,SX_W);
-    function _sl(n,p){return '<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ '+n+'</span><span class="sv" style="font-size:12px">'+od_fmt(p)+'</span></div>';}
+    function _sl(n,p){return '<div class="sline" style="opacity:.85"><span class="sn" style="padding-left:14px;font-size:11px;color:#aaa">↳ '+n+'</span><span class="sv" style="font-size:12px">'+od_fmt(Math.round(p*_od_mkF))+'</span></div>';}
     if(_rr.cas==="135mm") sh+=_sl('Cassette 135mm', _isFH?FH_CAS135[_wifh]:SX_CAS135[Math.min(_wisx,SX_CAS135.length-1)]);
     else if(_rr.cas==="150mm") sh+=_sl('Cassette 150mm', _isFH?FH_CAS150[_wifh]:SX_CAS150[Math.min(_wisx,SX_CAS150.length-1)]);
     if(_isFH){
@@ -2875,6 +2953,7 @@ function od_updatePrices(){
     if(_rr.rem&&_rr.rem!=="None") sh+=_sl('Remote ('+_rr.rem+')', od_REMOTE_P[_rr.rem]||0);
     if(_rr.smart&&_rr.smart!=="None") sh+=_sl('Smart Connect ('+_rr.smart+')', od_SMART_P[_rr.smart]||0);
   });
+  if(od_markupPct>0&&od_isOrder)sh+='<div class="sline"><span class="sn" style="color:#F07E1E;font-weight:600">Markup ('+od_markupPct+'%)</span><span class="sv" style="color:#F07E1E">+'+od_fmt(od_markedBlinds+od_markedAcc-blindsTotal-accTotal)+'</span></div>';
   if(discountBlindAmt>0)sh+='<div class="sline"><span class="sn" style="color:#27ae60;font-weight:600">Blind Discount ('+od_discountPct+'%)</span><span class="sv" style="color:#27ae60">-'+od_fmt(discountBlindAmt)+'</span></div>';
   if(discountAccAmt>0)sh+='<div class="sline"><span class="sn" style="color:#27ae60;font-weight:600">Accessory Discount ('+od_discountAccPct+'%)</span><span class="sv" style="color:#27ae60">-'+od_fmt(discountAccAmt)+'</span></div>';
   if(od_installCost>0)sh+='<div class="sline"><span class="sn">Installation</span><span class="sv">'+od_fmt(od_installCost)+'</span></div>';
@@ -3114,7 +3193,7 @@ function od_getState(){
     c_em:document.getElementById("od_c_em").value,c_tl:document.getElementById("od_c_tl").value,
     c_re:document.getElementById("od_c_re").value,c_md:document.getElementById("od_c_md").value,c_gn:document.getElementById("od_c_gn").value,
     od_installCost:od_installCost,od_travelCost:od_travelCost,
-    od_discountPct:od_discountPct,od_discountAccPct:od_discountAccPct
+    od_discountPct:od_discountPct,od_discountAccPct:od_discountAccPct,od_markupPct:od_markupPct
   };
 }
 function od_setState(s){
@@ -3123,11 +3202,13 @@ function od_setState(s){
   sv("od_c_nm",s.c_nm);sv("od_c_pn",s.c_pn);sv("od_c_ad",s.c_ad);sv("od_c_cl",s.c_cl);
   sv("od_c_em",s.c_em);sv("od_c_tl",s.c_tl);sv("od_c_re",s.c_re);sv("od_c_md",s.c_md);sv("od_c_gn",s.c_gn);
   od_installCost=s.od_installCost||0;od_travelCost=s.od_travelCost||0;
-  od_discountPct=s.od_discountPct||0;od_discountAccPct=s.od_discountAccPct||0;
+  od_discountPct=s.od_discountPct||0;od_discountAccPct=s.od_discountAccPct||0;od_markupPct=s.od_markupPct||0;
   document.getElementById("od_inp_install").value=od_installCost;
   document.getElementById("od_inp_travel").value=od_travelCost;
   document.getElementById("od_discPctVal").textContent=od_discountPct+"%";
   document.getElementById("od_discAccVal").textContent=od_discountAccPct+"%";
+  var _od_mv=document.getElementById("od_markupPctVal");if(_od_mv)_od_mv.textContent=od_markupPct+"%";
+  var _od_mi=document.getElementById("od_markupPctInp");if(_od_mi)_od_mi.value=od_markupPct;
   od_renderAllRows();
 }
 // Outdoor jobs unified with indoor: delegate to indoor panel
@@ -3368,7 +3449,7 @@ var ct_labourUnlined=0;
 var ct_labourLined=0;
 var ct_labourPPUnlined=0;
 var ct_labourPPLined=0;
-var ct_discPct=0;
+var ct_discPct=0,ct_markupPct=0;
 var ct_discTrkPct=0;
 var ct_installCost=0;
 var ct_travelCost=0;
@@ -3948,7 +4029,7 @@ function ct_getState(){
     gn:_vct('ct_c_gn'),
     labUnlined:ct_labourUnlined,labLined:ct_labourLined,
     labPPUnlined:ct_labourPPUnlined,labPPLined:ct_labourPPLined,
-    discPct:ct_discPct,discTrkPct:ct_discTrkPct,
+    discPct:ct_discPct,discTrkPct:ct_discTrkPct,markupPct:ct_markupPct,
     install:ct_installCost,travel:ct_travelCost,
     rows:ct_rows,exp:ct_expanded
   };
@@ -3960,7 +4041,7 @@ function ct_loadState(s){
   _sct('ct_c_gn',s.gn);
   ct_labourUnlined=s.labUnlined||0;ct_labourLined=s.labLined||0;
   ct_labourPPUnlined=s.labPPUnlined||0;ct_labourPPLined=s.labPPLined||0;
-  ct_discPct=s.discPct||0;ct_discTrkPct=s.discTrkPct||0;
+  ct_discPct=s.discPct||0;ct_discTrkPct=s.discTrkPct||0;ct_markupPct=s.markupPct||0;
   ct_installCost=s.install||0;ct_travelCost=s.travel||0;
   var e;
   e=document.getElementById('ct_labour_unlined');if(e)e.value=ct_labourUnlined;
@@ -3971,6 +4052,8 @@ function ct_loadState(s){
   e=document.getElementById('ct_discTrkVal');if(e)e.textContent=ct_discTrkPct+'%';
   e=document.getElementById('ct_discInp');if(e)e.value=ct_discPct;
   e=document.getElementById('ct_discTrkInp');if(e)e.value=ct_discTrkPct;
+  e=document.getElementById('ct_markupPctVal');if(e)e.textContent=ct_markupPct+'%';
+  e=document.getElementById('ct_markupPctInp');if(e)e.value=ct_markupPct;
   e=document.getElementById('ct_inp_install');if(e)e.value=ct_installCost;
   e=document.getElementById('ct_inp_travel');if(e)e.value=ct_travelCost;
   ct_rows=s.rows||[ct_newRow()];
@@ -4111,12 +4194,15 @@ function ct_updatePrices(){
       +'</div>';
   }
 
-  var discAmt=ct_discPct>0?Math.round(curtainSub*(ct_discPct/100)):0;
-  var discTrkAmt=ct_discTrkPct>0?Math.round(motorSub*(ct_discTrkPct/100)):0;
-  window._mq_curtain_sub=curtainSub+trkSub-discAmt-discTrkAmt;
-  window._mq_curtain_fabric=curtainSub;
-  window._mq_curtain_track=trkSub;
-  var sub=curtainSub+trkSub-discAmt-discTrkAmt+ct_installCost+ct_travelCost;
+  var _ct_mkF=1+(ct_markupPct||0)/100;
+  var ct_markedCurtain=Math.round(curtainSub*_ct_mkF);
+  var ct_markedTrk=Math.round(trkSub*_ct_mkF);
+  var discAmt=ct_discPct>0?Math.round(ct_markedCurtain*(ct_discPct/100)):0;
+  var discTrkAmt=ct_discTrkPct>0?Math.round(ct_markedTrk*(ct_discTrkPct/100)):0;
+  window._mq_curtain_sub=ct_markedCurtain+ct_markedTrk-discAmt-discTrkAmt;
+  window._mq_curtain_fabric=ct_markedCurtain;
+  window._mq_curtain_track=ct_markedTrk;
+  var sub=ct_markedCurtain+ct_markedTrk-discAmt-discTrkAmt+ct_installCost+ct_travelCost;
   var vat=Math.round(sub*0.15);
   var grand=sub+vat;
 
@@ -4127,8 +4213,9 @@ function ct_updatePrices(){
     for(var j=0;j<ct_rows.length;j++){
       var rj=ct_rows[j];var tj=ct_rowTotal(rj);if(tj===null)continue;
       var ltj=String.fromCharCode(65+j);
-      html+='<div class="sline"><span class="sn">'+ltj+': '+(rj.loc||'Window '+ltj)+'</span><span class="sv">'+ct_fmtR(tj)+'</span></div>';
+      html+='<div class="sline"><span class="sn">'+ltj+': '+(rj.loc||'Window '+ltj)+'</span><span class="sv">'+ct_fmtR(Math.round(tj*_ct_mkF))+'</span></div>';
     }
+    if(ct_markupPct>0&&(typeof ct_isOrder!=='undefined'?ct_isOrder:false))html+='<div class="sline"><span class="sn" style="color:#F07E1E;font-weight:600">Markup ('+ct_markupPct+'%)</span><span class="sv" style="color:#F07E1E">+'+ct_fmtR(ct_markedCurtain+ct_markedTrk-curtainSub-trkSub)+'</span></div>';
     if(discAmt>0)html+='<div class="sline"><span class="sn" style="color:#90ee90">Discount \u2014 Curtains ('+ct_discPct+'%)</span><span class="sv" style="color:#90ee90">\u2212 '+ct_fmtR(discAmt)+'</span></div>';
     if(discTrkAmt>0)html+='<div class="sline"><span class="sn" style="color:#90ee90">Discount \u2014 Tracks ('+ct_discTrkPct+'%)</span><span class="sv" style="color:#90ee90">\u2212 '+ct_fmtR(discTrkAmt)+'</span></div>';
     if(ct_installCost)html+='<div class="sline"><span class="sn">Installation</span><span class="sv">'+ct_fmtR(ct_installCost)+'</span></div>';
@@ -5003,7 +5090,7 @@ function mq_saveQuote(){
     indoor:(typeof getState==='function')?getState():null,
     outdoor:(typeof od_getState==='function')?od_getState():null,
     curtains:(typeof ct_getState==='function')?ct_getState():null,
-    shutters:(typeof SH_STATE!=='undefined')?JSON.parse(JSON.stringify(SH_STATE)):null,
+    shutters:(typeof SH_STATE!=='undefined')?(function(){var _ss=JSON.parse(JSON.stringify(SH_STATE));_ss._discPct=typeof sh_discPct!=='undefined'?sh_discPct:0;_ss._markupPct=typeof sh_markupPct!=='undefined'?sh_markupPct:0;return _ss;})():null,
     master:{
       install:parseFloat((document.getElementById('mq_inp_install')||{}).value)||0,
       travel:parseFloat((document.getElementById('mq_inp_travel')||{}).value)||0,
@@ -5230,7 +5317,7 @@ document.addEventListener('input',function(e){
 /* === shutters.js === */
 // ═══ BD Shutters ═══
 var sh_isOrder=false;
-var sh_discPct=0;
+var sh_discPct=0,sh_markupPct=0,sh_isOrderMode=false;
 var SH_STATE={rows:[],extrusions:[]};
 
 // ── Price Tables ──
@@ -6093,7 +6180,7 @@ function sh_renderTotals(){
     for(var ri=0;ri<SH_STATE.rows.length;ri++){
       var rr=SH_STATE.rows[ri];
       var rp=sh_calcRow(rr);
-      var rpStr=rp!=null?'R '+rp.toLocaleString('en-ZA'):'—';
+      var rpStr=rp!=null?'R '+Math.round(rp*_sh_mkF).toLocaleString('en-ZA'):'—';
       // build short config label
       var cfg=[];
       cfg.push((rr.panels||1)+' panel'+(rr.panels>1?'s':''));
@@ -6114,14 +6201,19 @@ function sh_renderTotals(){
         +'<span style="font-size:12px;color:#ccc;flex-shrink:0">'+rpStr+'</span>'
         +'</div>';
     }
-    html+='<div style="display:flex;justify-content:space-between;padding:3px 0 4px;font-size:12px;font-weight:700;color:#ddd;border-bottom:1px solid #555"><span>Shutters Subtotal</span><span>R '+shutTotal.toLocaleString('en-ZA')+'</span></div>';
+    html+='<div style="display:flex;justify-content:space-between;padding:3px 0 4px;font-size:12px;font-weight:700;color:#ddd;border-bottom:1px solid #555"><span>Shutters Subtotal</span><span>R '+Math.round(shutTotal*_sh_mkF).toLocaleString('en-ZA')+'</span></div>';
   }
-  if(SH_STATE.extrusions.length>0)html+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;color:#ccc;border-bottom:1px solid #444"><span>Extrusions</span><span>R '+extTotal.toLocaleString('en-ZA')+'</span></div>';
-  var discAmt=sh_discPct>0?Math.round((shutTotal+extTotal)*(sh_discPct/100)):0;
-  var grandAfterDisc=grand-discAmt;
+  if(SH_STATE.extrusions.length>0)html+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;color:#ccc;border-bottom:1px solid #444"><span>Extrusions</span><span>R '+Math.round(extTotal*_sh_mkF).toLocaleString('en-ZA')+'</span></div>';
+  var _sh_mkF=1+(sh_markupPct||0)/100;
+  var sh_markedGrand=Math.round(grand*_sh_mkF);
+  var discAmt=sh_discPct>0?Math.round(sh_markedGrand*(sh_discPct/100)):0;
+  var grandAfterDisc=sh_markedGrand-discAmt;
   var _shInst=sh_installCost||0;var _shTrav=sh_travelCost||0;
   var grandFinal=grandAfterDisc+_shInst+_shTrav;
   window._mq_shutter_total=grandFinal;
+  if(sh_markupPct>0&&sh_isOrderMode){
+    html+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;color:#F07E1E;border-bottom:1px solid #444"><span>Markup ('+sh_markupPct+'%)</span><span>+ R '+(sh_markedGrand-grand).toLocaleString('en-ZA')+'</span></div>';
+  }
   if(sh_discPct>0){
     html+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;color:#6fcf97;border-bottom:1px solid #444"><span>Discount ('+sh_discPct+'%)</span><span>− R '+discAmt.toLocaleString('en-ZA')+'</span></div>';
   }
