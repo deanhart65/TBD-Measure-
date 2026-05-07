@@ -4937,10 +4937,19 @@ function mq_getDetailRows(key){
       var addons=(r.intc?PRICE_INTC:0)+(r.rbc?PRICE_RBC:0)+(r.fbi&&typeof R_FBI!=='undefined'?(R_FBI[fb(parseInt(r.w)||0,R_W)]||0):0);
       var motorP=(MOTOR_P&&MOTOR_P[r.mot])||0,adpP=(ADP_P&&ADP_P[r.adp])||0,chgP=(ADP_P&&ADP_P[r.chg])||0,remP=(REMOTE_P&&REMOTE_P[r.rem])||0,smartP=(SMART_P&&SMART_P[r.smart])||0;
       var _in_mkF=1+(typeof markupPct!=='undefined'?markupPct:0)/100;
-      var rawTotal=p!=null?p+addons+motorP+adpP+chgP+remP+smartP:null;
+      var sklopP=((r.bt==='Cellular Skylight'||r.bt==='Cellular Lantern')&&r.sklop==='Twist Lock Pole')?788:0;
+      var rawBase=p!=null?p+addons:null;
+      var rawAcc=motorP+adpP+chgP+remP+smartP+sklopP;
+      var rawTotal=rawBase!=null?rawBase+rawAcc:null;
       var total=rawTotal!=null?Math.round(rawTotal*_in_mkF):null;
-      var accRaw=motorP+adpP+chgP+remP+smartP;
-      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:(r.bt||'')+(r.rng?' · '+r.rng:''),acc:Math.round(accRaw*_in_mkF),total:total});
+      var subParts=[];
+      if(motorP>0)subParts.push({label:'Motor: '+(r.mot||''),price:Math.round(motorP*_in_mkF)});
+      if(adpP>0)subParts.push({label:'Adaptor: '+(r.adp||''),price:Math.round(adpP*_in_mkF)});
+      if(chgP>0)subParts.push({label:'Charger: '+(r.chg||''),price:Math.round(chgP*_in_mkF)});
+      if(remP>0)subParts.push({label:'Remote: '+(r.rem||''),price:Math.round(remP*_in_mkF)});
+      if(smartP>0)subParts.push({label:'Smart: '+(r.smart||''),price:Math.round(smartP*_in_mkF)});
+      if(sklopP>0)subParts.push({label:'Twist Lock Pole',price:Math.round(sklopP*_in_mkF)});
+      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:(r.bt||'')+(r.rng?' · '+r.rng:''),basePrice:Math.round(rawBase*_in_mkF),subParts:subParts,acc:Math.round(rawAcc*_in_mkF),total:total});
     });
   } else if(key==='outdoor'&&typeof od_rows!=='undefined'){
     od_rows.forEach(function(r,idx){
@@ -4950,7 +4959,10 @@ function mq_getDetailRows(key){
       var mot=typeof od_calcMotor==='function'?od_calcMotor(r):0;
       var _od_mkF2=1+(typeof od_markupPct!=='undefined'?od_markupPct:0)/100;
       var total=base!=null?Math.round((base+acc+mot)*_od_mkF2):null;
-      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:(r.bt||'')+(r.rng?' · '+r.rng:''),acc:Math.round((acc+mot)*_od_mkF2),total:total});
+      var od_subParts=[];
+      if(mot>0)od_subParts.push({label:'Motor: '+(r.mot||''),price:Math.round(mot*_od_mkF2)});
+      if(acc>0)od_subParts.push({label:'Add-ons',price:Math.round(acc*_od_mkF2)});
+      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:(r.bt||'')+(r.rng?' · '+r.rng:''),basePrice:Math.round((base||0)*_od_mkF2),subParts:od_subParts,acc:Math.round((acc+mot)*_od_mkF2),total:total});
     });
   } else if(key==='curtains'&&typeof ct_rows!=='undefined'){
     ct_rows.forEach(function(rx,idx){
@@ -4961,7 +4973,9 @@ function mq_getDetailRows(key){
       var total=Math.round(rawTot*_ct_mkF2);
       var desc=(rx.curtainStyle||'Curtain')+(rx.t1fabName?' · '+rx.t1fabName:'');
       var trkOvr=typeof ct_ovrVal==='function'&&typeof ct_calcTrackPrice==='function'?ct_ovrVal(rx.trkOvr,ct_calcTrackPrice(rx)):0;
-      out.push({num:idx+1,loc:rx.loc,desc:desc,acc:Math.round(trkOvr*_ct_mkF2),total:total});
+      var ct_subParts=[];
+      if(trkOvr>0)ct_subParts.push({label:'Track ('+(rx.trkModel||'')+')',price:Math.round(trkOvr*_ct_mkF2)});
+      out.push({num:idx+1,loc:rx.loc,desc:desc,basePrice:Math.round((rawTot-trkOvr)*_ct_mkF2),subParts:ct_subParts,acc:Math.round(trkOvr*_ct_mkF2),total:total});
     });
   } else if(key==='taylor'&&typeof TY_STATE!=='undefined'){
     var tyNum=1;
@@ -4972,7 +4986,7 @@ function mq_getDetailRows(key){
       var _ty_mkF2=1+(typeof ty_markupPct!=='undefined'?ty_markupPct:0)/100;
       var rowPrice=res.price?Math.round(res.price*_p*_ty_mkF2):null;if(rowPrice==null)return;
       var prodName=(TY_PRODUCTS[r.product||'pro_bifold']||r.product||'Panel');
-      out.push({num:tyNum++,loc:r.loc||('Item '+tyNum),desc:prodName+' · '+_p+'P',acc:0,total:rowPrice});
+      out.push({num:tyNum++,loc:r.loc||('Item '+tyNum),desc:prodName+' · '+_p+'P',basePrice:rowPrice,subParts:[],acc:0,total:rowPrice});
     });
   } else if(key==='shutters'&&typeof SH_STATE!=='undefined'){
     var sNum=1;
@@ -4984,7 +4998,7 @@ function mq_getDetailRows(key){
       var pLabel=SH_PRODUCTS.find(function(x){return x.v===r.product;});
       var hingeTag=(r.product==='altra_hi')?' — '+(r.hinge==='double'?'Double Hinge':'Single Hinge'):'';
       var desc=(pLabel?pLabel.l.replace(' (uPVC)','').replace(' (Aluminium)',''):'Shutter')+hingeTag+(r.panels?' · '+r.panels+'P':'');
-      out.push({num:sNum++,loc:r.loc||('Item '+sNum),desc:desc,acc:0,total:p});
+      out.push({num:sNum++,loc:r.loc||('Item '+sNum),desc:desc,basePrice:p,subParts:[],acc:0,total:p});
     });
     SH_STATE.extrusions.forEach(function(ex){
       var _sh_mkF2=1+(typeof sh_markupPct!=='undefined'?sh_markupPct:0)/100;
@@ -5010,13 +5024,20 @@ function mq_renderSections(){
     var detailRows=mq_getDetailRows(s.key);
     var rowsHtml='';
     detailRows.forEach(function(dr){
+      var basePrice=dr.basePrice!=null?dr.basePrice:dr.total;
       rowsHtml+='<div style="display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px solid #f0f0f0;font-size:12px">'
         +'<span style="color:#333"><span style="font-weight:600;color:#F07E1E;margin-right:6px">'+dr.num+'.</span>'
         +mq_esc(dr.loc)+(dr.desc?'<span style="color:#999;font-size:11px;margin-left:4px">— '+mq_esc(dr.desc)+'</span>':'')
-        +(dr.acc>0?'<span style="color:#888;font-size:10px;margin-left:4px">(incl. acc: '+mq_fmtR(dr.acc)+')</span>':'')
         +'</span>'
-        +'<span style="font-weight:600;color:#333;white-space:nowrap;margin-left:8px">'+mq_fmtR(dr.total)+'</span>'
+        +'<span style="font-weight:600;color:#333;white-space:nowrap;margin-left:8px">'+mq_fmtR(basePrice)+'</span>'
         +'</div>';
+      (dr.subParts||[]).forEach(function(sp){
+        if(!sp||!sp.price||sp.price<=0)return;
+        rowsHtml+='<div style="display:flex;justify-content:space-between;align-items:baseline;padding:1px 0 1px 18px;font-size:11px;color:#888">'
+          +'<span>↳ '+mq_esc(sp.label)+'</span>'
+          +'<span>'+mq_fmtR(sp.price)+'</span>'
+          +'</div>';
+      });
     });
     var partsHtml='';
     (s.parts||[]).forEach(function(p){
@@ -5175,15 +5196,21 @@ function mq_exportPDF(){
 
   addHeader();
   var y=32;doc.setTextColor(30,30,30);doc.setFontSize(8);
-  // Customer row
-  doc.setFont('helvetica','bold');doc.text('Name: ',M,y);doc.setFont('helvetica','normal');doc.text(cust.nm||'',M+14,y);
-  doc.setFont('helvetica','bold');doc.text('Project: ',M+80,y);doc.setFont('helvetica','normal');doc.text(cust.pn||'',M+96,y);
-  doc.setFont('helvetica','bold');doc.text('Date: ',W-M-28,y);doc.setFont('helvetica','normal');doc.text(date,W-M-16,y);
-  y+=5;
-  doc.setFont('helvetica','bold');doc.text('Cell: ',M,y);doc.setFont('helvetica','normal');doc.text(cust.cl||'',M+10,y);
-  doc.setFont('helvetica','bold');doc.text('Email: ',M+50,y);doc.setFont('helvetica','normal');doc.text(cust.em||'',M+63,y);
-  if(cust.ad){doc.setFont('helvetica','bold');doc.text('Address: ',M+120,y);doc.setFont('helvetica','normal');doc.text(cust.ad,M+138,y);}
-  y+=6;
+  // Customer info — uses autoTable for clean wrapping & alignment
+  var custBody=[
+    [{content:'Name',styles:{fontStyle:'bold',cellWidth:18}},(cust.nm||''),
+     {content:'Project',styles:{fontStyle:'bold',cellWidth:18}},(cust.pn||''),
+     {content:'Date',styles:{fontStyle:'bold',cellWidth:14}},(date||'')],
+    [{content:'Cell',styles:{fontStyle:'bold'}},(cust.cl||''),
+     {content:'Email',styles:{fontStyle:'bold'}},(cust.em||''),
+     {content:'',styles:{}},'']
+  ];
+  if(cust.ad){custBody.push([{content:'Address',styles:{fontStyle:'bold'}},{content:cust.ad,colSpan:5}]);}
+  doc.autoTable({startY:y,margin:{left:M,right:M},body:custBody,theme:'plain',
+    styles:{fontSize:8,cellPadding:{top:0.8,bottom:0.8,left:1,right:2},overflow:'linebreak',font:'helvetica',textColor:[30,30,30]},
+    columnStyles:{0:{cellWidth:18},1:{cellWidth:50},2:{cellWidth:18},3:{cellWidth:50},4:{cellWidth:14},5:{cellWidth:'auto'}}
+  });
+  y=doc.lastAutoTable.finalY+3;
 
   // Per-section tables
   var order=MQ_STATE.order||['indoor','outdoor','curtains','shutters'];
@@ -5198,31 +5225,35 @@ function mq_exportPDF(){
     doc.text(sec.label.toUpperCase(),M,y);
     doc.setFillColor(232,70,30);doc.rect(M,y+1,W-M*2,0.5,'F');
     y+=4;
-    // Build single combined table: detail rows + parts breakdown rows + subtotal row
-    var tBody=[],rowTypes=[];
+    // Build combined table: detail rows + sub-part rows + parts breakdown + subtotal
+    var tBody=[],subIdx=[];
     detailRows.forEach(function(dr){
-      tBody.push([String(dr.num),dr.loc||'',dr.desc||'',dr.acc>0?fmt(dr.acc):'',fmt(dr.total)]);
-      rowTypes.push('data');
+      var basePrice=dr.basePrice!=null?dr.basePrice:dr.total;
+      tBody.push([String(dr.num),dr.loc||'',dr.desc||'',fmt(basePrice)]);
+      (dr.subParts||[]).forEach(function(sp){
+        if(!sp||!sp.price||sp.price<=0)return;
+        subIdx.push(tBody.length);
+        tBody.push(['','',{content:'  \u21B3 '+sp.label,styles:{fontSize:6.5,textColor:[120,120,120],fontStyle:'italic'}},{content:fmt(sp.price),styles:{fontSize:6.5,textColor:[120,120,120],fontStyle:'italic',halign:'right'}}]);
+      });
     });
     (sec.parts||[]).forEach(function(p){
       var pct=MQ_STATE.disc[p.key]||0;
-      if(p.raw>0||pct>0){
-        var lbl=p.label+(pct>0?' ('+pct+'% off  \u2212'+fmt(p.amt)+')':'');
-        tBody.push(['',{content:lbl,colSpan:3,styles:{fontSize:6.5,fontStyle:'italic',textColor:[100,100,100],fillColor:[252,252,250],halign:'left'}},{content:fmt(p.raw-p.amt),styles:{fontSize:6.5,fontStyle:'italic',textColor:[39,174,96],halign:'right',fillColor:[252,252,250]}}]);
-        rowTypes.push('part');
+      if(pct>0&&p.amt>0){
+        var lbl=p.label+' Discount ('+pct+'%)';
+        tBody.push(['',{content:lbl,colSpan:2,styles:{fontSize:7,fontStyle:'italic',textColor:[39,174,96],fillColor:[252,252,250],halign:'right'}},{content:'-'+fmt(p.amt),styles:{fontSize:7,fontStyle:'italic',textColor:[39,174,96],halign:'right',fillColor:[252,252,250]}}]);
       }
     });
-    tBody.push(['',{content:sec.label+' Subtotal',colSpan:3,styles:{fontStyle:'bold',fontSize:8,fillColor:[250,250,250],halign:'right',lineColor:[180,180,180]}},{content:fmt(sec.sub),styles:{fontStyle:'bold',fontSize:9,textColor:[232,70,30],halign:'right',fillColor:[250,250,250],lineColor:[180,180,180]}}]);
-    rowTypes.push('subtotal');
+    tBody.push(['',{content:sec.label+' Subtotal',colSpan:2,styles:{fontStyle:'bold',fontSize:8,fillColor:[250,250,250],halign:'right',lineColor:[180,180,180]}},{content:fmt(sec.sub),styles:{fontStyle:'bold',fontSize:9,textColor:[232,70,30],halign:'right',fillColor:[250,250,250],lineColor:[180,180,180]}}]);
     doc.autoTable({
       startY:y,margin:{left:M,right:M},
-      head:[['#','Location','Description','Accessories','Price']],
+      head:[['#','Location','Description','Price']],
       body:tBody,
       theme:'grid',
-      styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},
-      headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},
-      columnStyles:{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30],halign:'center'},1:{cellWidth:38},2:{cellWidth:80},3:{cellWidth:24,halign:'right'},4:{cellWidth:22,halign:'right',fontStyle:'bold'}},
+      styles:{fontSize:7.5,cellPadding:1.5,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica',overflow:'linebreak'},
+      headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:7,fontStyle:'bold',cellPadding:1.8},
+      columnStyles:{0:{cellWidth:10,fontStyle:'bold',textColor:[232,70,30],halign:'center'},1:{cellWidth:40},2:{cellWidth:'auto'},3:{cellWidth:28,halign:'right',fontStyle:'bold'}},
       alternateRowStyles:{fillColor:[248,248,245]},
+      didParseCell:function(d){if(subIdx.indexOf(d.row.index)!==-1){d.cell.styles.fillColor=[252,252,250];}},
       didDrawPage:function(){addHeader();}
     });
     y=doc.lastAutoTable.finalY+4;
