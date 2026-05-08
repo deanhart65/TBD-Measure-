@@ -199,7 +199,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   #flLogoBar{height:90px!important;}
   #flLogoBar img{height:160px!important;transform:scale(1)!important;}
   #hdrGrid{padding:4px 8px!important;gap:6px!important;}
-  #hdrTBDLogo{height:52px!important;width:auto!important;display:block;flex-shrink:0;}  #hdrBDLogo{height:26px!important;width:auto!important;}  #hdrLogoSep{height:38px!important;margin:0 10px!important;}  #hdrGrid>div[style*="flex:1"]{min-width:0;}
+  #hdrTBDLogo{height:72px!important;width:auto!important;display:block;flex-shrink:0;}  #hdrGrid>div[style*="flex:1"]{min-width:0;}
   #authUserEmail{font-size:10px!important;min-width:0;}
   #syncBadge{padding:2px 6px!important;font-size:10px!important;}
   #authBadge button{padding:3px 7px!important;font-size:10px!important;}
@@ -218,11 +218,9 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   </div>
 </div>
 <div id="hdrGrid" style="display:flex;align-items:center;width:100%;max-width:900px;margin:0 auto;padding:10px 16px;box-sizing:border-box">
-  <img id="hdrTBDLogo" style="height:130px;width:auto;display:block;flex-shrink:0">
-  <div id="hdrLogoSep" style="display:none;width:1px;height:70px;background:#ddd;flex-shrink:0;margin:0 20px"></div>
-  <div style="flex:1;display:flex;justify-content:center;align-items:center"><img id="hdrBDLogo" style="height:47px;width:auto;display:none"></div>
+  <img id="hdrTBDLogo" style="height:160px;width:auto;display:block;flex-shrink:0">
   <div style="width:1px;height:40px;background:#ddd;flex-shrink:0;margin:0 16px"></div>
-  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0;flex-shrink:0">
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0;flex-shrink:0;margin-left:auto">
     <div id="hdrLoggedIn" style="display:none;align-items:center;gap:8px"><span id="syncBadge" style="padding:3px 10px;border-radius:12px;font-weight:600;font-size:11px"></span><button onclick="_authLogout()" style="background:transparent;border:1px solid #ccc;color:#888;padding:4px 10px;border-radius:6px;font-size:11px;cursor:pointer">Logout</button></div>
     <div id="hdrLoggedOut" style="display:flex;align-items:center;gap:8px"><button onclick="_authModalOpen()" style="background:#F07E1E;border:none;color:#fff;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">Login</button></div>
     <span id="authUserEmail" style="color:#888;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;text-align:right"></span>
@@ -295,9 +293,9 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
   <div style="background:#fff;border-radius:10px;padding:10px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.06);border:1.5px solid #F07E1E">
     <div onclick="var p=document.getElementById('in_act');var open=p.style.display!=='none';p.style.display=open?'none':'block';document.getElementById('in_act_chev').textContent=open?'▼':'▲'" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none;padding:2px 0">
       <span style="font-size:12px;font-weight:700;color:#4A4A4A">Actions</span>
-      <span id="in_act_chev" style="font-size:11px;color:#999">▼</span>
+      <span id="in_act_chev" style="font-size:11px;color:#999">▲</span>
     </div>
-    <div id="in_act" style="display:none">
+    <div id="in_act" style="display:block">
       <div style="margin-top:8px;margin-bottom:8px">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
           <button class="btn btn-full" style="background:#F07E1E;color:#fff" onclick="isOrder=false;pwaExportPDF()">&#128196; Quote PDF</button>
@@ -574,23 +572,22 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       <div><label style="font-size:11px;color:#aaa;display:block;margin-bottom:4px">Travel Cost (R)</label><input type="number" min="0" value="0" id="ct_inp_travel" style="background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:7px 10px;font-size:14px" oninput="ct_travelCost=parseFloat(this.value)||0;ct_updatePrices()"></div>
     </div>
     <div class="disc-2col" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
-        <!-- Markup % -->
-      <div style="grid-column:1/-1;margin-bottom:4px">
-        <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #F07E1E;border-radius:10px;padding:10px 14px">
-          <div>
-            <div style="color:#F07E1E;font-weight:700;font-size:12px;letter-spacing:.3px">% Markup</div>
-            <div style="color:#888;font-size:10px;margin-top:3px">Applied to all prices before discount</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
-            <button onclick="ct_markupPct=Math.max(0,ct_markupPct-1);document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';document.getElementById('ct_markupPctInp').value=ct_markupPct;ct_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
-            <span id="ct_markupPctVal" style="color:#F07E1E;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
-            <button onclick="ct_markupPct=Math.min(200,ct_markupPct+1);document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';document.getElementById('ct_markupPctInp').value=ct_markupPct;ct_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
-            <input type="number" min="0" max="200" value="0" placeholder="%" id="ct_markupPctInp" oninput="ct_markupPct=Math.max(0,Math.min(200,parseFloat(this.value)||0));document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';ct_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #F07E1E;border-radius:6px;color:#F07E1E;padding:5px 6px;font-size:13px;text-align:center">
-          </div>
+      <!-- Markup % (full width) -->
+      <div style="grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #F07E1E;border-radius:10px;padding:10px 14px">
+        <div>
+          <div style="color:#F07E1E;font-weight:700;font-size:12px;letter-spacing:.3px">% Markup</div>
+          <div style="color:#888;font-size:10px;margin-top:3px">Applied to all prices before discount</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
+          <button onclick="ct_markupPct=Math.max(0,ct_markupPct-1);document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';document.getElementById('ct_markupPctInp').value=ct_markupPct;ct_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">−</button>
+          <span id="ct_markupPctVal" style="color:#F07E1E;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
+          <button onclick="ct_markupPct=Math.min(200,ct_markupPct+1);document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';document.getElementById('ct_markupPctInp').value=ct_markupPct;ct_updatePrices();" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">+</button>
+          <input type="number" min="0" max="200" value="0" placeholder="%" id="ct_markupPctInp" oninput="ct_markupPct=Math.max(0,Math.min(200,parseFloat(this.value)||0));document.getElementById('ct_markupPctVal').textContent=ct_markupPct+'%';ct_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #F07E1E;border-radius:6px;color:#F07E1E;padding:5px 6px;font-size:13px;text-align:center">
         </div>
       </div>
-      <div><div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Curtains</div><div style="color:#888;font-size:10px;margin-top:3px">Fabric, labour &amp; lining</div></div>
+      <!-- Discount Curtains -->
+      <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
+        <div><div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Curtains</div><div style="color:#888;font-size:10px;margin-top:3px">Fabric, labour &amp; lining</div></div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
           <button onclick="ct_discPct=Math.max(0,ct_discPct-1);document.getElementById('ct_discVal').textContent=ct_discPct+'%';ct_updatePrices()" style="width:30px;height:30px;background:#555;border:none;border-radius:6px;color:#fff;font-size:16px;cursor:pointer;font-family:inherit">&#8722;</button>
           <span id="ct_discVal" style="color:#fff;font-weight:700;font-size:16px;min-width:40px;text-align:center">0%</span>
@@ -598,6 +595,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
           <input type="number" min="0" max="100" value="0" id="ct_discInp" oninput="ct_discPct=Math.max(0,Math.min(100,parseFloat(this.value)||0));document.getElementById('ct_discVal').textContent=ct_discPct+'%';ct_updatePrices()" style="width:52px;background:#4a4a4a;border:1px solid #666;border-radius:6px;color:#fff;padding:5px 6px;font-size:13px;text-align:center">
         </div>
       </div>
+      <!-- Discount Motors -->
       <div style="display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,.2);border:1.5px solid #666;border-radius:10px;padding:10px 14px">
         <div><div style="color:#ccc;font-weight:700;font-size:12px;letter-spacing:.3px">% Discount — Motors</div><div style="color:#888;font-size:10px;margin-top:3px">Motor accessories only</div></div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:12px">
@@ -610,6 +608,8 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
     </div>
   </div>
   <div id="ct_summaryContainer"></div>
+  <div style="text-align:center;margin-top:10px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img id="flFooterLogo_ct" style="height:80px;width:auto;display:block;margin:0 auto"><p style="margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>
+  <script>(function(){var s=document.getElementById('flLogoImg');var t=document.getElementById('flFooterLogo_ct');if(s&&t)t.src=s.src;})();</script>
 </div>
 </div> <!-- /curtain-section -->
 
@@ -756,6 +756,8 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
     <h2 style="margin:0 0 10px;font-size:14px;color:#fff">Total</h2>
     <div id="sh_totals_container"></div>
   </div>
+  <div style="text-align:center;margin-top:10px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img id="flFooterLogo_sh" style="height:80px;width:auto;display:block;margin:0 auto"><p style="margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>
+  <script>(function(){var s=document.getElementById('flLogoImg');var t=document.getElementById('flFooterLogo_sh');if(s&&t)t.src=s.src;})();</script>
 </div>
 
 <div id="taylor-section" style="display:none;max-width:900px;margin:0 auto">
@@ -840,6 +842,8 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
     <h2 style="margin:0 0 10px;font-size:14px;color:#fff">Total</h2>
     <div id="ty_totals_container"></div>
   </div>
+  <div style="text-align:center;margin-top:10px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img id="flFooterLogo_ty" style="height:80px;width:auto;display:block;margin:0 auto"><p style="margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>
+  <script>(function(){var s=document.getElementById('flLogoImg');var t=document.getElementById('flFooterLogo_ty');if(s&&t)t.src=s.src;})();</script>
 </div>
 
 <div id="ct-hdr-overlay" style="display:none;position:fixed;z-index:2000;background:#fff;border:1.5px solid #ddd;border-radius:8px;padding:8px 10px;box-shadow:0 4px 16px rgba(0,0,0,.18)"></div>
@@ -1723,7 +1727,7 @@ function updatePrices(){
     sh+='<div class="trow dep"><span class="tl">60% Deposit</span><span class="tv">'+fmt(Math.round(tot*0.6))+'</span></div>';
     sh+='<div class="trow dep"><span class="tl">35% Delivery Balance</span><span class="tv">'+fmt(Math.round(tot*0.35))+'</span></div>';
     sh+='<div class="trow dep"><span class="tl">5% Final Balance</span><span class="tv">'+fmt(Math.round(tot*0.05))+'</span></div></div>';
-    var _flSrc=document.getElementById('flLogoImg');sh+=(_flSrc?'<div style="text-align:center;margin-top:16px;padding:12px 16px 16px;background:#fff;border-radius:10px"><img src="'+_flSrc.src+'" style="height:192px;width:auto;opacity:1;display:block;margin:0 auto"><p style=\"margin-top:14px;font-size:11px;color:#666;line-height:1.6;text-align:center;max-width:480px;margin-left:auto;margin-right:auto;border-top:1px solid #eee;padding-top:12px\"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>':'')+'</div>';
+    var _flSrc=document.getElementById('flLogoImg');sh+=(_flSrc?'<div style="text-align:center;margin-top:16px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img src="'+_flSrc.src+'" style="height:80px;width:auto;opacity:1;display:block;margin:0 auto"><p style=\"margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px\"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>':'')+'</div>';
   }
   document.getElementById("summaryContainer").innerHTML=sh;
 }
@@ -1793,11 +1797,33 @@ function savePDF(){
   var discountedTotal3=(blinds3-discountBlindAmt3)+(acc3tot-discountAccAmt3);
   var expSurcharge3=expressDelivery?discountedTotal3*0.10:0;
   var sub=discountedTotal3+expSurcharge3+(installCost||0)+(travelCost||0),vat3=Math.round(sub*0.15),tot=sub+vat3;
+  var _hdrTitle=isOrder?'BLINDS ORDER':'BLINDS QUOTATION';
+  function addSlimHeader(t){
+    doc.setFillColor(232,70,30);doc.rect(0,0,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+    doc.text(t||_hdrTitle,W-M,8,{align:'right'});
+  }
+  function drawBanking(yPos,clientNm){
+    var bkW=W-M*2,bkH=26;
+    doc.setFillColor(232,70,30);doc.roundedRect(M,yPos,bkW,bkH,2,2,'F');
+    doc.setFillColor(250,250,250);doc.rect(M,yPos+7,bkW,bkH-7,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,yPos,bkW,bkH,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+    doc.text('BANKING DETAILS',M+3,yPos+5);
+    doc.text('Payment Ref: '+(clientNm||'Client Name'),M+bkW-3,yPos+5,{align:'right'});
+    var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
+    doc.text('BANK',bc1,yPos+12);doc.text('ACCOUNT NAME',bc2,yPos+12);doc.text('ACCOUNT NO',bc3,yPos+12);doc.text('BRANCH CODE',bc4,yPos+12);
+    doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,yPos+14,M+bkW-1,yPos+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
+    doc.text('FNB Hout Bay',bc1,yPos+21);doc.text('Total Blind Design cc',bc2,yPos+21);doc.text('62401898658',bc3,yPos+21);doc.text('204009',bc4,yPos+21);
+    return bkH;
+  }
   doc.setFillColor(255,255,255);doc.rect(0,0,W,28,'F');
   // Logo first, then red bar drawn on top so it's edge-to-edge with no gaps
   try{var _li=document.getElementById('logoImg');var _ls=_li.src;if(!_li||!_li.src)throw new Error('logo not ready');var _lw=_li.naturalWidth;var _lh=_li.naturalHeight||_lw;var _pw=65;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
   doc.setFillColor(232,70,30);doc.rect(0,28,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(isOrder?'BLINDS ORDER':'BLINDS QUOTATION',W-M,10,{align:'right'});
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);doc.text(_hdrTitle,W-M,10,{align:'right'});
   doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100);
   doc.text('Total Blind Design cc',W-M,15,{align:'right'});
   doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
@@ -1817,7 +1843,7 @@ function savePDF(){
   var pdfSubIdx=[],pdfExpIdx=[];
   filled.forEach(function(x,i){var r=x.r,lt=i<26?al[i]:""+i;var o2=[];if(r.sbc)o2.push("Steel Chain");if(r.cas)o2.push("70mm Cassette");if(r.fbi)o2.push("Fabric Insert");if(r.intc)o2.push("Int/Coupled");if(r.rbc)o2.push("Remove Bracket Covers");if(r.rt==="Waterfall")o2.push("Waterfall");var colTxt=r.col||"";if(r.bt==="Double Roller")colTxt=(r.dr_bo_col||"")+"/"+(r.dr_sc_col||"");var mP=x._motP||(Math.round((MOTOR_P[r.mot]||0)*_pdf_mkF)),aP=x._adpP||Math.round((ADP_P[r.adp]||0)*_pdf_mkF),cP=x._chgP||Math.round((ADP_P[r.chg]||0)*_pdf_mkF),rP=x._remP||Math.round((REMOTE_P[r.rem]||0)*_pdf_mkF);var sP=x._sklopP||Math.round(((r.bt==="Cellular Skylight"&&r.sklop==="Twist Lock Pole")?788:0)*_pdf_mkF);var baseP=x.base3!=null?x.base3:x.p!=null?x.p-mP-aP-cP-rP-sP:null;tB.push(isOrder?[lt,r.loc||"",r.bt||"",r.rng||"",colTxt,r.w||"",r.d||"",r.ctrl||"",r.fx||"",o2.join(","),baseP!=null?fmt(baseP):""]:[lt,r.loc||"",r.bt||"",r.rng||"",colTxt,r.ctrl||"",r.fx||"",o2.join(","),baseP!=null?fmt(baseP):""]);if(mP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Motor: '+(r.mot||''),'','','','','','','','',fmt(mP)]:['','','','','','','','Motor: '+(r.mot||''),fmt(mP)]);}if(aP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Adaptor: '+(r.adp||''),'','','','','','','','',fmt(aP)]:['','','','','','','','Adaptor: '+(r.adp||''),fmt(aP)]);}if(cP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Charger: '+(r.chg||''),'','','','','','','','',fmt(cP)]:['','','','','','','','Charger: '+(r.chg||''),fmt(cP)]);}if(rP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Remote: '+(r.rem||''),'','','','','','','','',fmt(rP)]:['','','','','','','','Remote: '+(r.rem||''),fmt(rP)]);}
     if(sP>0){pdfSubIdx.push(tB.length);tB.push(isOrder?['','  > Twist Lock Pole','','','','','','','','',fmt(sP)]:['','','','','','','','Twist Lock Pole',fmt(sP)]);}if(expressDelivery&&x.p!=null){pdfExpIdx.push(tB.length);tB.push(isOrder?['','  * Express Surcharge (10%)','','','','','','','','',fmt(x.p*0.10)]:['','','','','','','','Express Surcharge (10%)',fmt(x.p*0.10)]);}});
-  doc.autoTable({startY:y,margin:{left:M,right:M},head:tH,body:tB,theme:'grid',styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},columnStyles:isOrder?{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:35},2:{cellWidth:22},3:{cellWidth:50},4:{cellWidth:20},5:{cellWidth:14,halign:'center'},6:{cellWidth:14,halign:'center'},7:{cellWidth:16},8:{cellWidth:14},9:{cellWidth:60,fontSize:5.5},10:{cellWidth:28,halign:'right',fontStyle:'bold'}}:{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:35},2:{cellWidth:25},3:{cellWidth:50},4:{cellWidth:20},5:{cellWidth:18},6:{cellWidth:15},7:{cellWidth:80,fontSize:6},8:{cellWidth:30,halign:'right',fontStyle:'bold'}},alternateRowStyles:{fillColor:[248,248,245]},didParseCell:function(d){if(pdfSubIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[150,150,150];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[252,252,250];}if(pdfExpIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[232,70,30];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[255,248,245];}}});
+  doc.autoTable({startY:y,margin:{left:M,right:M,top:14},head:tH,body:tB,theme:'grid',styles:{fontSize:7,cellPadding:1.2,lineColor:[200,200,200],lineWidth:0.2,textColor:[30,30,30],font:'helvetica'},headStyles:{fillColor:[74,74,74],textColor:[255,255,255],fontSize:6.5,fontStyle:'bold',cellPadding:1.5},columnStyles:isOrder?{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:35},2:{cellWidth:22},3:{cellWidth:50},4:{cellWidth:20},5:{cellWidth:14,halign:'center'},6:{cellWidth:14,halign:'center'},7:{cellWidth:16},8:{cellWidth:14},9:{cellWidth:60,fontSize:5.5},10:{cellWidth:28,halign:'right',fontStyle:'bold'}}:{0:{cellWidth:8,fontStyle:'bold',textColor:[232,70,30]},1:{cellWidth:35},2:{cellWidth:25},3:{cellWidth:50},4:{cellWidth:20},5:{cellWidth:18},6:{cellWidth:15},7:{cellWidth:80,fontSize:6},8:{cellWidth:30,halign:'right',fontStyle:'bold'}},alternateRowStyles:{fillColor:[248,248,245]},didParseCell:function(d){if(pdfSubIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[150,150,150];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[252,252,250];}if(pdfExpIdx.indexOf(d.row.index)!==-1){d.cell.styles.textColor=[232,70,30];d.cell.styles.fontSize=6;d.cell.styles.fontStyle='italic';d.cell.styles.fillColor=[255,248,245];}},didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}});
   y=doc.lastAutoTable.finalY+3;
   // ── Totals Table — aligned with main table ──
   var totData=[];
@@ -1832,7 +1858,7 @@ function savePDF(){
   totData.push({lb:'60% Deposit — to confirm order & initiate production',vl:fmt(Math.round(tot*0.6)),tag:'dep'});
   totData.push({lb:'35% Delivery Balance — due 24–48 hrs before installation',vl:fmt(Math.round(tot*0.35)),tag:'dep'});
   totData.push({lb:'5% Final Balance — due upon installation sign-off',vl:fmt(Math.round(tot*0.05)),tag:'dep'});
-  doc.autoTable({startY:y,margin:{left:M,right:M},
+  doc.autoTable({startY:y,margin:{left:M,right:M,top:14},
     body:totData.map(function(r){return[r.lb,r.vl];}),
     theme:'grid',
     styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},
@@ -1844,39 +1870,17 @@ function savePDF(){
       else if(tag==='sub'){d.cell.styles.fontStyle='bold';d.cell.styles.fillColor=[245,245,245];d.cell.styles.fontSize=8;}
       else if(tag==='total'){d.cell.styles.fontStyle='bold';d.cell.styles.fontSize=9.5;d.cell.styles.fillColor=[232,70,30];d.cell.styles.textColor=[255,255,255];d.cell.styles.lineColor=[232,70,30];}
       else if(tag==='dep'){d.cell.styles.fillColor=[250,250,250];}
-    }
+    },
+    didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}
   });
   y=doc.lastAutoTable.finalY+4;
   if(expressDelivery){doc.setFontSize(6);doc.setFont('helvetica','italic');doc.setTextColor(200,80,20);doc.text('* Express Delivery: approx. 5 working days. 10% surcharge applied to blinds, accessories & motors. Excludes installation, travel & VAT.',M,y,{maxWidth:W-M*2});y+=5;doc.setTextColor(80);doc.setFont('helvetica','normal');}
-  // ── Banking Details — fixed at bottom of page 1 ──
-  var bky=H-34,bkW=W-M*2,bkH=26;
-  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
-  doc.setFillColor(250,250,250);doc.rect(M,bky+7,bkW,bkH-7,'F');
-  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
-  doc.text('BANKING DETAILS',M+3,bky+5);
-  doc.text('Payment Ref: '+(v('c_nm')||'Client Name'),M+bkW-3,bky+5,{align:'right'});
-  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
-  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
-  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
-  doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
-  doc.text('FNB Hout Bay',bc1,bky+21);doc.text('Total Blind Design cc',bc2,bky+21);doc.text('62401898658',bc3,bky+21);doc.text('204009',bc4,bky+21);
   // ── Footer line ──
   doc.setFontSize(6);doc.setTextColor(170);doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
-  // ── Page 2: Terms & Conditions ──
+  // ── Terms & Conditions — slim header (logo only on page 1) ──
   doc.addPage();
-  var _tcHdrH=_repE?40:34;
-  doc.setFillColor(255,255,255);doc.rect(0,0,W,_tcHdrH,'F');
-  try{var _tcLi=document.getElementById('logoImg');var _tcLs=_tcLi.src;if(!_tcLi||!_tcLi.src)throw new Error();var _tcLw=_tcLi.naturalWidth;var _tcLh=_tcLi.naturalHeight||_tcLw;var _tcPw=65;var _tcPh=Math.round(_tcPw*(_tcLh/_tcLw)*10)/10;doc.addImage(_tcLs,'PNG',M,0,_tcPw,_tcPh);}catch(e){}
-  doc.setFillColor(232,70,30);doc.rect(0,_tcHdrH,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-  doc.text('TERMS & CONDITIONS',W-M,10,{align:'right'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
-  doc.text('Total Blind Design cc',W-M,15,{align:'right'});
-  doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
-  doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-  if(_repE)doc.text('Rep: '+_repE,W-M,27,{align:'right'});
+  addSlimHeader('TERMS & CONDITIONS');
+  var _tcHdrH=10;
   var _tcGap=10,_tcW=(W-M*2-_tcGap)/2,_tcL=M,_tcR=M+_tcW+_tcGap;
   function _tcRender(title,body,x,cW,y){
     var lines=doc.splitTextToSize(body,cW);
@@ -1900,7 +1904,12 @@ function savePDF(){
   tyR=_tcRender('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcR,_tcW,tyR);
   tyR=_tcRender('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcR,_tcW,tyR);
   tyR=_tcRender('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcR,_tcW,tyR);
-  var ty=H-44;
+  // ── Banking + Signature flow on last page ──
+  var _maxTy=Math.max(tyL,tyR)+4;
+  var _needBlk=26+4+8+12+10; // banking + gap + acceptance line/title + fields + footer
+  if(_maxTy+_needBlk>H-6){doc.addPage();addSlimHeader('TERMS & CONDITIONS');_maxTy=14;}
+  drawBanking(_maxTy,v('c_nm'));
+  var ty=_maxTy+26+4;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
   doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
@@ -2286,7 +2295,24 @@ async function _cloudLoadJob(id) {
     if (result.error || !result.data) { pwaToast('\u26a0\ufe0f Could not load job.'); return; }
     var lbl = result.data.label || '';
     var parsed = JSON.parse(result.data.state);
-    if (lbl.indexOf('[Outdoor] ') === 0) {
+    if (lbl.indexOf('[Master] ') === 0 && parsed && parsed.kind==='master') {
+      try{if(parsed.indoor)loadState(parsed.indoor);}catch(e){}
+      try{if(parsed.outdoor && typeof od_setState==='function')od_setState(parsed.outdoor);}catch(e){}
+      try{if(parsed.curtains && typeof ct_loadState==='function')ct_loadState(parsed.curtains);}catch(e){}
+      try{if(parsed.shutters && typeof SH_STATE!=='undefined'){var _msd=parsed.shutters._discPct||0;var _mmk=parsed.shutters._markupPct||0;delete parsed.shutters._discPct;delete parsed.shutters._markupPct;SH_STATE=parsed.shutters;sh_discPct=_msd;sh_markupPct=_mmk;var _msdi=document.getElementById('sh_discPctInp');if(_msdi)_msdi.value=_msd;var _msdv=document.getElementById('sh_discPctVal');if(_msdv)_msdv.textContent=_msd+'%';var _mmki=document.getElementById('sh_markupPctInp');if(_mmki)_mmki.value=_mmk;var _mmkv=document.getElementById('sh_markupPctVal');if(_mmkv)_mmkv.textContent=_mmk+'%';if(typeof sh_render==='function')sh_render();}}catch(e){}
+      try{if(parsed.taylor && typeof TY_STATE!=='undefined'){var _tyd=parsed.taylor._discPct||0;var _tymk=parsed.taylor._markupPct||0;var _tyc=parsed.taylor._cust||{};var _tyn=parsed.taylor._notes||'';delete parsed.taylor._discPct;delete parsed.taylor._markupPct;delete parsed.taylor._cust;delete parsed.taylor._notes;Object.assign(TY_STATE,parsed.taylor);ty_discPct=_tyd;ty_markupPct=_tymk;var _tydi=document.getElementById('ty_discInp');if(_tydi)_tydi.value=_tyd;var _tydv=document.getElementById('ty_discVal');if(_tydv)_tydv.textContent=_tyd+'%';var _tymki=document.getElementById('ty_markupPctInp');if(_tymki)_tymki.value=_tymk;var _tymkv=document.getElementById('ty_markupPctVal');if(_tymkv)_tymkv.textContent=_tymk+'%';['nm','pn','cl','em','ad','md'].forEach(function(k){var el=document.getElementById('ty_c_'+k);if(el)el.value=_tyc[k]||'';});var _tynt=document.getElementById('ty_notes');if(_tynt)_tynt.value=_tyn;if(typeof ty_render==='function')ty_render();}}catch(e){}
+      if(parsed.master){
+        var mi=document.getElementById('mq_inp_install');if(mi)mi.value=parsed.master.install||0;
+        var mt=document.getElementById('mq_inp_travel');if(mt)mt.value=parsed.master.travel||0;
+        if(typeof mq_setInstall==='function')mq_setInstall(parsed.master.install||0);
+        if(typeof mq_setTravel==='function')mq_setTravel(parsed.master.travel||0);
+        if(typeof MQ_STATE!=='undefined'){
+          if(parsed.master.order && parsed.master.order.length){MQ_STATE.order=parsed.master.order.slice();if(MQ_STATE.order.indexOf('shutters')<0)MQ_STATE.order.push('shutters');if(MQ_STATE.order.indexOf('taylor')<0)MQ_STATE.order.push('taylor');}
+          if(parsed.master.disc){var nd={product:parsed.master.disc.product||parsed.master.disc.indoorBlinds||0,motors:parsed.master.disc.motors||parsed.master.disc.indoorAcc||0};MQ_STATE.disc=nd;}
+        }
+      }
+      if (typeof switchAppMode === 'function') switchAppMode('master');
+    } else if (lbl.indexOf('[Outdoor] ') === 0) {
       if (typeof switchAppMode === 'function') switchAppMode('outdoor');
       od_setState(parsed);
     } else if (lbl.indexOf('[Curtains] ') === 0) {
@@ -2979,7 +3005,7 @@ function od_updatePrices(){
   sh+='<div class="trow dep"><span class="tl">60% Deposit</span><span class="tv">'+od_fmt(Math.round(tot*0.6))+'</span></div>';
   sh+='<div class="trow dep"><span class="tl">35% Delivery Balance</span><span class="tv">'+od_fmt(Math.round(tot*0.35))+'</span></div>';
   sh+='<div class="trow dep"><span class="tl">5% Final Balance</span><span class="tv">'+od_fmt(Math.round(tot*0.05))+'</span></div></div>';
-  var _flSrcOd=document.getElementById('flLogoImg');sh+=(_flSrcOd?'<div style="text-align:center;margin-top:16px;padding:12px 16px 16px;background:#fff;border-radius:10px"><img src="'+_flSrcOd.src+'" style="height:192px;width:auto;opacity:1;display:block;margin:0 auto"><p style=\"margin-top:14px;font-size:11px;color:#666;line-height:1.6;text-align:center;max-width:480px;margin-left:auto;margin-right:auto;border-top:1px solid #eee;padding-top:12px\"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>':'')+'</div>';
+  var _flSrcOd=document.getElementById('flLogoImg');sh+=(_flSrcOd?'<div style="text-align:center;margin-top:16px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img src="'+_flSrcOd.src+'" style="height:80px;width:auto;opacity:1;display:block;margin:0 auto"><p style=\"margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px\"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>':'')+'</div>';
   document.getElementById("od_summaryContainer").innerHTML=sh;
 }
 
@@ -3006,6 +3032,28 @@ function od_pwaExportPDF(){
   var isOrd=od_isOrder;
   var date=document.getElementById("od_c_md").value||new Date().toISOString().split("T")[0];
   function gv(id){var e=document.getElementById(id);return e?e.value:"";}
+  var _hdrTitle=isOrd?'OUTDOOR ORDER':'OUTDOOR QUOTATION';
+  function addSlimHeader(t){
+    doc.setFillColor(232,70,30);doc.rect(0,0,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+    doc.text(t||_hdrTitle,W-M,8,{align:'right'});
+  }
+  function drawBanking(yPos,clientNm){
+    var bkW=W-M*2,bkH=26;
+    doc.setFillColor(232,70,30);doc.roundedRect(M,yPos,bkW,bkH,2,2,'F');
+    doc.setFillColor(250,250,250);doc.rect(M,yPos+7,bkW,bkH-7,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,yPos,bkW,bkH,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+    doc.text('BANKING DETAILS',M+3,yPos+5);
+    doc.text('Payment Ref: '+(clientNm||'Client Name'),M+bkW-3,yPos+5,{align:'right'});
+    var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130,130,130);
+    doc.text('BANK',bc1,yPos+12);doc.text('ACCOUNT NAME',bc2,yPos+12);doc.text('ACCOUNT NO',bc3,yPos+12);doc.text('BRANCH CODE',bc4,yPos+12);
+    doc.setDrawColor(210,210,210);doc.setLineWidth(0.15);doc.line(M+1,yPos+14,M+bkW-1,yPos+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30,30,30);
+    doc.text('FNB Hout Bay',bc1,yPos+21);doc.text('Total Blind Design cc',bc2,yPos+21);doc.text('62401898658',bc3,yPos+21);doc.text('204009',bc4,yPos+21);
+    return bkH;
+  }
   // ── Header ──
   doc.setFillColor(255,255,255);doc.rect(0,0,W,28,"F");
   try{var _li=document.getElementById('logoImg');var _ls=_li.src;if(!_li||!_li.src)throw new Error('logo not ready');var _lw=_li.naturalWidth;var _lh=_li.naturalHeight||_lw;var _pw=65;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
@@ -3073,7 +3121,7 @@ function od_pwaExportPDF(){
     if(r.addPullPole)subRow('Pull Pole',PRICE_SX_PULLPOLE);
   });
   doc.autoTable({
-    head:[cols],body:tBdy,startY:y,margin:{left:M,right:M},
+    head:[cols],body:tBdy,startY:y,margin:{left:M,right:M,top:14},
     styles:{fontSize:7,cellPadding:2,overflow:"linebreak"},
     headStyles:{fillColor:[232,70,30],textColor:255,fontStyle:"bold",fontSize:7},
     alternateRowStyles:{fillColor:[250,248,245]},
@@ -3096,7 +3144,8 @@ function od_pwaExportPDF(){
       doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(80,80,80);
       doc.text('- '+sd.desc,M+3,cy,{maxWidth:PW-(sd.price?32:6)});
       if(sd.price){doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(30,30,30);doc.text(sd.price,M+PW-2,cy,{align:'right'});}
-    }
+    },
+    didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}
   });
   y=doc.lastAutoTable.finalY+3;
   // ── Totals ──
@@ -3117,7 +3166,7 @@ function od_pwaExportPDF(){
   totData.push({lb:'5% Final Balance — due upon installation sign-off',vl:od_fmt(Math.round(tot2*0.05)),tag:'dep'});
   var tblW=W-M*2;
   doc.autoTable({
-    startY:y,margin:{left:M,right:M},
+    startY:y,margin:{left:M,right:M,top:14},
     body:totData.map(function(r){return[r.lb,r.vl];}),
     theme:'grid',
     styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},
@@ -3128,36 +3177,15 @@ function od_pwaExportPDF(){
       else if(tag==='sub'){d.cell.styles.fontStyle='bold';d.cell.styles.fillColor=[245,245,245];d.cell.styles.fontSize=8;}
       else if(tag==='total'){d.cell.styles.fontStyle='bold';d.cell.styles.fontSize=9.5;d.cell.styles.fillColor=[232,70,30];d.cell.styles.textColor=[255,255,255];d.cell.styles.lineColor=[232,70,30];}
       else if(tag==='dep'){d.cell.styles.fillColor=[250,250,250];}
-    }
+    },
+    didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}
   });
-  // ── Banking details ──
-  var bky=H-34,bkW=W-M*2,bkH=26;
-  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,"F");
-  doc.setFillColor(250,250,250);doc.rect(M,bky+7,bkW,bkH-7,"F");
-  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,"S");
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
-  doc.text('BANKING DETAILS',M+3,bky+5);doc.text('Payment Ref: '+(gv('od_c_nm')||'Client Name'),M+bkW-3,bky+5,{align:'right'});
-  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
-  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130,130,130);
-  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
-  doc.setDrawColor(210,210,210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30,30,30);
-  doc.text('FNB Hout Bay',bc1,bky+21);doc.text('Total Blind Design cc',bc2,bky+21);doc.text('62401898658',bc3,bky+21);doc.text('204009',bc4,bky+21);
   doc.setFontSize(6);doc.setTextColor(170,170,170);
   doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
-  // ── Page 2: T&Cs ──
+  // ── Terms & Conditions — slim header (logo only on page 1) ──
   doc.addPage();
-  var _tcHdrH=_repE?40:34;
-  doc.setFillColor(255,255,255);doc.rect(0,0,W,_tcHdrH,'F');
-  try{var _tcLi=document.getElementById('logoImg');var _tcLs=_tcLi.src;if(!_tcLi||!_tcLi.src)throw new Error();var _tcLw=_tcLi.naturalWidth;var _tcLh=_tcLi.naturalHeight||_tcLw;var _tcPw=65;var _tcPh=Math.round(_tcPw*(_tcLh/_tcLw)*10)/10;doc.addImage(_tcLs,'PNG',M,0,_tcPw,_tcPh);}catch(e){}
-  doc.setFillColor(232,70,30);doc.rect(0,_tcHdrH,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-  doc.text('TERMS & CONDITIONS',W-M,10,{align:'right'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
-  doc.text('Total Blind Design cc',W-M,15,{align:'right'});
-  doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
-  doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-  if(_repE)doc.text('Rep: '+_repE,W-M,27,{align:'right'});
+  addSlimHeader('TERMS & CONDITIONS');
+  var _tcHdrH=10;
   var _tcGap=10,_tcW=(W-M*2-_tcGap)/2,_tcL=M,_tcR=M+_tcW+_tcGap;
   var _tcRenderOD=function(title,body,x,cW,y){
     var lines=doc.splitTextToSize(body,cW);
@@ -3181,7 +3209,12 @@ function od_pwaExportPDF(){
   tyR=_tcRenderOD('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcR,_tcW,tyR);
   tyR=_tcRenderOD('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcR,_tcW,tyR);
   tyR=_tcRenderOD('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcR,_tcW,tyR);
-  var ty=H-44;
+  // ── Banking + Signature flow on last page ──
+  var _maxTy=Math.max(tyL,tyR)+4;
+  var _needBlk=26+4+8+12+10;
+  if(_maxTy+_needBlk>H-6){doc.addPage();addSlimHeader('TERMS & CONDITIONS');_maxTy=14;}
+  drawBanking(_maxTy,gv('od_c_nm'));
+  var ty=_maxTy+26+4;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
   doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
@@ -4244,7 +4277,7 @@ function ct_updatePrices(){
       +'<div class="trow"><span class="tl" style="color:#aaa;font-size:12px">35% Delivery Balance (24\u201348hrs before install)</span><span class="tv" style="font-size:12px">'+ct_fmtR(grand*0.35)+'</span></div>'
       +'<div class="trow"><span class="tl" style="color:#aaa;font-size:12px">5% Final Balance (upon completion)</span><span class="tv" style="font-size:12px">'+ct_fmtR(grand*0.05)+'</span></div>'
       +'</div>'
-      +(function(){var _fl=document.getElementById('flLogoImg');return _fl?'<div style="text-align:center;margin-top:16px;padding:12px 16px 16px;background:#fff;border-radius:10px"><img src="'+_fl.src+'" style="height:192px;width:auto;opacity:1;display:block;margin:0 auto"><p style=\"margin-top:14px;font-size:11px;color:#666;line-height:1.6;text-align:center;max-width:480px;margin-left:auto;margin-right:auto;border-top:1px solid #eee;padding-top:12px\"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>':'';})()
+      +(function(){var _fl=document.getElementById('flLogoImg');return _fl?'<div style="text-align:center;margin-top:16px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img src="'+_fl.src+'" style="height:80px;width:auto;opacity:1;display:block;margin:0 auto"><p style=\"margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px\"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>':'';})()
       +'</div>';
   }
   container.innerHTML=html;
@@ -4273,6 +4306,28 @@ function ct_pwaExportPDF(isOrd){
   var jsPDFlib=(typeof window.jspdf!=='undefined')?window.jspdf.jsPDF:jsPDF;
   var doc=new jsPDFlib({orientation:'landscape',unit:'mm',format:'a4'});
   var W=297,H=210,M=14,PW=W-M*2;
+  var _hdrTitle=isOrd?'CURTAIN ORDER':'CURTAIN QUOTATION';
+  function addSlimHeader(t){
+    doc.setFillColor(232,70,30);doc.rect(0,0,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+    doc.text(t||_hdrTitle,W-M,8,{align:'right'});
+  }
+  function drawBanking(yPos,clientNm){
+    var bkW=PW,bkH=26;
+    doc.setFillColor(232,70,30);doc.roundedRect(M,yPos,bkW,bkH,2,2,'F');
+    doc.setFillColor(250,250,250);doc.rect(M,yPos+7,bkW,bkH-7,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,yPos,bkW,bkH,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+    doc.text('BANKING DETAILS',M+3,yPos+5);
+    doc.text('Payment Ref: '+(clientNm||'Client Name'),M+bkW-3,yPos+5,{align:'right'});
+    var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130,130,130);
+    doc.text('BANK',bc1,yPos+12);doc.text('ACCOUNT NAME',bc2,yPos+12);doc.text('ACCOUNT NO',bc3,yPos+12);doc.text('BRANCH CODE',bc4,yPos+12);
+    doc.setDrawColor(210,210,210);doc.setLineWidth(0.15);doc.line(M+1,yPos+14,M+bkW-1,yPos+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30,30,30);
+    doc.text('FNB Hout Bay',bc1,yPos+21);doc.text('Total Blind Design cc',bc2,yPos+21);doc.text('62401898658',bc3,yPos+21);doc.text('204009',bc4,yPos+21);
+    return bkH;
+  }
 
   // ── Header ──
   try{var _li=document.getElementById('logoImg');var _ls=_li.src;if(!_li||!_li.src)throw new Error('logo not ready');var _lw=_li.naturalWidth;var _lh=_li.naturalHeight||_lw;var _pw=65;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',(W-_pw)/2,2,_pw,_ph);}catch(e){}
@@ -4448,7 +4503,7 @@ function ct_pwaExportPDF(isOrd){
     }
     var cols=['Window','Description','Drops','Mtg','Fabric','Lining','Labour','Track','Total'];
     var colStyles={0:{cellWidth:24},1:{cellWidth:115},2:{cellWidth:14},3:{cellWidth:14},4:{cellWidth:18},5:{cellWidth:18},6:{cellWidth:18},7:{cellWidth:20},8:{cellWidth:28,halign:'right',fontStyle:'bold'}};
-    doc.autoTable({startY:y,head:[cols],body:bodyData,theme:'striped',headStyles:{fillColor:[232,70,30],textColor:[255,255,255],fontSize:7,fontStyle:'bold'},bodyStyles:{fontSize:7},columnStyles:colStyles,margin:{left:M,right:M},didParseCell:function(d){if(d.section==='body'&&subRowIdx[d.row.index]){d.cell.styles.fontStyle='italic';d.cell.styles.textColor=[130,130,130];d.cell.styles.fontSize=6.5;}}});
+    doc.autoTable({startY:y,head:[cols],body:bodyData,theme:'striped',headStyles:{fillColor:[232,70,30],textColor:[255,255,255],fontSize:7,fontStyle:'bold'},bodyStyles:{fontSize:7},columnStyles:colStyles,margin:{left:M,right:M,top:14},didParseCell:function(d){if(d.section==='body'&&subRowIdx[d.row.index]){d.cell.styles.fontStyle='italic';d.cell.styles.textColor=[130,130,130];d.cell.styles.fontSize=6.5;}},didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}});
     y=doc.lastAutoTable.finalY+5;
   }
 
@@ -4469,39 +4524,16 @@ function ct_pwaExportPDF(isOrd){
   totData.push({lb:'60% Deposit',vl:'R'+Math.round(grand*0.6).toLocaleString('en-ZA'),tag:'dep'});
   totData.push({lb:'35% Delivery Balance',vl:'R'+Math.round(grand*0.35).toLocaleString('en-ZA'),tag:'dep'});
   totData.push({lb:'5% Final Balance',vl:'R'+Math.round(grand*0.05).toLocaleString('en-ZA'),tag:'dep'});
-  doc.autoTable({startY:y,body:totData.map(function(r){return[r.lb,r.vl];}),theme:'grid',styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},columnStyles:{0:{cellWidth:PW-32},1:{cellWidth:32,halign:'right',fontStyle:'bold'}},didParseCell:function(d){var tag=totData[d.row.index]?totData[d.row.index].tag:'';if(tag==='disc'){d.cell.styles.textColor=[39,174,96];d.cell.styles.fontStyle='bold';}else if(tag==='sub'){d.cell.styles.fontStyle='bold';d.cell.styles.fillColor=[245,245,245];d.cell.styles.fontSize=8;}else if(tag==='total'){d.cell.styles.fontStyle='bold';d.cell.styles.fontSize=9.5;d.cell.styles.fillColor=[232,70,30];d.cell.styles.textColor=[255,255,255];d.cell.styles.lineColor=[232,70,30];}else if(tag==='dep'){d.cell.styles.fillColor=[250,250,250];}},margin:{left:M,right:M}});
-
-  // ── Banking details ──
-  var bky=H-34,bkW=PW,bkH=26;
-  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
-  doc.setFillColor(250,250,250);doc.rect(M,bky,bkW,bkH-7,'F');
-  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
-  doc.text('BANKING DETAILS',M+3,bky+5);doc.text('Payment Ref: '+nm,M+bkW-3,bky+5,{align:'right'});
-  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
-  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130,130,130);
-  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
-  doc.setDrawColor(210,210,210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30,30,30);
-  doc.text('FNB Hout Bay',bc1,bky+23);doc.text('Total Blind Design cc',bc2,bky+23);doc.text('62401898658',bc3,bky+23);doc.text('204009',bc4,bky+23);
+  doc.autoTable({startY:y,body:totData.map(function(r){return[r.lb,r.vl];}),theme:'grid',styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},columnStyles:{0:{cellWidth:PW-32},1:{cellWidth:32,halign:'right',fontStyle:'bold'}},didParseCell:function(d){var tag=totData[d.row.index]?totData[d.row.index].tag:'';if(tag==='disc'){d.cell.styles.textColor=[39,174,96];d.cell.styles.fontStyle='bold';}else if(tag==='sub'){d.cell.styles.fontStyle='bold';d.cell.styles.fillColor=[245,245,245];d.cell.styles.fontSize=8;}else if(tag==='total'){d.cell.styles.fontStyle='bold';d.cell.styles.fontSize=9.5;d.cell.styles.fillColor=[232,70,30];d.cell.styles.textColor=[255,255,255];d.cell.styles.lineColor=[232,70,30];}else if(tag==='dep'){d.cell.styles.fillColor=[250,250,250];}},margin:{left:M,right:M,top:14},didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}});
   doc.setFontSize(6);doc.setTextColor(170,170,170);
   doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
   } // end !isOrd
 
   if(!isOrd){
-  // ── Page 2: T&Cs ──
+  // ── Terms & Conditions — slim header (logo only on page 1) ──
   doc.addPage();
-  var _tcHdrH=_repE?40:34;
-  doc.setFillColor(255,255,255);doc.rect(0,0,W,_tcHdrH,'F');
-  try{var _tcLi=document.getElementById('logoImg');var _tcLs=_tcLi.src;if(!_tcLi||!_tcLi.src)throw new Error();var _tcLw=_tcLi.naturalWidth;var _tcLh=_tcLi.naturalHeight||_tcLw;var _tcPw=65;var _tcPh=Math.round(_tcPw*(_tcLh/_tcLw)*10)/10;doc.addImage(_tcLs,'PNG',M,0,_tcPw,_tcPh);}catch(e){}
-  doc.setFillColor(232,70,30);doc.rect(0,_tcHdrH,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-  doc.text('TERMS & CONDITIONS',W-M,10,{align:'right'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
-  doc.text('Total Blind Design cc',W-M,15,{align:'right'});
-  doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
-  doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-  if(_repE)doc.text('Rep: '+_repE,W-M,27,{align:'right'});
+  addSlimHeader('TERMS & CONDITIONS');
+  var _tcHdrH=10;
   var _tcGapCt=10,_tcWCt=(PW-_tcGapCt)/2,_tcLCt=M,_tcRCt=M+_tcWCt+_tcGapCt;
   var _tcRenderCt=function(title,body,x,cW,y){
     var lines=doc.splitTextToSize(body,cW);
@@ -4525,7 +4557,12 @@ function ct_pwaExportPDF(isOrd){
   tyR=_tcRenderCt('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcRCt,_tcWCt,tyR);
   tyR=_tcRenderCt('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcRCt,_tcWCt,tyR);
   tyR=_tcRenderCt('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcRCt,_tcWCt,tyR);
-  var ty=H-44;
+  // ── Banking + Signature flow on last page ──
+  var _maxTy=Math.max(tyL,tyR)+4;
+  var _needBlk=26+4+8+12+10;
+  if(_maxTy+_needBlk>H-6){doc.addPage();addSlimHeader('TERMS & CONDITIONS');_maxTy=14;}
+  drawBanking(_maxTy,nm);
+  var ty=_maxTy+26+4;
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(50,50,50);
@@ -5181,6 +5218,12 @@ function mq_exportPDF(){
   var date=cust.md||new Date().toLocaleDateString('en-ZA');
   var fmt=function(n){return 'R'+Math.round(n||0).toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');};
 
+  // Slim header: thin orange bar + small title. No logo/address (those only appear on page 1)
+  function addSlimHeader(title){
+    doc.setFillColor(232,70,30);doc.rect(0,0,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+    doc.text(title||'MASTER QUOTATION',W-M,8,{align:'right'});
+  }
   function addHeader(){
     doc.setFillColor(255,255,255);doc.rect(0,0,W,28,'F');
     try{var _li=document.getElementById('logoImg');var _ls=_li.src;if(!_li||!_li.src)throw new Error();var _lw=_li.naturalWidth;var _lh=_li.naturalHeight||_lw;var _pw=65;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
@@ -5192,6 +5235,23 @@ function mq_exportPDF(){
     doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
     doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
     if(_repE){doc.text('Rep: '+_repE,W-M,27,{align:'right'});}
+  }
+  // Reusable banking block — draws at given y, returns total height consumed
+  function drawBanking(y){
+    var bkW=W-M*2,bkH=26;
+    doc.setFillColor(232,70,30);doc.roundedRect(M,y,bkW,bkH,2,2,'F');
+    doc.setFillColor(250,250,250);doc.rect(M,y+7,bkW,bkH-7,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,y,bkW,bkH,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+    doc.text('BANKING DETAILS',M+3,y+5);
+    doc.text('Payment Ref: '+(cust.nm||'Client Name'),M+bkW-3,y+5,{align:'right'});
+    var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
+    doc.text('BANK',bc1,y+12);doc.text('ACCOUNT NAME',bc2,y+12);doc.text('ACCOUNT NO',bc3,y+12);doc.text('BRANCH CODE',bc4,y+12);
+    doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,y+14,M+bkW-1,y+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
+    doc.text('FNB Hout Bay',bc1,y+21);doc.text('Total Blind Design cc',bc2,y+21);doc.text('62401898658',bc3,y+21);doc.text('204009',bc4,y+21);
+    return bkH;
   }
 
   addHeader();
@@ -5220,7 +5280,7 @@ function mq_exportPDF(){
     var detailRows=mq_getDetailRows(key);
     if(!detailRows.length)return;
     // Check page space
-    if(y>240){doc.addPage();addHeader();y=34;}
+    if(y>240){doc.addPage();addSlimHeader('MASTER QUOTATION');y=14;}
     doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(74,74,74);
     doc.text(sec.label.toUpperCase(),M,y);
     doc.setFillColor(232,70,30);doc.rect(M,y+1,W-M*2,0.5,'F');
@@ -5254,13 +5314,13 @@ function mq_exportPDF(){
       columnStyles:{0:{cellWidth:10,fontStyle:'bold',textColor:[232,70,30],halign:'center'},1:{cellWidth:40},2:{cellWidth:'auto'},3:{cellWidth:28,halign:'right',fontStyle:'bold'}},
       alternateRowStyles:{fillColor:[248,248,245]},
       didParseCell:function(d){if(subIdx.indexOf(d.row.index)!==-1){d.cell.styles.fillColor=[252,252,250];}},
-      didDrawPage:function(){addHeader();}
+      didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader('MASTER QUOTATION');}
     });
     y=doc.lastAutoTable.finalY+4;
   });
 
   // Grand totals table
-  if(y>230){doc.addPage();addHeader();y=34;}
+  if(y>230){doc.addPage();addSlimHeader('MASTER QUOTATION');y=14;}
   y+=2;
   var totData=[];
   if(inst>0)totData.push({lb:'Installation',vl:fmt(inst),tag:'norm'});
@@ -5275,7 +5335,7 @@ function mq_exportPDF(){
     body:totData.map(function(r){return[r.lb,r.vl];}),
     theme:'grid',
     styles:{fontSize:7.5,font:'helvetica',cellPadding:{top:1.5,bottom:1.5,left:3,right:3},lineColor:[200,200,200],lineWidth:0.2,textColor:[40,40,40]},
-    columnStyles:{0:{cellWidth:161},1:{cellWidth:20,halign:'right',fontStyle:'bold'}},
+    columnStyles:{0:{cellWidth:166},1:{cellWidth:20,halign:'right',fontStyle:'bold'}},
     didParseCell:function(d){
       var tag=totData[d.row.index]?totData[d.row.index].tag:'';
       if(tag==='sub'){d.cell.styles.fontStyle='bold';d.cell.styles.fillColor=[240,240,240];}
@@ -5283,66 +5343,41 @@ function mq_exportPDF(){
       if(tag==='dep'){d.cell.styles.textColor=[39,174,96];d.cell.styles.fontSize=7;}
       if(tag==='sec'){d.cell.styles.textColor=[74,74,74];}
     },
-    didDrawPage:function(){addHeader();}
+    didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader('MASTER QUOTATION');}
   });
-  // ── Banking Details — fixed at bottom of last content page ──
   var H=doc.internal.pageSize.getHeight();
-  var bky=H-34,bkW=W-M*2,bkH=26;
-  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
-  doc.setFillColor(250,250,250);doc.rect(M,bky+7,bkW,bkH-7,'F');
-  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
-  doc.text('BANKING DETAILS',M+3,bky+5);
-  doc.text('Payment Ref: '+(cust.nm||'Client Name'),M+bkW-3,bky+5,{align:'right'});
-  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
-  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
-  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
-  doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
-  doc.text('FNB Hout Bay',bc1,bky+21);doc.text('Total Blind Design cc',bc2,bky+21);doc.text('62401898658',bc3,bky+21);doc.text('204009',bc4,bky+21);
   doc.setFontSize(6);doc.setTextColor(170);doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
-  // ── Page 2: Terms & Conditions ──
+  // ── Terms & Conditions — compressed 2-column layout, fits with banking+sig on one page ──
   doc.addPage();
-  var _mqTcHdrH=_repE?40:34;
-  doc.setFillColor(255,255,255);doc.rect(0,0,W,_mqTcHdrH,'F');
-  try{var _mqLi=document.getElementById('logoImg');var _mqLs=_mqLi.src;if(!_mqLi||!_mqLi.complete||!_mqLi.naturalWidth)throw new Error();var _mqLw=_mqLi.naturalWidth;var _mqLh=_mqLi.naturalHeight||_mqLw;var _mqPw=55;var _mqPh=Math.round(_mqPw*(_mqLh/_mqLw)*10)/10;doc.addImage(_mqLs,'PNG',M,0,_mqPw,_mqPh);}catch(e){}
-  doc.setFillColor(232,70,30);doc.rect(0,_mqTcHdrH,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-  doc.text('TERMS & CONDITIONS',W-M,10,{align:'right'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
-  doc.text('Total Blind Design cc',W-M,15,{align:'right'});
-  doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
-  doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-  if(_repE)doc.text('Rep: '+_repE,W-M,27,{align:'right'});
-  var ty=_mqTcHdrH+6;
-  function mq_tcSection(title,body){
-    doc.setFont('helvetica','normal');doc.setFontSize(7.2);
-    var lines=doc.splitTextToSize(body,W-M*2);
-    var needed=8+lines.length*3.0+3;
-    if(ty+needed>H-20){doc.addPage();ty=20;}
-    doc.setFillColor(245,245,245);doc.rect(M,ty-2,W-M*2,6,'F');
-    doc.setDrawColor(232,70,30);doc.setLineWidth(0.3);doc.line(M,ty-2,M+3,ty-2);
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
-    doc.text(title,M+5,ty+2.5);
-    ty+=7;
-    doc.setFont('helvetica','normal');doc.setFontSize(7.2);doc.setTextColor(50);
-    doc.text(lines,M,ty);
-    ty+=lines.length*3.0+3;
+  addSlimHeader('TERMS & CONDITIONS');
+  var _tcGapM=6,_tcWM=(W-M*2-_tcGapM)/2,_tcLM=M,_tcRM=M+_tcWM+_tcGapM;
+  function mq_tcRender(title,body,x,cW,y){
+    var lines=doc.splitTextToSize(body,cW-2);
+    doc.setFillColor(245,245,245);doc.rect(x,y-1.5,cW,4.8,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.3);doc.line(x,y-1.5,x+2.5,y-1.5);
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(232,70,30);
+    doc.text(title,x+3,y+1.8);y+=4.8;
+    doc.setFont('helvetica','normal');doc.setFontSize(6.2);doc.setTextColor(50);
+    doc.text(lines,x,y);return y+lines.length*2.4+1.8;
   }
-  mq_tcSection('1. QUOTATION VALIDITY','This quotation is valid for 30 days from the date of issue. Prices are subject to change without notice after this period. Re-measurement may be required if measurements have not been confirmed in writing.');
-  mq_tcSection('2. DEPOSIT & PAYMENT','Payment is structured in three stages: (1) A deposit of 60% of the total quoted amount is required to confirm your order and initiate production — no manufacturing will commence until this deposit is received; (2) a Delivery Balance of 35% is payable 24–48 hours prior to the scheduled installation date — this covers the cost of your custom-manufactured goods and must be cleared before the installation team departs our premises; (3) a Final Balance of 5% is payable immediately upon the installation team leaving the site. We accept EFT payments only. No goods will be released or installed until the applicable stage payment has been received in full.');
-  mq_tcSection('3. LEAD TIMES','Standard lead times are 10–15 working days from receipt of deposit and confirmed measurements. Motorised, custom, or imported products may require additional lead time. Total Blind Design will communicate any delays promptly.');
-  mq_tcSection('4. MEASUREMENTS & SITE RESPONSIBILITY','All measurements are taken by a qualified Total Blind Design consultant. Should the client supply their own measurements, Total Blind Design accepts no liability for incorrect sizing. A re-measurement fee may apply for repeat site visits required due to changes or errors in client-supplied dimensions.');
-  mq_tcSection('5. MANUFACTURING & CANCELLATIONS','Once a deposit is received and an order placed, manufacturing commences immediately. Cancellations after this point will forfeit the deposit in full. Alterations to confirmed orders may incur additional charges.');
-  mq_tcSection('6. INSTALLATION','Installation is included where quoted. The client is responsible for ensuring clear, safe access to all installation areas. Additional charges may apply for difficult access, high ceilings, or work outside standard working hours (Mon–Fri, 08:00–17:00).');
-  mq_tcSection('7. FUNCTIONAL COMPLETION','Functional Completion is defined as the point at which window treatments are securely mounted and operational for their intended purpose (light control and/or privacy). Functional Completion is achieved regardless of minor aesthetic matters ("Snags") such as fabric puckering, minor alignment, or cosmetic touch-ups. The existence of a Snag does not negate Functional Completion and does not entitle the client to withhold the Delivery Balance or Final Balance. All agreed Snags will be documented at handover and remedied within 21 working days at no additional charge.');
-  mq_tcSection('8. SNAG RETENTION LIMIT','Should a client dispute Functional Completion, any amount withheld shall not exceed 200% of the estimated cost to remedy the specific Snag(s) in question. This retention cap applies per individual Snag item and does not apply to the Delivery Balance, which is due and payable prior to installation.');
-  mq_tcSection('9. WARRANTY','All products carry a 3-year product warranty from date of installation. Fabric and component warranties are subject to the respective manufacturer terms. Warranty is void in the event of misuse, unauthorised alterations, or damage caused by external factors.');
-  mq_tcSection('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.');
-  mq_tcSection('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable as they are manufactured to your specific requirements. Defective items will be repaired or replaced at the discretion of Total Blind Design.');
-  mq_tcSection('12. GOVERNING LAW','These terms are governed by the laws of the Republic of South Africa. Any disputes shall be subject to the jurisdiction of the Western Cape High Court, Cape Town.');
-  if(ty+38>H-18){doc.addPage();}
-  ty=H-44;
+  var tyL=14,tyR=14;
+  tyL=mq_tcRender('1. QUOTATION VALIDITY','This quotation is valid for 30 days from the date of issue. Prices are subject to change without notice after this period. Re-measurement may be required if measurements have not been confirmed in writing.',_tcLM,_tcWM,tyL);
+  tyL=mq_tcRender('2. DEPOSIT & PAYMENT','Payment is in three stages: (1) 60% deposit confirms order & initiates production; (2) 35% Delivery Balance is payable 24–48 hours before installation and clears before goods leave our premises; (3) 5% Final Balance is due upon installation sign-off. EFT only. No goods released until the applicable stage payment is received in full.',_tcLM,_tcWM,tyL);
+  tyL=mq_tcRender('3. LEAD TIMES','Standard lead times are 10–15 working days from receipt of deposit and confirmed measurements. Motorised, custom, or imported products may require additional time. Delays will be communicated promptly.',_tcLM,_tcWM,tyL);
+  tyL=mq_tcRender('4. MEASUREMENTS & SITE RESPONSIBILITY','Measurements are taken by a qualified Total Blind Design consultant. If client supplies own measurements, TBD accepts no liability for incorrect sizing. A re-measurement fee may apply for repeat visits caused by client-supplied errors.',_tcLM,_tcWM,tyL);
+  tyL=mq_tcRender('5. MANUFACTURING & CANCELLATIONS','Manufacturing commences once deposit is received. Cancellations thereafter forfeit the deposit in full. Alterations to confirmed orders may incur additional charges.',_tcLM,_tcWM,tyL);
+  tyL=mq_tcRender('6. INSTALLATION','Installation is included where quoted. Client must ensure clear, safe access. Surcharges may apply for difficult access, high ceilings, or work outside Mon–Fri 08:00–17:00.',_tcLM,_tcWM,tyL);
+  tyR=mq_tcRender('7. FUNCTIONAL COMPLETION','Functional Completion is the point at which window treatments are securely mounted and operational for light control and/or privacy. It is achieved regardless of minor aesthetic Snags (e.g. fabric puckering, alignment, cosmetic touch-ups). A Snag does not negate Functional Completion or entitle the client to withhold the Delivery or Final Balance. Snags are documented at handover and remedied within 21 working days at no charge.',_tcRM,_tcWM,tyR);
+  tyR=mq_tcRender('8. SNAG RETENTION LIMIT','Where Functional Completion is disputed, any amount withheld shall not exceed 200% of the estimated cost to remedy the specific Snag(s). This cap applies per Snag and does not apply to the Delivery Balance, which is due and payable prior to installation.',_tcRM,_tcWM,tyR);
+  tyR=mq_tcRender('9. WARRANTY','3-year product warranty from date of installation. Fabric and component warranties follow the respective manufacturer terms. Warranty is void in cases of misuse, unauthorised alterations, or external damage.',_tcRM,_tcWM,tyR);
+  tyR=mq_tcRender('10. FABRIC & COLOUR VARIATION','Fabric swatches and samples are representative only. Minor colour and texture variations between samples and manufactured product are inherent in the industry and do not constitute grounds for rejection or refund.',_tcRM,_tcWM,tyR);
+  tyR=mq_tcRender('11. RETURNS & REFUNDS','Custom-made products are non-returnable and non-refundable. Defective items will be repaired or replaced at the discretion of Total Blind Design.',_tcRM,_tcWM,tyR);
+  tyR=mq_tcRender('12. GOVERNING LAW','Governed by the laws of the Republic of South Africa. Disputes are subject to the jurisdiction of the Western Cape High Court, Cape Town.',_tcRM,_tcWM,tyR);
+  // ── Banking + Signature on same page, directly under T&Cs (no white gap) ──
+  var ty=Math.max(tyL,tyR)+3;
+  drawBanking(ty);
+  ty+=26+3;
+  // Signature block flows immediately under banking
   doc.setDrawColor(200,200,200);doc.setLineWidth(0.2);doc.line(M,ty,W-M,ty);ty+=6;
   doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
   doc.text('CLIENT ACCEPTANCE',M,ty);ty+=6;
@@ -6422,12 +6457,34 @@ function sh_exportPDF(){
   var W=297,H=210,M=14;
   var _repE=(typeof _currentUser!=='undefined'&&_currentUser&&_currentUser.email)?_currentUser.email:'';
   var _hdrH=_repE?40:34;
+  var _hdrTitle=sh_isOrder?'SHUTTERS ORDER':'SHUTTERS QUOTATION';
+  function addSlimHeader(t){
+    doc.setFillColor(232,70,30);doc.rect(0,0,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+    doc.text(t||_hdrTitle,W-M,8,{align:'right'});
+  }
+  function drawBanking(yPos,clientNm){
+    var bkW=W-M*2,bkH=26;
+    doc.setFillColor(232,70,30);doc.roundedRect(M,yPos,bkW,bkH,2,2,'F');
+    doc.setFillColor(250,250,250);doc.rect(M,yPos+7,bkW,bkH-7,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,yPos,bkW,bkH,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+    doc.text('BANKING DETAILS',M+3,yPos+5);
+    doc.text('Payment Ref: '+(clientNm||'Client Name'),M+bkW-3,yPos+5,{align:'right'});
+    var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
+    doc.text('BANK',bc1,yPos+12);doc.text('ACCOUNT NAME',bc2,yPos+12);doc.text('ACCOUNT NO',bc3,yPos+12);doc.text('BRANCH CODE',bc4,yPos+12);
+    doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,yPos+14,M+bkW-1,yPos+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
+    doc.text('FNB Hout Bay',bc1,yPos+21);doc.text('Total Blind Design cc',bc2,yPos+21);doc.text('62401898658',bc3,yPos+21);doc.text('204009',bc4,yPos+21);
+    return bkH;
+  }
   function addHeader(){
     doc.setFillColor(255,255,255);doc.rect(0,0,W,_hdrH,'F');
     try{var _li=document.getElementById('logoImg');var _ls=_li.src;if(!_li||!_li.src)throw new Error();var _lw=_li.naturalWidth;var _lh=_li.naturalHeight||_lw;var _pw=65;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_ls,'PNG',M,0,_pw,_ph);}catch(e){}
     doc.setFillColor(232,70,30);doc.rect(0,_hdrH,W,1.5,'F');
     doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-    doc.text(sh_isOrder?'SHUTTERS ORDER':'SHUTTERS QUOTATION',W-M,10,{align:'right'});
+    doc.text(_hdrTitle,W-M,10,{align:'right'});
     doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
     doc.text('Total Blind Design cc',W-M,15,{align:'right'});
     doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
@@ -6534,7 +6591,7 @@ function sh_exportPDF(){
       styles:{fontSize:7,cellPadding:2},
       headStyles:{fillColor:[232,70,30],textColor:255,fontStyle:'bold',fontSize:7},
       columnStyles:{0:{cellWidth:8},1:{cellWidth:35},2:{cellWidth:90},3:{cellWidth:15},4:{cellWidth:60},5:{cellWidth:30,halign:'right',fontStyle:'bold',textColor:[232,70,30]}},
-      didDrawPage:function(){addHeader();}
+      didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}
     });
     cy=doc.lastAutoTable.finalY+3;
     var _stBoxW=90,_stX=W-M-_stBoxW;
@@ -6562,7 +6619,7 @@ function sh_exportPDF(){
       styles:{fontSize:7,cellPadding:2},
       headStyles:{fillColor:[60,60,60],textColor:255,fontStyle:'bold',fontSize:7},
       columnStyles:{0:{cellWidth:8},1:{cellWidth:120},2:{cellWidth:30},3:{cellWidth:30,halign:'right',fontStyle:'bold',textColor:[232,70,30]}},
-      didDrawPage:function(){addHeader();}
+      didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}
     });
     cy=doc.lastAutoTable.finalY+3;
     var _etBoxW=90,_etX=W-M-_etBoxW;
@@ -6589,21 +6646,7 @@ function sh_exportPDF(){
   doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);
   doc.text('TOTAL: R '+grand.toLocaleString('en-ZA'),W-M-4,cy+5,{align:'right'});
   cy+=14;
-  // Banking details — fixed bottom of page 1
-  var bky=H-34,bkW=W-M*2,bkH=26;
-  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
-  doc.setFillColor(250,250,250);doc.rect(M,bky+7,bkW,bkH-7,'F');
-  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
-  doc.text('BANKING DETAILS',M+3,bky+5);
-  doc.text('Payment Ref: '+(cust.nm||'Client Name'),M+bkW-3,bky+5,{align:'right'});
-  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
-  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
-  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
-  doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
-  doc.text('FNB Hout Bay',bc1,bky+21);doc.text('Total Blind Design cc',bc2,bky+21);doc.text('62401898658',bc3,bky+21);doc.text('204009',bc4,bky+21);
-  // Footer line page 1
+  // Footer line page 1 (banking moved to last page)
   doc.setFontSize(6);doc.setTextColor(170);doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
 
   // ── Order Sheets (Order PDF only) ──
@@ -6612,8 +6655,8 @@ function sh_exportPDF(){
     var _osShutterH=90; // approx height per shutter card
     function _osNewPage(){
       doc.addPage();
-      addHeader();
-      _osPageY=_hdrH+8;
+      addSlimHeader();
+      _osPageY=14;
     }
     function _osField(lbl,val,x,y,w){
       doc.setFillColor(248,248,248);doc.rect(x,y,w,7,'F');
@@ -6754,19 +6797,10 @@ function sh_exportPDF(){
     });
   }
 
-  // T&C — always new page, matching indoor header style
+  // T&C — slim header (logo only on page 1)
   doc.addPage();
-  doc.setFillColor(255,255,255);doc.rect(0,0,W,_hdrH,'F');
-  try{var _li2=document.getElementById('logoImg');var _ls2=_li2.src;if(!_li2||!_li2.src)throw new Error();var _lw2=_li2.naturalWidth;var _lh2=_li2.naturalHeight||_lw2;var _pw2=65;var _ph2=Math.round(_pw2*(_lh2/_lw2)*10)/10;doc.addImage(_ls2,'PNG',M,0,_pw2,_ph2);}catch(e2){}
-  doc.setFillColor(232,70,30);doc.rect(0,_hdrH,W,1.5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-  doc.text('TERMS & CONDITIONS',W-M,10,{align:'right'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
-  doc.text('Total Blind Design cc',W-M,15,{align:'right'});
-  doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
-  doc.text('info@totalblinds.co.za | www.totalblinddesign.co.za',W-M,23,{align:'right'});
-  if(_repE)doc.text('Rep: '+_repE,W-M,27,{align:'right'});
-  var cy2=_hdrH+6;
+  addSlimHeader('TERMS & CONDITIONS');
+  var cy2=14;
   var _tcGap=10,_tcW=(W-M*2-_tcGap)/2,_tcL=M,_tcR=M+_tcW+_tcGap;
   function _tcRenderSH(title,body,x,cW,y){
     var lines=doc.splitTextToSize(body,cW);
@@ -6790,7 +6824,12 @@ function sh_exportPDF(){
   tyR=_tcRenderSH('10. COLOUR VARIATION','Due to the nature of manufacturing, minor colour and texture variations may occur. These do not constitute defects.',_tcR,_tcW,tyR);
   tyR=_tcRenderSH('11. RETURNS & REFUNDS','Custom-manufactured shutters cannot be returned or exchanged. No refunds after manufacturing has commenced.',_tcR,_tcW,tyR);
   tyR=_tcRenderSH('12. GOVERNING LAW','This agreement is governed by the laws of the Republic of South Africa. Any disputes will be resolved in the courts of South Africa.',_tcR,_tcW,tyR);
-  var ty=Math.max(tyL,tyR)+6;
+  // ── Banking + Signature flow on last page ──
+  var _maxTy=Math.max(tyL,tyR)+4;
+  var _needBlk=26+4+8+12+10;
+  if(_maxTy+_needBlk>H-6){doc.addPage();addSlimHeader('TERMS & CONDITIONS');_maxTy=14;}
+  drawBanking(_maxTy,cust.nm);
+  var ty=_maxTy+26+6;
   // Signature
   var _fw=(W-M*2-12)/3;
   doc.setDrawColor(180,180,180);doc.setLineWidth(0.3);
@@ -7584,12 +7623,34 @@ function ty_exportPDF(isOrder){
   var W=297,H=210,M=14;
   var _repE=(typeof _currentUser!=='undefined'&&_currentUser&&_currentUser.email)?_currentUser.email:'';
   var _hdrH=_repE?40:34;
+  var _hdrTitle=isOrder?'TAYLOR SHUTTERS ORDER':'TAYLOR SHUTTERS QUOTATION';
+  function addSlimHeader(t){
+    doc.setFillColor(232,70,30);doc.rect(0,0,W,3,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,70,30);
+    doc.text(t||_hdrTitle,W-M,8,{align:'right'});
+  }
+  function drawBanking(yPos,clientNm){
+    var bkW=W-M*2,bkH=26;
+    doc.setFillColor(232,70,30);doc.roundedRect(M,yPos,bkW,bkH,2,2,'F');
+    doc.setFillColor(250,250,250);doc.rect(M,yPos+7,bkW,bkH-7,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,yPos,bkW,bkH,2,2,'S');
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
+    doc.text('BANKING DETAILS',M+3,yPos+5);
+    doc.text('Payment Ref: '+(clientNm||'Client Name'),M+bkW-3,yPos+5,{align:'right'});
+    var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
+    doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
+    doc.text('BANK',bc1,yPos+12);doc.text('ACCOUNT NAME',bc2,yPos+12);doc.text('ACCOUNT NO',bc3,yPos+12);doc.text('BRANCH CODE',bc4,yPos+12);
+    doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,yPos+14,M+bkW-1,yPos+14);
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
+    doc.text('FNB Hout Bay',bc1,yPos+21);doc.text('Total Blind Design cc',bc2,yPos+21);doc.text('62401898658',bc3,yPos+21);doc.text('204009',bc4,yPos+21);
+    return bkH;
+  }
   function addHeader(){
     doc.setFillColor(255,255,255);doc.rect(0,0,W,_hdrH,'F');
     try{var _li=document.getElementById('logoImg');if(!_li||!_li.src)throw new Error();var _lw=_li.naturalWidth;var _lh=_li.naturalHeight||_lw;var _pw=65;var _ph=Math.round(_pw*(_lh/_lw)*10)/10;doc.addImage(_li.src,'PNG',M,0,_pw,_ph);}catch(e){}
     doc.setFillColor(232,70,30);doc.rect(0,_hdrH,W,1.5,'F');
     doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(232,70,30);
-    doc.text(isOrder?'TAYLOR SHUTTERS ORDER':'TAYLOR SHUTTERS QUOTATION',W-M,10,{align:'right'});
+    doc.text(_hdrTitle,W-M,10,{align:'right'});
     doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(100,100,100);
     doc.text('Total Blind Design cc',W-M,15,{align:'right'});
     doc.text('368 Voortrekker Rd, Maitland, Cape Town',W-M,19,{align:'right'});
@@ -7646,7 +7707,8 @@ function ty_exportPDF(isOrder){
       styles:{fontSize:7,cellPadding:2},
       headStyles:{fillColor:[232,70,30],textColor:255,fontStyle:'bold',fontSize:7},
       columnStyles:{0:{cellWidth:8},1:{cellWidth:35},2:{cellWidth:105},3:{cellWidth:12},4:{cellWidth:65},5:{cellWidth:44,halign:'right',fontStyle:'bold',textColor:[232,70,30]}},
-      didDrawPage:function(){addHeader();}
+      margin:{left:M,right:M,top:14},
+      didDrawPage:function(d){if(d.pageNumber>1)addSlimHeader();}
     });
     cy=doc.lastAutoTable.finalY+3;
   }
@@ -7664,19 +7726,52 @@ function ty_exportPDF(isOrder){
   doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);
   doc.text('TOTAL: R '+grand.toLocaleString('en-ZA'),W-M-4,cy+5,{align:'right'});
   cy+=14;
-  var bky=H-34,bkW=W-M*2,bkH=26;
-  doc.setFillColor(232,70,30);doc.roundedRect(M,bky,bkW,bkH,2,2,'F');
-  doc.setFillColor(250,250,250);doc.rect(M,bky+7,bkW,bkH-7,'F');
-  doc.setDrawColor(232,70,30);doc.setLineWidth(0.5);doc.roundedRect(M,bky,bkW,bkH,2,2,'S');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(255,255,255);
-  doc.text('BANKING DETAILS',M+3,bky+5);
-  doc.text('Payment Ref: '+(cust.nm||'Client Name'),M+bkW-3,bky+5,{align:'right'});
-  var bc1=M+3,bc2=M+bkW*0.25+3,bc3=M+bkW*0.5+3,bc4=M+bkW*0.75+3;
-  doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(130);
-  doc.text('BANK',bc1,bky+12);doc.text('ACCOUNT NAME',bc2,bky+12);doc.text('ACCOUNT NO',bc3,bky+12);doc.text('BRANCH CODE',bc4,bky+12);
-  doc.setDrawColor(210);doc.setLineWidth(0.15);doc.line(M+1,bky+14,M+bkW-1,bky+14);
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(30);
-  doc.text('FNB Hout Bay',bc1,bky+21);doc.text('Total Blind Design cc',bc2,bky+21);doc.text('62401898658',bc3,bky+21);doc.text('204009',bc4,bky+21);
+  // Footer page 1 (banking moved to last page)
+  doc.setFontSize(6);doc.setTextColor(170);doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
+
+  // ── Terms & Conditions — slim header (logo only on page 1) ──
+  doc.addPage();
+  addSlimHeader('TERMS & CONDITIONS');
+  var _tcGap=10,_tcW=(W-M*2-_tcGap)/2,_tcL=M,_tcR=M+_tcW+_tcGap;
+  function _tcRenderTY(title,body,x,cW,y){
+    var lines=doc.splitTextToSize(body,cW);
+    doc.setFillColor(245,245,245);doc.rect(x,y-2,cW,6,'F');
+    doc.setDrawColor(232,70,30);doc.setLineWidth(0.3);doc.line(x,y-2,x+3,y-2);
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(232,70,30);
+    doc.text(title,x+5,y+2.5);y+=6;
+    doc.setFont('helvetica','normal');doc.setFontSize(6.5);doc.setTextColor(50,50,50);
+    doc.text(lines,x,y);return y+lines.length*2.6+2;
+  }
+  var tyL=14,tyR=14;
+  tyL=_tcRenderTY('1. QUOTATION VALIDITY','This quotation is valid for 30 days from the date of issue. Prices are subject to change without notice after this period.',_tcL,_tcW,tyL);
+  tyL=_tcRenderTY('2. DEPOSIT & PAYMENT','A 60% deposit is required to confirm the order. The balance is due on completion before installation. EFT payments only.',_tcL,_tcW,tyL);
+  tyL=_tcRenderTY('3. LEAD TIMES','Standard lead time is 4–6 weeks from receipt of deposit. Lead times may vary due to supplier availability. Customer will be notified of any delays.',_tcL,_tcW,tyL);
+  tyL=_tcRenderTY('4. MEASUREMENTS','All measurements are the responsibility of the customer or appointed installer. Total Blind Design cc accepts no liability for incorrect measurements supplied.',_tcL,_tcW,tyL);
+  tyL=_tcRenderTY('5. MANUFACTURING & CANCELLATIONS','Once an order is placed and deposit received, manufacturing begins. Cancellations after this point will forfeit the deposit.',_tcL,_tcW,tyL);
+  tyL=_tcRenderTY('6. INSTALLATION','Installation is only included if expressly stated in this quotation. Customer to ensure site is ready and accessible on installation date.',_tcL,_tcW,tyL);
+  tyR=_tcRenderTY('7. FUNCTIONAL COMPLETION','Acceptance of functional completion is required upon installation. Minor cosmetic issues reported after sign-off may be subject to a call-out fee.',_tcR,_tcW,tyR);
+  tyR=_tcRenderTY('8. SNAG RETENTION','A snag retention of 10% may be held for a maximum of 7 days post installation. Thereafter full payment is due.',_tcR,_tcW,tyR);
+  tyR=_tcRenderTY('9. WARRANTY','Taylor Shutters carry a manufacturer warranty per supplier terms. Warranty excludes misuse, coastal environments within 6km of salt water, and improper maintenance.',_tcR,_tcW,tyR);
+  tyR=_tcRenderTY('10. COLOUR VARIATION','Due to the nature of manufacturing, minor colour and texture variations may occur. These do not constitute defects.',_tcR,_tcW,tyR);
+  tyR=_tcRenderTY('11. RETURNS & REFUNDS','Custom-manufactured shutters cannot be returned or exchanged. No refunds after manufacturing has commenced.',_tcR,_tcW,tyR);
+  tyR=_tcRenderTY('12. GOVERNING LAW','This agreement is governed by the laws of the Republic of South Africa. Any disputes will be resolved in the courts of South Africa.',_tcR,_tcW,tyR);
+  // Banking + Signature on last page
+  var _maxTy=Math.max(tyL,tyR)+4;
+  var _needBlk=26+4+8+12+10;
+  if(_maxTy+_needBlk>H-6){doc.addPage();addSlimHeader('TERMS & CONDITIONS');_maxTy=14;}
+  drawBanking(_maxTy,cust.nm);
+  var ty=_maxTy+26+6;
+  var _fw=(W-M*2-12)/3;
+  doc.setDrawColor(180,180,180);doc.setLineWidth(0.3);
+  doc.line(M,ty,M+_fw,ty);
+  doc.line(M+_fw+6,ty,M+_fw*2+6,ty);
+  doc.line(M+_fw*2+12,ty,W-M,ty);
+  doc.setFontSize(7);doc.setTextColor(100,100,100);
+  doc.text('Client Signature',M,ty+4);
+  doc.text('Print Name',M+_fw+6,ty+4);
+  doc.text('Date',M+_fw*2+12,ty+4);
+  doc.setFontSize(6);doc.setTextColor(150,150,150);
+  doc.text('By signing, the client confirms acceptance of the above terms and conditions.',M,ty+9);
   doc.setFontSize(6);doc.setTextColor(170);doc.text('Total Blind Design | 368 Voortrekker Rd, Maitland | info@totalblinds.co.za | www.totalblinddesign.co.za',W/2,H-5,{align:'center'});
   var fname='TaylorShutter_'+(isOrder?'Order':'Quote')+'_'+(cust.nm||cust.pn||'Client').replace(/[^a-zA-Z0-9]/g,'_')+'.pdf';
   doc.save(fname);
@@ -7684,7 +7779,7 @@ function ty_exportPDF(isOrder){
 
 
 // Copy TBD logo to header display element
-(function(){var _ht=document.getElementById('hdrTBDLogo');var _li=document.getElementById('logoImg');if(_ht&&_li){_ht.src=_li.src;}var _bd=document.getElementById('bdLogoImg');var _hbd=document.getElementById('hdrBDLogo');var _sep=document.getElementById('hdrLogoSep');if(_bd&&_hbd&&_bd.src){_hbd.src=_bd.src;_hbd.style.display='block';if(_sep)_sep.style.display='block';}})();
+(function(){var _ht=document.getElementById('hdrTBDLogo');var _li=document.getElementById('logoImg');if(_ht&&_li){_ht.src=_li.src;}})();
 </script>
 
 </body>
