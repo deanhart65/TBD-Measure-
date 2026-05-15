@@ -63,7 +63,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 .acts{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
 .acts .btn{font-size:12px;padding:8px 14px;min-height:36px}
 /* Summary */
-.summary{background:#3a3a3a;color:#fff;border-radius:10px;padding:16px;margin-top:14px}
+.summary{background:#3a3a3a;color:#fff;border-radius:10px;padding:16px;margin-top:14px;border:1.5px solid #F07E1E}
 .summary h2{font-size:15px;color:#F07E1E;border-bottom:1px solid #666666;padding-bottom:8px;margin-bottom:10px}
 .sline{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #555555;font-size:13px}
 .sline .sn{color:#ccc;flex:1;margin-right:8px}.sline .sv{color:#ffe0d0;font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
@@ -98,7 +98,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
 .type-badge{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:2px 6px;margin-left:4px;vertical-align:middle}
 .tb-fh{background:#e8f4ff;color:#1a6fa0}.tb-cx{background:#fff0e8;color:#a04a1a}.tb-wx{background:#f0ffe8;color:#2a7a2a}.tb-zx{background:#f5e8ff;color:#F07E1E}
 /* Summary */
-.summary{background:#3a3a3a;color:#fff;border-radius:10px;padding:16px;margin-top:14px}
+.summary{background:#3a3a3a;color:#fff;border-radius:10px;padding:16px;margin-top:14px;border:1.5px solid #F07E1E}
 .summary h2{font-size:15px;color:#F07E1E;border-bottom:1px solid #666;padding-bottom:8px;margin-bottom:10px}
 .sline{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #555;font-size:13px}
 .sline .sn{color:#ccc;flex:1;margin-right:8px}.sline .sv{color:#ffe0d0;font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
@@ -410,7 +410,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       </div>
     </div>
   </div>
-  <div id="summaryContainer"></div>
+  <div id="summaryContainer"><div class="summary"><h2>Quote Summary</h2><div class="tsec"><div class="trow"><span class="tl">Subtotal (excl. VAT)</span><span class="tv">R 0,00</span></div><div class="trow"><span class="tl">VAT (15%)</span><span class="tv">R 0,00</span></div><div class="trow big"><span class="tl">TOTAL</span><span class="tv">R 0,00</span></div></div><div class="trow dep"><span class="tl">60% Deposit</span><span class="tv">R 0,00</span></div><div class="trow dep"><span class="tl">35% Delivery Balance</span><span class="tv">R 0,00</span></div><div class="trow dep"><span class="tl">5% Final Balance</span><span class="tv">R 0,00</span></div></div></div>
 </div>
 </div> <!-- /indoor-section -->
 <div id="outdoor-section" style="display:none">
@@ -518,7 +518,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       </div>
     </div>
   </div>
-  <div id="od_summaryContainer"></div>
+  <div id="od_summaryContainer"><div class="summary"><h2>Quote Summary</h2><div class="tsec"><div class="trow"><span class="tl">Subtotal (excl. VAT)</span><span class="tv">R 0,00</span></div><div class="trow"><span class="tl">VAT (15%)</span><span class="tv">R 0,00</span></div><div class="trow big"><span class="tl">TOTAL</span><span class="tv">R 0,00</span></div></div><div class="trow dep"><span class="tl">60% Deposit</span><span class="tv">R 0,00</span></div><div class="trow dep"><span class="tl">35% Delivery Balance</span><span class="tv">R 0,00</span></div><div class="trow dep"><span class="tl">5% Final Balance</span><span class="tv">R 0,00</span></div></div></div>
 </div>
 </div> <!-- /outdoor-section -->
 
@@ -629,7 +629,7 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
       </div>
     </div>
   </div>
-  <div id="ct_summaryContainer"></div>
+  <div id="ct_summaryContainer"><div class="summary"><h2>Quote Summary</h2><div class="tsec"><div class="trow"><span class="tl">Subtotal (excl. VAT)</span><span class="tv">R 0,00</span></div><div class="trow"><span class="tl">VAT (15%)</span><span class="tv">R 0,00</span></div><div class="trow big"><span class="tl">TOTAL</span><span class="tv">R 0,00</span></div></div><div class="trow dep"><span class="tl">60% Deposit</span><span class="tv">R 0,00</span></div><div class="trow dep"><span class="tl">35% Delivery Balance</span><span class="tv">R 0,00</span></div><div class="trow dep"><span class="tl">5% Final Balance</span><span class="tv">R 0,00</span></div></div></div>
   <div style="text-align:center;margin-top:10px;padding:6px 16px 10px;background:#fff;border-radius:10px"><img id="flFooterLogo_ct" style="height:160px;width:auto;display:block;margin:0 auto"><p style="margin-top:8px;font-size:9px;color:#666;line-height:1.5;text-align:center;width:100%;border-top:1px solid #eee;padding-top:6px"><strong>Limitation of Liability:</strong> Finish Logic is a calculation <em>tool</em>. The final responsibility for quote accuracy rests with the consultant generating the quote. Pricing is subject to change without notice.</p></div>
   <script>(function(){var s=document.getElementById('flLogoImg');var t=document.getElementById('flFooterLogo_ct');if(s&&t)t.src=s.src;})();</script>
 </div>
@@ -672,8 +672,8 @@ input[type=checkbox]{-webkit-appearance:checkbox;appearance:checkbox;width:22px!
     <h3 style="margin:6px 0 8px 4px;font-size:14px;color:#4A4A4A">Sections <span style="font-size:11px;font-weight:400;color:#999">&mdash; use ▲▼ to reorder</span></h3>
     <div id="mq_sections_container"></div>
   </div>
-  <div class="toolbar-card" style="background:#2a2a2a;color:#fff;border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);max-width:900px;margin:0 auto 10px">
-    <h3 style="margin:0 0 10px 0;font-size:14px;color:#fff">Grand Total</h3>
+  <div class="toolbar-card" style="background:#2a2a2a;color:#fff;border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.12);max-width:900px;margin:0 auto 10px;border:1.5px solid #F07E1E">
+    <h3 style="margin:0 0 10px 0;font-size:15px;color:#F07E1E;border-bottom:1px solid #666;padding-bottom:8px">Quote Summary</h3>
     <div id="mq_totals_container"></div>
   </div>
 </div>
@@ -1247,7 +1247,12 @@ function _checkImportPrompt() {}
 // ===== PRICING ENGINE =====
 const R_W=[600,800,1000,1200,1400,1600,1800,2000,2200,2400,2500,2700,2900,3100,3200],R_D=[600,800,1000,1200,1400,1600,1800,2000,2200,2400,2600,2800,3000,3200,3400];
 const R={A:[[698,830,936,1005,1175,1282,1332,1877,1964,2051,2138,2228,2315,2402,2490],[724,877,1000,1072,1264,1382,1430,1996,2085,2186,2277,2379,2480,2584,2685],[759,922,1058,1130,1355,1488,1539,2125,2206,2316,2423,2531,2636,2742,2848],[785,973,1118,1197,1445,1593,1637,2247,2342,2442,2557,2659,2759,2861,2962],[813,1018,1175,1264,1539,1690,1735,2371,2463,2575,2696,2808,2916,3026,3135],[844,1063,1238,1325,1621,1797,1841,2496,2593,2707,2836,2952,3065,3180,3294],[868,1118,1295,1389,1716,1894,1942,2614,2720,2831,2980,3091,3201,3311,3422],[904,1166,1355,1449,1808,1998,2041,2736,2842,2958,3117,3234,3350,3465,3581],[931,1212,1414,1516,1894,2104,2149,2878,2973,3092,3256,3376,3498,3617,3739],[1189,1534,1788,1942,2451,2687,2736,2993,3100,3229,3393,3520,3647,3776,3902],[1224,1575,1851,1996,2539,2800,2855,3117,3230,3364,3529,3663,3795,3925,4058],[1245,1628,1911,2066,2644,2910,2958,3239,3360,3499,3665,3803,3941,4079,4217],[1285,1684,1976,2138,2747,3027,3075,3366,3492,3632,3800,3940,4079,4218,4358],[1326,1740,2039,2209,2848,3144,3191,3492,3625,3766,3934,4076,4217,4358,4498],[1367,1796,2103,2281,2951,3261,3306,3618,3756,3898,4069,4214,4355,4497,4639]],B:[[721,909,1052,1123,1368,1505,1946,2143,2242,2337,2445,2540,2640,2738,2835],[779,996,1148,1231,1518,1680,2196,2327,2425,2529,2655,2760,2862,2961,3063],[827,1071,1249,1340,1667,1851,2431,2516,2616,2723,2873,2978,3086,3195,3303],[873,1148,1351,1446,1817,2019,2476,2709,2801,2916,3074,3191,3304,3420,3535],[929,1225,1451,1553,1968,2191,2644,2890,2991,3112,3283,3405,3525,3647,3769],[976,1309,1548,1652,2119,2366,2810,3077,3180,3306,3492,3618,3745,3870,3995],[1250,1636,1916,2084,2666,2929,2982,3265,3372,3500,3693,3821,3951,4079,4205],[1299,1711,2012,2190,2810,3097,3149,3446,3560,3693,3902,4036,4166,4296,4428],[1352,1785,2106,2281,2961,3271,3312,3627,3746,3882,4111,4245,4381,4517,4653],[1394,1860,2201,2393,3112,3440,3489,3814,3936,4065,4317,4444,4575,4704,4834],[1439,1933,2292,2494,3265,3609,3645,3999,4124,4249,4524,4644,4769,4893,5016],[1483,2012,2393,2591,3409,3772,3809,4187,4313,4432,4731,4845,4962,5079,5198],[1537,2084,2485,2698,3572,3936,3973,4373,4498,4613,4938,5045,5157,5269,5383],[1589,2156,2579,2805,3735,4101,4134,4559,4685,4795,5144,5246,5352,5460,5569],[1643,2229,2672,2911,3898,4266,4296,4746,4872,4977,5351,5447,5549,5651,5754]],C:[[801,1021,1191,1278,1583,1753,1860,2060,2133,2221,2339,2427,2514,2601,2687],[861,1131,1321,1418,1780,1979,2066,2302,2373,2466,2608,2699,2791,2885,2977],[925,1233,1461,1558,1979,2206,2274,2538,2625,2714,2875,2964,3055,3147,3238],[992,1335,1588,1698,2178,2433,2477,2773,2862,2966,3143,3248,3354,3458,3562],[1054,1442,1722,1836,2373,2658,2685,3014,3106,3209,3409,3513,3620,3726,3831],[1120,1547,1857,1979,2576,2887,2889,3248,3345,3457,3678,3789,3899,4009,4119],[1213,1654,1979,2119,2732,3057,3101,3490,3584,3711,3946,4073,4197,4322,4447],[1272,1746,2096,2248,2920,3266,3302,3726,3834,3957,4214,4337,4460,4581,4703],[1332,1847,2221,2373,3101,3473,3511,3964,4074,4203,4483,4609,4740,4870,5000],[1388,1944,2344,2506,3282,3678,3715,4203,4313,4452,4748,4885,5022,5158,5295],[1448,2039,2462,2631,3462,3886,3925,4443,4554,4697,5017,5160,5303,5448,5591],[1510,2133,2583,2766,3648,4097,4131,4680,4794,4943,5284,5435,5585,5733,5882],[1565,2231,2710,2896,3827,4304,4338,4918,5033,5190,5553,5708,5865,6020,6177],[1620,2330,2835,3026,4008,4509,4545,5156,5272,5437,5822,5983,6145,6308,6470],[1675,2428,2962,3156,4187,4713,4751,5394,5509,5684,6089,6256,6426,6594,6765]],D:[[806,1075,1264,1403,1542,1862,2257,2375,2533,2640,2648,2752,2857,2962,3065],[877,1191,1421,1573,1735,2114,2533,2663,2842,2955,2962,3075,3194,3312,3431],[946,1307,1568,1745,1921,2364,2811,2955,3151,3269,3278,3399,3527,3653,3781],[1014,1424,1718,1915,2114,2615,3088,3245,3463,3576,3600,3716,3855,3993,4130],[1084,1542,1867,2086,2299,2858,3366,3530,3777,3893,3920,4037,4181,4325,4469],[1154,1659,2017,2257,2491,3109,3642,3817,4085,4204,4238,4357,4510,4664,4818],[1339,1915,2322,2594,2865,3564,3920,4106,4396,4516,4556,4674,4834,4993,5151],[1408,2032,2468,2761,3056,3814,4196,4399,4704,4828,4876,4998,5169,5340,5509],[1477,2150,2624,2933,3249,4063,4474,4684,5014,5141,5194,5321,5503,5684,5865],[1546,2270,2773,3104,3435,4316,4751,4976,5321,5455,5512,5645,5835,6026,6215],[1614,2391,2924,3274,3628,4565,5026,5264,5631,5769,5831,5968,6169,6368,6570],[1686,2507,3072,3446,3814,4810,5308,5552,5939,6081,6149,6292,6500,6709,6919],[1756,2624,3223,3615,4005,5060,5584,5845,6248,6396,6467,6616,6834,7053,7272],[1825,2741,3372,3783,4195,5311,5859,6139,6557,6713,6788,6939,7169,7397,7627],[1894,2858,3522,3951,4386,5561,6136,6431,6866,7028,7107,7263,7503,7743,7983]],E:[[888,1183,1391,1543,1695,2050,2481,2612,2785,2904,2912,3028,3143,3258,3372],[964,1308,1564,1729,1908,2325,2785,2929,3126,3251,3258,3383,3512,3643,3773],[1040,1438,1725,1919,2112,2599,3092,3251,3466,3597,3607,3739,3879,4020,4161],[1117,1567,1890,2106,2325,2877,3397,3570,3809,3934,3960,4088,4241,4393,4545],[1192,1695,2053,2294,2528,3144,3703,3883,4154,4283,4313,4440,4599,4758,4917],[1270,1825,2219,2481,2740,3421,4006,4200,4494,4626,4663,4792,4962,5130,5300],[1474,2106,2553,2853,3152,3920,4313,4516,4835,4967,5012,5142,5317,5492,5667],[1549,2236,2714,3039,3364,4196,4616,4841,5175,5311,5363,5497,5686,5875,6064],[1624,2365,2886,3226,3573,4469,4921,5153,5516,5656,5714,5853,6052,6252,6452],[1702,2497,3051,3413,3779,4747,5227,5473,5853,6001,6063,6210,6419,6628,6839],[1775,2630,3216,3602,3990,5021,5530,5791,6194,6347,6413,6564,6786,7005,7225],[1855,2757,3380,3790,4196,5291,5837,6107,6533,6690,6765,6922,7151,7380,7611],[1932,2886,3544,3976,4404,5566,6141,6429,6873,7037,7115,7278,7518,7757,7997],[2009,3016,3708,4161,4613,5841,6445,6751,7211,7384,7465,7634,7885,8135,8385],[2086,3144,3874,4346,4822,6116,6749,7073,7550,7730,7817,7989,8249,8511,8771]],F:[[997,1329,1564,1735,1906,2302,2788,2934,3130,3264,3271,3402,3531,3661,3789],[1083,1470,1756,1944,2142,2611,3130,3292,3512,3653,3661,3802,3947,4094,4241],[1170,1615,1936,2156,2372,2921,3474,3653,3895,4042,4053,4200,4359,4518,4675],[1252,1760,2123,2367,2611,3231,3816,4010,4280,4421,4450,4593,4765,4935,5107],[1339,1906,2307,2578,2839,3533,4160,4363,4668,4813,4844,4988,5168,5346,5525],[1426,2051,2492,2788,3079,3843,4500,4718,5049,5196,5240,5386,5574,5765,5955],[1655,2367,2871,3204,3542,4403,4844,5074,5433,5581,5633,5778,5974,6171,6366],[1740,2512,3050,3413,3779,4715,5185,5438,5813,5966,6027,6177,6389,6601,6813],[1825,2657,3243,3626,4013,5022,5530,5790,6196,6354,6421,6577,6801,7026,7249],[1911,2805,3427,3836,4246,5335,5874,6150,6577,6743,6812,6976,7211,7448,7684],[1996,2954,3614,4048,4485,5641,6214,6508,6960,7133,7206,7376,7624,7871,8119],[2084,3098,3799,4259,4715,5945,6560,6862,7342,7517,7600,7779,8036,8293,8550],[2170,3243,3983,4467,4950,6255,6901,7224,7721,7906,7994,8177,8448,8715,8981],[2258,3388,4166,4675,5184,6563,7243,7586,8101,8297,8387,8576,8860,9138,9412],[2345,3533,4350,4885,5419,6873,7584,7950,8480,8686,8781,8974,9270,9560,9843]],G:[[1158,1533,1817,2002,2444,2706,2864,3060,3170,3249,3723,4065,4316,4567,4818],[1270,1710,2047,2253,2779,3079,3254,3476,3596,3674,4251,4646,4939,5228,5521],[1387,1898,2274,2505,3116,3456,3645,3896,4027,4104,4770,5227,5555,5883,6212],[1503,2075,2505,2756,3445,3832,4037,4316,4451,4529,5294,5809,6179,6550,6920],[1620,2258,2733,3008,3780,4204,4429,4730,4877,4954,5822,6391,6799,7209,7617],[1739,2444,2964,3260,4110,4577,4819,5150,5308,5382,6341,6973,7420,7866,8311],[1850,2622,3193,3512,4444,4954,5211,5568,5729,5809,6866,7554,8040,8525,9013],[1968,2808,3418,3763,4781,5322,5603,5988,6157,6235,7386,8136,8661,9189,9715],[2085,2987,3645,4013,5110,5698,5996,6409,6582,6659,7906,8719,9281,9845,10407],[2258,3260,3991,4396,5615,6261,6582,7036,7223,7083,8426,9302,9901,10501,null],[2432,3534,4333,4775,6112,6822,7168,7667,7862,7507,8946,9885,10521,11157,null],[2609,3808,4675,5150,6615,7380,7756,8292,8504,7931,9466,10468,11141,11813,null],[2783,4082,5021,5529,7112,7947,8343,8919,9143,8355,9986,11051,11761,12469,null],[2956,4355,5366,5907,7611,8513,8929,9546,9784,8779,10506,11634,12381,13125,null],[3130,4629,5712,6285,8108,9078,9516,10172,10424,9203,11026,12217,13001,13781,null]],H:[[1285,1736,2075,2289,2818,3126,3303,3528,3649,3730,4316,4720,5017,5315,5612],[1432,1963,2358,2599,3237,3596,3789,4054,4183,4261,4971,5445,5792,6139,6484],[1578,2193,2644,2913,3649,4065,4282,4574,4720,4799,5626,6174,6564,6956,7348],[1724,2423,2938,3233,4071,4529,4775,5100,5249,5327,6280,6900,7341,7781,8221],[1867,2644,3222,3544,4489,4999,5261,5626,5780,5859,6932,7626,8118,8612,9104],[2012,2875,3507,3857,4904,5468,5755,6145,6319,6395,7586,8354,8890,9428,9963],[2159,3103,3789,4176,5322,5934,6242,6670,6848,6929,8242,9080,9667,10253,10839],[2303,3327,4077,4489,5738,6405,6733,7191,7380,7459,8897,9807,10446,11083,11720],[2449,3556,4360,4804,6157,6866,7219,7716,7918,7989,9552,10534,11225,11913,12601],[2668,3896,4792,5280,6777,7571,7951,8498,8717,8519,10207,11261,12004,12743,13482],[2886,4238,5222,5748,7405,8270,8690,9288,9516,9049,10862,11988,12783,13573,14363],[3103,4577,5647,6223,8029,8973,9419,10071,10316,9579,11517,12715,13562,14403,15244],[3321,4924,6076,6691,8657,9675,10155,10859,11117,10109,12172,13442,14341,15233,16125],[3538,5272,6505,7160,9285,10374,10889,11646,11917,10639,12827,14169,15120,16063,17006],[3756,5619,6933,7627,9914,11074,11625,12434,12718,11169,13482,14896,15899,16893,17887]],I:[[1421,2053,2499,2795,3098,3865,4098,4330,4670,4880,4921,5390,5729,6067,6405],[1594,2347,2875,3225,3580,4489,4763,5028,5431,5670,5710,6268,6666,7062,7459],[1774,2644,3254,3659,4059,5121,5431,5729,6190,6457,6497,7141,7600,8059,8517],[1947,2946,3636,4088,4534,5755,6095,6430,6944,7246,7286,8020,8534,9046,9560],[2120,3243,4013,4518,5017,6386,6759,7129,7705,8036,8075,8897,9466,10036,10607],[2300,3539,4396,4944,5497,7017,7427,7834,8467,8822,8863,9767,10405,11045,11681],[2472,3836,4775,5374,5972,7645,8092,8534,9227,9613,9650,10646,11338,12032,12724],[2644,4138,5154,5803,6454,8275,8757,9232,9981,10401,10440,11525,12273,13023,13772],[2822,4434,5538,6235,6932,8907,9419,9937,10742,null,null,null,null,null,null],[3086,4880,6101,6877,7649,9854,10422,10987,11881,null,null,null,null,null,null],[3349,5327,6670,7520,8364,10797,11422,12039,13023,null,null,null,null,null,null],[3613,5776,7238,8165,9085,11745,12420,13090,14156,null,null,null,null,null,null],[3875,6216,7809,8807,9801,12693,13418,14142,15299,null,null,null,null,null,null],[4136,6658,8380,9447,10518,13641,14415,15191,16440,null,null,null,null,null,null],[4398,7098,8952,10089,11235,14588,15412,16242,17583,null,null,null,null,null,null]]};
-const RFC={"Pop Filter":"A","Filter":"A","Voile":"A","Blockout":"B","5 Screen":"B","10 Screen":"B","TexFilter":"B","Urban Filter":"B","Oxford Filter":"C","Java":"C","Surface Block":"C","Edge Block":"C","3 Screen":"C","Duo Block":"C","Duo Screen":"C","TexBlock":"D","Urban Block":"D","Linen Block":"D","Chatsworth":"D","Dune":"D","Bahama":"D","Carnival LF":"D","SheerWeave 4500":"D","Montego":"E","Didsbury":"E","SheerWeave 4901":"E","Moscow FR":"E","Petal":"F","Monterey":"F","Hampton":"F","Pop":"A","Daybreak":"C","Bora":"D","Kona":"D","Mistral":"D","Sirocco":"D","Zephyr":"D","Ribble":"E","River":"E","Guardian":"E","Ex Lite":"E","Pop BO":"F","Zen":"F","Bubbles":"F","Bamboo":"F","Draper":"F","Fiji":"F","Thistle":"F","Vintage Palm":"F","Wild Garden":"F","Ziggy":"F","Ritz":"F","Haven":"F","Vermont":"F","Ribble BO":"F","Dapple SPC+":"F","Sunset":"F","Monet Sheer":"G","Nordic":"G","Acacia BO":"G","Azalea BO":"G","Carnival BO":"G","Oxford BO":"G","Savanna BO":"G","Como":"G","Birdsong":"G","Cotton Flower":"G","Flores":"G","Lily":"G","Monet":"G","Swedish Birch":"G","Dunham BO":"H","Marble BO":"H","Reverie BO":"H","Windsor BO":"H","Zen BO":"H","Matrix BO":"H","Como BO":"H","Nordic BO":"H","Haven BO":"H","Herringbone BO":"H","Romany BO":"H","Oslo":"H","Cherry Blossom":"H","Damask BO":"H","Kumano BO":"I","Argent BO":"I","Shot Silk BO":"I","Crush BO":"I","Orchard BO":"I","Collina BO":"I","Magnolia BO":"I"};
+const RFC={"Pop Filter":"A","Filter":"A","Voile":"A","Blockout":"B","5 Screen":"B","10 Screen":"B","TexFilter":"B","Urban Filter":"B","Oxford Filter":"C","Java":"C","Surface Block":"C","Edge Block":"C","3 Screen":"C","Duo Block":"C","Duo Screen":"C","TexBlock":"D","Urban Block":"D","Linen Block":"D","Chatsworth":"D","Dune":"D","Bahama":"D","Carnival LF":"D","SheerWeave 4500":"D","Montego":"E","Didsbury":"E","SheerWeave 4901":"E","Moscow FR":"E","Petal":"F","Monterey":"F","Hampton":"F","Pop":"A","Daybreak":"C","Bora":"D","Kona":"D","Mistral":"D","Sirocco":"D","Zephyr":"D","Ribble":"E","River":"E","Guardian":"E","Ex Lite":"E","Pop BO":"F","Zen":"F","Bubbles":"F","Bamboo":"F","Draper":"F","Fiji":"F","Thistle":"F","Vintage Palm":"F","Wild Garden":"F","Ziggy":"F","Ritz":"F","Haven":"F","Vermont":"F","Ribble BO":"F","Dapple SPC+":"F","Sunset":"F","Monet Sheer":"G","Nordic":"G","Acacia BO":"G","Azalea BO":"G","Carnival BO":"G","Oxford BO":"G","Savanna BO":"G","Como":"G","Birdsong":"G","Cotton Flower":"G","Flores":"G","Lily":"G","Monet":"G","Swedish Birch":"G","Dunham BO":"H","Marble BO":"H","Reverie BO":"H","Windsor BO":"H","Zen BO":"H","Matrix BO":"H","Como BO":"H","Nordic BO":"H","Haven BO":"H","Herringbone BO":"H","Romany BO":"H","Oslo":"H","Cherry Blossom":"H","Damask BO":"H","Kumano BO":"I","Argent BO":"I","Shot Silk BO":"I","Crush BO":"I","Orchard BO":"I","Collina BO":"I","Magnolia BO":"I",
+"Bahama Sheer":"D","Carnival":"D","Oxford":"D",
+"Gingko":"F",
+"Boleyn":"G","Brighton Stripe":"G","Dahlia":"G","Daisy":"G","Florence":"G","Lomond":"G","Ophelia":"G","Paradise Palm BO":"G","Petal BO":"G","Stargazer":"G","Tropical Palm RB":"G",
+"Bugs Life":"H","Damask":"H","Dinosaurs":"H","Dunham":"H","Herringbone":"H","Kaleidoscope":"H","Little Friends":"H","Marble":"H","Matrix":"H","Mosaic":"H","Night Night":"H","Night Safari":"H","Planetarium":"H","Reverie":"H","Romany":"H","Tropical Palm BO":"H","Willow":"H","Windsor":"H",
+"Argent":"I","Collina":"I","Crush":"I","Magnolia":"I","Shot Silk":"I"};
 const R_SBC=[100,100,100,100,100,100,100,100,100,100,100,100,100,100,100],R_CAS=[368,467,562,661,760,857,955,1054,1152,1248,1297,1397,1495,1592,1690];
 const R55_W=[650,900,1200,1500,1800,2100,2400,2700,3000,3300,3600,3900,4000];
 const R55_D=[1000,1300,1600,1900,2100,2400,2700,3000,3300,3600,3900,4200,4500];
@@ -1458,7 +1463,7 @@ function valPrice(r){if(!r.val)return 0;var w=parseInt(r.w)||0;if(!w)return 0;va
 
 // ===== RENDER =====
 function rowHTML(r,idx){
-  var al="abcdefghijklmnopqrstuvwxyz",lt=(function(n){var s="";n=n|0;do{s=al[n%26]+s;n=Math.floor(n/26)-1;}while(n>=0);return s;})(idx),rgs=RANGES[r.bt]||[];
+  var al="abcdefghijklmnopqrstuvwxyz",lt=(function(n){var s="";n=n|0;do{s=al[n%26]+s;n=Math.floor(n/26)-1;}while(n>=0);return s;})(idx),rgs=r.bt==='Roller 40'?Object.keys(RFC).sort(function(a,b){var _co={A:0,B:1,C:2,D:3,E:4,F:5,G:6,H:7,I:8};var ca=_co[RFC[a]]!=null?_co[RFC[a]]:9,cb=_co[RFC[b]]!=null?_co[RFC[b]]:9;return ca!==cb?ca-cb:a.toLowerCase().localeCompare(b.toLowerCase());}):RANGES[r.bt]||[];
   var w2=parseInt(r.w)||0,d2=parseInt(r.d)||0;
   var p=calc(r.bt,r.rng,w2,d2,r.sbc,r.cas);
   var addons=(r.intc?PRICE_INTC:0)+(r.rbc?PRICE_RBC:0)+(r.fbi?R_FBI[fb(parseInt(r.w)||0,R_W)]:0)+valPrice(r);
@@ -1474,7 +1479,9 @@ function rowHTML(r,idx){
   if(r.bt==="Double Roller"){
     h+='<span class="bcard-sel" style="font-size:11px;color:#999;text-align:center;border:none;background:none">\u25BC fabrics</span>';
   } else {
-    h+='<select class="bcard-sel" onchange="getRow('+r.id+').rng=this.value;updatePrices()"><option value="">Fabric...</option>'+opts(rgs,r.rng)+'</select>';
+    var _dlId='fab_dl_'+r.id;
+    h+='<input class="bcard-sel" style="background-image:none;padding-right:7px" list="'+_dlId+'" value="'+esc(r.rng||'')+'" placeholder="Fabric..." oninput="var _v=this.value,_r=getRow('+r.id+');_r.rng=_v;updatePrices()">'
+      +'<datalist id="'+_dlId+'">'+rgs.map(function(f){return'<option value="'+esc(f)+'">';}).join('')+'</datalist>';
   }
   h+='<span class="bcard-price'+(total==null?' empty':'')+'" id="price_'+r.id+'">'+(total!=null?fmt(total):'\u2014')+'</span>';
   h+='<span class="bcard-arrow" id="arrow_'+r.id+'" onclick="toggleRow('+r.id+')">'+(expanded===r.id?'\u25B2':'\u25BC')+'</span></div>';
@@ -2199,19 +2206,45 @@ async function pwaConfirmSaveJob() {
 var _folderOpen = {};
 function _toggleFolder(key){_folderOpen[key]=!_folderOpen[key];pwaRenderJobs();}
 function _repShortName(em){if(!em)return 'Unknown';return String(em).replace(/@totalblinds\.co\.za$/i,'').replace(/@.*$/,'');}
+function _kindBadgeHtml(kind){
+  var styles={indoor:'background:#e5ecf7;color:#2a4d8c',outdoor:'background:#d8ecd8;color:#2a6b2a',curtain:'background:#f3e8ff;color:#F07E1E',BD:'background:#fde8d8;color:#8c3a00',Taylor:'background:#fff3cd;color:#856404'};
+  var labels={indoor:'indoor',outdoor:'outdoor',curtain:'curtain',BD:'BD shutter',Taylor:'Taylor shutter'};
+  return '<span style="'+(styles[kind]||'background:#eee;color:#666')+';padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px;display:inline-block">'+(labels[kind]||kind)+'</span>';
+}
+function _hasRowsAny(state,key){
+  if(!state)return false;
+  var arr=state[key];
+  if(!arr||!arr.length)return false;
+  return arr.some(function(r){return r&&(r.w||r.d||r.width||r.drop);});
+}
+function _jobKindBadges(j){
+  var lbl=String(j.label||'');
+  if(lbl.indexOf('[Outdoor] ')===0)return _kindBadgeHtml('outdoor');
+  if(lbl.indexOf('[Curtains] ')===0)return _kindBadgeHtml('curtain');
+  if(lbl.indexOf('[Shutters] ')===0)return _kindBadgeHtml('BD');
+  if(lbl.indexOf('[Master] ')===0){
+    try{
+      var st=j.state?(typeof j.state==='string'?JSON.parse(j.state):j.state):null;
+      if(st&&st.kind==='master'){
+        var html='';
+        if(_hasRowsAny(st.indoor,'rows'))html+=_kindBadgeHtml('indoor');
+        if(_hasRowsAny(st.outdoor,'od_rows'))html+=_kindBadgeHtml('outdoor');
+        if(_hasRowsAny(st.curtains,'rows'))html+=_kindBadgeHtml('curtain');
+        if(_hasRowsAny(st.shutters,'rows'))html+=_kindBadgeHtml('BD');
+        if(_hasRowsAny(st.taylor,'rows'))html+=_kindBadgeHtml('Taylor');
+        return html||_kindBadgeHtml('indoor');
+      }
+    }catch(e){}
+    return _kindBadgeHtml('indoor');
+  }
+  return _kindBadgeHtml('indoor');
+}
 function _renderCloudRow(j){
   var isOwner = j.user_id === _currentUser.id;
   var dateStr = j.saved_at ? new Date(j.saved_at).toLocaleDateString('en-ZA') : '';
   var canDelete = isOwner && navigator.onLine;
   var displayLabel = String(j.label||'').replace(/^\[(Outdoor|Curtains|Shutters)\] /,'');
-  var _lbl=String(j.label||'');
-  var typeTag = _lbl.indexOf('[Outdoor] ')===0
-    ? '<span style="background:#d8ecd8;color:#2a6b2a;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">outdoor</span>'
-    : _lbl.indexOf('[Curtains] ')===0
-    ? '<span style="background:#f3e8ff;color:#F07E1E;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">curtain</span>'
-    : _lbl.indexOf('[Shutters] ')===0
-    ? '<span style="background:#fde8d8;color:#8c3a00;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">shutters</span>'
-    : '<span style="background:#e5ecf7;color:#2a4d8c;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">indoor</span>';
+  var typeTag = _jobKindBadges(j);
   return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:#f8f8f8;border-radius:6px;margin-bottom:4px;margin-left:12px">'
     + '<div style="flex:1;min-width:0;margin-right:8px">'
     + '<div style="font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + _esc(displayLabel) + typeTag + '</div>'
@@ -2226,14 +2259,7 @@ function _renderLocalRow(j){
   var dateStr = j.saved_at ? new Date(j.saved_at).toLocaleDateString('en-ZA') : '';
   var localIdx = _getLocalIndex(j.id);
   var displayLabel = String(j.label||'').replace(/^\[(Outdoor|Curtains|Shutters)\] /,'');
-  var _lbl2=String(j.label||'');
-  var typeTag = _lbl2.indexOf('[Outdoor] ')===0
-    ? '<span style="background:#d8ecd8;color:#2a6b2a;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">outdoor</span>'
-    : _lbl2.indexOf('[Curtains] ')===0
-    ? '<span style="background:#f3e8ff;color:#F07E1E;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">curtain</span>'
-    : _lbl2.indexOf('[Shutters] ')===0
-    ? '<span style="background:#fde8d8;color:#8c3a00;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">shutters</span>'
-    : '<span style="background:#e5ecf7;color:#2a4d8c;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700;margin-left:4px">indoor</span>';
+  var typeTag = _jobKindBadges(j);
   return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px;background:#fffbf0;border:1px dashed #ddd;border-radius:6px;margin-bottom:4px;margin-left:12px">'
     + '<div style="flex:1;min-width:0;margin-right:8px">'
     + '<div style="font-size:12px;font-weight:600">' + _esc(displayLabel) + typeTag + ' <span style="background:#e9c46a;color:#333;padding:1px 6px;border-radius:8px;font-size:9px;font-weight:700">local</span></div>'
@@ -3581,7 +3607,7 @@ function ct_fmtR(n){return 'R\u00a0'+Math.round(n).toLocaleString('en-ZA');}
 function ct_esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 function ct_newRow(){
-  return {id:++ct_rowId,loc:'',w:'',d:'',trackType:'Single',fullness:2,fabW:1.4,stack:'Centre Split',
+  return {id:++ct_rowId,loc:'',w:'',d:'',trackType:'Single',fullness:2,fabW:1.4,linW:1.4,stack:'Centre Split',
     curtainStyle:'Ripple',pinchType:'Single',tapeType:'Stud 25mm',floorClear:'Touching',floorPool:0,ctHdrDrop:null,
     t1lined:false,t1fabPrice:0,t1linPrice:0,t1fabName:'',t1fabColour:'',t1linName:'',t1linColour:'',
     t2lined:false,t2fabPrice:0,t2linPrice:0,t2fabName:'',t2fabColour:'',t2linName:'',t2linColour:'',
@@ -3685,8 +3711,9 @@ function ct_calcOptPrice(r){
 }
 
 // ── Core calculation per track panel ──────────────────────
-function ct_calcPanel(w,d,fullness,fabW,lined,fabPrice,linPrice,curtainStyle){
+function ct_calcPanel(w,d,fullness,fabW,lined,fabPrice,linPrice,curtainStyle,linW){
   // w in mm, d in mm
+  linW=linW||fabW;
   var wm=w/1000,dm=d/1000;
   var isRailroad=fabW>=2.8;
   var canRailroad=isRailroad&&(dm<=(fabW-0.3));
@@ -3712,14 +3739,30 @@ function ct_calcPanel(w,d,fullness,fabW,lined,fabPrice,linPrice,curtainStyle){
     meterage=Math.ceil((dm+0.3)*drops);
   }
 
+  // Lining meterage: same logic, using linW instead of fabW
+  var linMeterage=0;
+  if(lined){
+    var linIsRail=linW>=2.8;
+    var linCanRail=linIsRail&&(dm<=(linW-0.3));
+    if(curtainStyle==='Pinch Pleat'){
+      linMeterage=Math.ceil((dm+0.3)*Math.ceil((wm+0.2)*fullness/linW));
+    } else if(linCanRail){
+      linMeterage=Math.ceil(wm*fullness+0.4);
+    } else if(linIsRail&&!linCanRail){
+      linMeterage=Math.ceil((dm+0.3)*Math.ceil((wm*fullness+0.4)/linW));
+    } else {
+      linMeterage=Math.ceil((dm+0.3)*Math.ceil((wm*fullness+0.4)/linW));
+    }
+  }
+
   var fabCost=fabPrice*meterage;
-  var linCost=lined?(linPrice*meterage):0;
+  var linCost=lined?(linPrice*linMeterage):0;
   var isPP=curtainStyle==='Pinch Pleat';
   var labRate=isPP?(lined?ct_labourPPLined:ct_labourPPUnlined):(lined?ct_labourLined:ct_labourUnlined);
   var labCost=labRate*drops;
   var longDrop=d>3000;
   if(longDrop)labCost=labCost*1.2;
-  return {drops:drops,meterage:meterage,fabDrops:fabDrops||drops,fabCost:fabCost,linCost:linCost,labCost:labCost,
+  return {drops:drops,meterage:meterage,linMeterage:linMeterage,fabDrops:fabDrops||drops,fabCost:fabCost,linCost:linCost,labCost:labCost,
     longDrop:longDrop,railroaded:railroaded,cantRailroad:isRailroad&&!canRailroad,
     subtotal:fabCost+linCost+labCost};
 }
@@ -3743,13 +3786,13 @@ function ct_rowCurtainTotal(r){
   var w=parseInt(r.w)||0,d=ct_effectiveDrop(r);
   if(!w||!d)return null;
   if(r.trackType==='Double'){
-    var p1=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-    var p2=ct_calcPanel(w,d,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
+    var p1=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
+    var p2=ct_calcPanel(w,d,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle,r.linW||r.fabW);
     var e1=ct_panelEffective(p1,r.t1fabOvr,r.t1linOvr,r.t1labOvr);
     var e2=ct_panelEffective(p2,r.t2fabOvr,r.t2linOvr,r.t2labOvr);
     return e1.total+e2.total;
   } else {
-    var p=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
+    var p=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
     var e=ct_panelEffective(p,r.t1fabOvr,r.t1linOvr,r.t1labOvr);
     return e.total;
   }
@@ -3852,7 +3895,7 @@ function ct_buildCard(r){
     if(railroad)calcHtml+='<div style="background:#fff8e1;border:1px solid #f0c040;border-radius:8px;padding:10px;margin-top:8px;font-size:12px;color:#8a6000">&#9888;&#65039; Drop '+(d/1000).toFixed(2)+'m exceeds railroad limit ('+(r.fabW-0.3).toFixed(1)+'m = '+r.fabW+'m \u2212 0.3m). Manufacturing in drops using '+r.fabW+'m fabric width.</div>';
     else if(r.fabW>=2.8)calcHtml+='<div style="background:#e8f5e9;border:1px solid #81c784;border-radius:8px;padding:8px 10px;margin-top:8px;font-size:12px;color:#2e7d32">&#10003; Railroaded \u2014 '+r.fabW+'m fabric. Drop '+(d/1000).toFixed(2)+'m \u2264 '+(r.fabW-0.3).toFixed(1)+'m limit.</div>';
     if(!isDbl){
-      var p=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
+      var p=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
       calcHtml+='<div class="ct-calc" style="margin-top:10px">'
         +'<div style="font-size:11px;font-weight:700;color:#888;margin-bottom:6px;letter-spacing:.5px">CALCULATED</div>'
         +(rawD?'<div class="ct-calc-row" style="color:#888;font-size:11px"><span class="ct-calc-lbl">Effective Drop<small>'+rawD+'mm'+(r.floorClear==='On Floor'?' + '+(r.floorPool||0)+'mm pool':r.floorClear==='Touching'?' \u2212 '+ct_trackDeduction(r)+'mm track':' \u2212 '+ct_trackDeduction(r)+'mm track \u2212 '+(r.floorClear==='5mm Off'?5:10)+'mm floor')+'</small></span><span class="ct-calc-val">'+d+'mm</span></div>':'')
@@ -3869,8 +3912,8 @@ function ct_buildCard(r){
         +'</div>';
     } else {
       // double track calc
-      var p1=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-      var p2=ct_calcPanel(w,d,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
+      var p1=ct_calcPanel(w,d,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
+      var p2=ct_calcPanel(w,d,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle,r.linW||r.fabW);
       var trkP=ct_calcTrackPrice(r);
       var optP=ct_calcOptPrice(r);
       calcHtml+='<div class="ct-calc" style="margin-top:10px">'
@@ -4095,6 +4138,10 @@ function ct_buildCard(r){
     +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'fabW\',this)">'
     +r.fabW+'m \u25be</button>'
     +'</div>'
+    +'<div style="position:relative"><div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">LINING W</div>'
+    +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'linW\',this)">'
+    +(r.linW||r.fabW)+'m \u25be</button>'
+    +'</div>'
     +'<div style="position:relative">'
     +'<div style="font-size:9px;color:#999;font-weight:600;letter-spacing:.4px;margin-bottom:2px">STACK</div>'
     +'<button class="ct-hdr-drop-btn" onclick="event.stopPropagation();ct_openHdrDrop('+r.id+',\'stack\',this)">'
@@ -4190,6 +4237,11 @@ function _ct_renderHdrOverlay(id,type){
   if(type==='fabW'){
     [[1.4,'1.4m'],[2.8,'2.8m'],[3.0,'3.0m'],[3.2,'3.2m'],[3.6,'3.6m']].forEach(function(v){
       html+='<button class="ct-pill'+(r.fabW===v[0]?' on':'')+'" onclick="ct_getRow('+id+').fabW='+v[0]+';ct_checkRR('+id+');ct_updatePrices();ct_renderRow('+id+');ct_closeHdrDrop()">'+v[1]+'</button>';
+    });
+  } else if(type==='linW'){
+    var _curLin=r.linW||r.fabW;
+    [[1.4,'1.4m'],[2.8,'2.8m'],[3.0,'3.0m'],[3.2,'3.2m']].forEach(function(v){
+      html+='<button class="ct-pill'+(_curLin===v[0]?' on':'')+'" onclick="ct_getRow('+id+').linW='+v[0]+';ct_updatePrices();ct_renderRow('+id+');ct_closeHdrDrop()">'+v[1]+'</button>';
     });
   } else if(type==='stack'){
     [['Left Stack','\u2190L Left Stack'],['Centre Split','\u21d4 Centre Split'],['Right Stack','R\u2192 Right Stack']].forEach(function(v){
@@ -4299,14 +4351,14 @@ function ct_updatePrices(){
       return s;
     }
     if(isDbl){
-      var p1=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-      var p2=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
+      var p1=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
+      var p2=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle,r.linW||r.fabW);
       winLines+=sumItemRows(p1,r.t1lined,'\uD83D\uDD35 Track 1 \u2014 '+(r.t1lined?'Lined':'Unlined'))
         +sumItemRows(p2,r.t2lined,'\uD83D\uDFE3 Track 2 \u2014 '+(r.t2lined?'Lined':'Unlined'))
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Track \u2014 '+ct_esc(r.trkModel||'')+' '+ct_esc(r.trkColour||'')+' '+(r.trackType==='Double'?'DFF':ct_esc(r.trkFix||''))+'</span><span class="ct-calc-val">'+ct_fmtR(trkOnly)+'</span></div>'
         +ct_optBreakdown(r);
     } else {
-      var p=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
+      var p=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
       winLines+=sumItemRows(p,r.t1lined,'')
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Track \u2014 '+ct_esc(r.trkModel||'')+' '+ct_esc(r.trkColour||'')+' '+(r.trackType==='Double'?'DFF':ct_esc(r.trkFix||''))+'</span><span class="ct-calc-val">'+ct_fmtR(trkOnly)+'</span></div>'
         +ct_optBreakdown(r);
@@ -4329,8 +4381,8 @@ function ct_updatePrices(){
 
   var html=winLines;
   {
-    html+='<div style="background:#3a3a3a;color:#fff;border-radius:10px;padding:16px;margin-top:8px">'
-      +'<h2 style="font-size:15px;color:#F07E1E;border-bottom:1px solid #666;padding-bottom:8px;margin-bottom:10px">Quote Total</h2>';
+    html+='<div style="background:#3a3a3a;color:#fff;border-radius:10px;padding:16px;margin-top:8px;border:1.5px solid #F07E1E">'
+      +'<h2 style="font-size:15px;color:#F07E1E;border-bottom:1px solid #666;padding-bottom:8px;margin-bottom:10px">Quote Summary</h2>';
     for(var j=0;j<ct_rows.length;j++){
       var rj=ct_rows[j];var tj=ct_rowTotal(rj);if(tj===null)continue;
       var ltj=String.fromCharCode(65+j);
@@ -4448,8 +4500,8 @@ function ct_pwaExportPDF(isOrd){
       var isPinchR=r.curtainStyle==='Pinch Pleat';
       var _rail=r.fabW>=2.8&&(eff/1000)<=(r.fabW-0.3);
       var floorStr=r.floorClear==='5mm Off'?'5mm off floor':r.floorClear==='10mm Off'?'10mm off floor':r.floorClear==='On Floor'?'On floor (+'+(r.floorPool||0)+'mm)':'Touching floor';
-      var p1=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-      var p2=isDbl?ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle):null;
+      var p1=ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
+      var p2=isDbl?ct_calcPanel(parseInt(r.w)||0,eff,r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle,r.linW||r.fabW):null;
       var opts=[];
       if(r.opt90)opts.push('90 Bend');if(r.opt45)opts.push('45 Bend');
       if(isDbl&&r.optDouble90)opts.push('90 Bend ×2');if(isDbl&&r.optDouble45)opts.push('45 Bend ×2');
@@ -4561,13 +4613,13 @@ function ct_pwaExportPDF(isOrd){
       var fabLabel1=(r.t1fabName?(r.t1fabName+(r.t1fabColour?' \u2014 '+r.t1fabColour:'')):'')+(r.t1lined&&r.t1linName?' / Lin: '+r.t1linName+(r.t1linColour?' \u2014 '+r.t1linColour:''):'');
       var fabLabel2=(r.t2fabName?(r.t2fabName+(r.t2fabColour?' \u2014 '+r.t2fabColour:'')):'')+(r.t2lined&&r.t2linName?' / Lin: '+r.t2linName+(r.t2linColour?' \u2014 '+r.t2linColour:''):'');
       if(isDbl){
-        var p1=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
-        var p2=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle);
+        var p1=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
+        var p2=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle,r.linW||r.fabW);
         bodyData.push([lt+' '+(r.loc||''),'Trk1 '+(r.t1lined?'Lined':'Unlined')+' \u00b7 '+r.trkModel+' '+r.trkColour+' DFF'+(fabLabel1?'\n'+fabLabel1:''),p1.drops,p1.meterage,'R'+Math.round(p1.fabCost),'R'+Math.round(p1.linCost),'R'+Math.round(p1.labCost),'-','R'+Math.round(p1.subtotal)]);
         bodyData.push(['','Trk2 '+(r.t2lined?'Lined':'Unlined')+(fabLabel2?'\n'+fabLabel2:''),p2.drops,p2.meterage,'R'+Math.round(p2.fabCost),'R'+Math.round(p2.linCost),'R'+Math.round(p2.labCost),'R'+Math.round(trkOnlyOvr),'R'+Math.round(total)]);
         pushOptSubs(r,trkP);
       } else {
-        var p=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle);
+        var p=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
         bodyData.push([lt+' '+(r.loc||''),styleLabel+(fabLabel1?'\n'+fabLabel1:'')+(r.notes?'\nNotes: '+r.notes:''),p.drops,p.meterage,'R'+Math.round(p.fabCost),'R'+Math.round(p.linCost),'R'+Math.round(p.labCost),'R'+Math.round(trkOnlyOvr),'R'+Math.round(total)]);
         pushOptSubs(r,trkP);
       }
@@ -4758,7 +4810,7 @@ function ct_downloadXLSX(){
   var num=1;
   ordRows.forEach(function(rx){
     var eff2=ct_effectiveDrop(rx);
-    var px=ct_calcPanel(parseInt(rx.w)||0,eff2,rx.fullness,rx.fabW,rx.t1lined,rx.t1fabPrice,rx.t1linPrice,rx.curtainStyle);
+    var px=ct_calcPanel(parseInt(rx.w)||0,eff2,rx.fullness,rx.fabW,rx.t1lined,rx.t1fabPrice,rx.t1linPrice,rx.curtainStyle,rx.linW||rx.fabW);
     var trkOvr2=ct_ovrVal(rx.trkOvr,ct_calcTrackPrice(rx));
     var rowTot=Math.round(px.fabCost+px.linCost+px.labCost+trkOvr2);
     curtainSub+=ct_rowCurtainTotal(rx);
@@ -5008,9 +5060,10 @@ function mq_countRows(arr){
 }
 function mq_getSections(){
   var d=MQ_STATE.disc;
+  var _mqMk=1+((MQ_STATE.markup||0)/100);
   function mk(key,label,parts){
     var rawSub=0,discAmt=0;
-    parts.forEach(function(p){rawSub+=p.raw;p.amt=Math.round(p.raw*((d[p.key]||0)/100));discAmt+=p.amt;});
+    parts.forEach(function(p){p.raw=Math.ceil((p.raw||0)*_mqMk);rawSub+=p.raw;p.amt=Math.round(p.raw*((d[p.key]||0)/100));discAmt+=p.amt;});
     return {key:key,label:label,rawSub:rawSub,discAmt:discAmt,sub:rawSub-discAmt,parts:parts};
   }
   var iBl=window._mq_indoor_blinds||0,iAc=window._mq_indoor_acc||0,iEx=window._mq_indoor_express||0;
@@ -5049,26 +5102,39 @@ function mq_getSections(){
 }
 function mq_getDetailRows(key){
   var out=[];
+  var _mqMkF=1+((typeof MQ_STATE!=='undefined'&&MQ_STATE.markup)||0)/100;
   if(key==='indoor'&&typeof rows!=='undefined'){
     rows.forEach(function(r,idx){
       if(!r.loc||!r.w)return;
-      var p=typeof calc==='function'?calc(r.bt,r.rng,parseInt(r.w)||0,parseInt(r.d)||0,r.sbc,r.cas):null;
-      var addons=(r.intc?PRICE_INTC:0)+(r.rbc?PRICE_RBC:0)+(r.fbi&&typeof R_FBI!=='undefined'?(R_FBI[fb(parseInt(r.w)||0,R_W)]||0):0);
+      var w_=parseInt(r.w)||0,d_=parseInt(r.d)||0;
+      var p=typeof calc==='function'?calc(r.bt,r.rng,w_,d_,r.sbc,r.cas):null;
+      var _in_mkF=(1+(typeof markupPct!=='undefined'?markupPct:0)/100)*_mqMkF;
+      var _btL=(r.bt||'').toLowerCase();
+      var _isR40=_btL==='roller 40',_isR55=_btL==='roller 55',_isVis=_btL==='vision',_isRoma=_btL==='romashade';
+      var sbcP=r.sbc?(_isR40&&w_?(typeof R_SBC!=='undefined'?R_SBC[fb(w_,R_W)]:0):((_isR55||_isVis||_isRoma)?100:0)):0;
+      var casP=r.cas?(_isR40&&w_?(typeof R_CAS!=='undefined'?R_CAS[fb(w_,R_W)]:0):(_isR55&&w_?(typeof R55_CAS!=='undefined'?R55_CAS[fb(w_,R55_W)]:0):0)):0;
+      var fbiP=r.fbi&&w_?(typeof R_FBI!=='undefined'?R_FBI[fb(w_,R_W)]||0:0):0;
+      var intcP=r.intc?(typeof PRICE_INTC!=='undefined'?PRICE_INTC:0):0;
       var motorP=(MOTOR_P&&MOTOR_P[r.mot])||0,adpP=(ADP_P&&ADP_P[r.adp])||0,chgP=(ADP_P&&ADP_P[r.chg])||0,remP=(REMOTE_P&&REMOTE_P[r.rem])||0,smartP=(SMART_P&&SMART_P[r.smart])||0;
-      var _in_mkF=1+(typeof markupPct!=='undefined'?markupPct:0)/100;
       var sklopP=((r.bt==='Cellular Skylight'||r.bt==='Cellular Lantern')&&r.sklop==='Twist Lock Pole')?788:0;
-      var rawBase=p!=null?p+addons:null;
+      var pBase=p!=null?p-sbcP-casP:null;
       var rawAcc=motorP+adpP+chgP+remP+smartP+sklopP;
-      var rawTotal=rawBase!=null?rawBase+rawAcc:null;
+      var rawTotal=p!=null?p+intcP+fbiP+rawAcc:null;
       var total=rawTotal!=null?Math.ceil(rawTotal*_in_mkF):null;
       var subParts=[];
-      if(motorP>0)subParts.push({label:'Motor: '+(r.mot||''),price:Math.ceil(motorP*_in_mkF)});
-      if(adpP>0)subParts.push({label:'Adaptor: '+(r.adp||''),price:Math.ceil(adpP*_in_mkF)});
-      if(chgP>0)subParts.push({label:'Charger: '+(r.chg||''),price:Math.ceil(chgP*_in_mkF)});
-      if(remP>0)subParts.push({label:'Remote: '+(r.rem||''),price:Math.ceil(remP*_in_mkF)});
-      if(smartP>0)subParts.push({label:'Smart: '+(r.smart||''),price:Math.ceil(smartP*_in_mkF)});
-      if(sklopP>0)subParts.push({label:'Twist Lock Pole',price:Math.ceil(sklopP*_in_mkF)});
-      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:(r.bt||'')+(r.rng?' · '+r.rng:''),basePrice:Math.ceil(rawBase*_in_mkF),subParts:subParts,acc:Math.ceil(rawAcc*_in_mkF),total:total});
+      function _addIn(lbl,raw){if(raw>0)subParts.push({label:lbl,price:Math.ceil(raw*_in_mkF)});}
+      _addIn('Steel Ball Chain',sbcP);
+      _addIn('Cassette',casP);
+      _addIn('Fabric Insert',fbiP);
+      _addIn('Int/Coupled Bracket',intcP);
+      _addIn('Motor: '+(r.mot||''),motorP);
+      _addIn('Adaptor: '+(r.adp||''),adpP);
+      _addIn('Charger: '+(r.chg||''),chgP);
+      _addIn('Remote: '+(r.rem||''),remP);
+      _addIn('Smart: '+(r.smart||''),smartP);
+      _addIn('Twist Lock Pole',sklopP);
+      var desc=(r.bt||'')+(r.rng?' · '+r.rng:'')+(r.fx?' · '+r.fx:'')+(r.ctrl?' · '+r.ctrl:'')+(r.bb?' · BB: '+r.bb:'')+(r.rt&&r.rt!=='Standard'?' · '+r.rt:'');
+      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:desc,basePrice:pBase!=null?Math.ceil(pBase*_in_mkF):null,subParts:subParts,acc:Math.ceil(rawAcc*_in_mkF),total:total});
     });
   } else if(key==='outdoor'&&typeof od_rows!=='undefined'){
     od_rows.forEach(function(r,idx){
@@ -5076,25 +5142,64 @@ function mq_getDetailRows(key){
       var base=typeof od_calc==='function'?od_calc(r.bt,r.rng,parseInt(r.w)||0,parseInt(r.d)||0):null;
       var acc=typeof od_calcAddons==='function'?od_calcAddons(r):0;
       var mot=typeof od_calcMotor==='function'?od_calcMotor(r):0;
-      var _od_mkF2=1+(typeof od_markupPct!=='undefined'?od_markupPct:0)/100;
+      var _od_mkF2=(1+(typeof od_markupPct!=='undefined'?od_markupPct:0)/100)*_mqMkF;
       var total=base!=null?Math.ceil((base+acc+mot)*_od_mkF2):null;
       var od_subParts=[];
-      if(mot>0)od_subParts.push({label:'Motor: '+(r.mot||''),price:Math.ceil(mot*_od_mkF2)});
-      if(acc>0)od_subParts.push({label:'Add-ons',price:Math.ceil(acc*_od_mkF2)});
-      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:(r.bt||'')+(r.rng?' · '+r.rng:''),basePrice:Math.ceil((base||0)*_od_mkF2),subParts:od_subParts,acc:Math.ceil((acc+mot)*_od_mkF2),total:total});
+      var w_=parseInt(r.w)||0;
+      var isFH_=(r.bt==='Free Hang'),isSX_=(r.bt==='Channel X'||r.bt==='Wire X'||r.bt==='Zip X');
+      var wifh_=typeof od_fb==='function'&&typeof FH_W!=='undefined'?od_fb(w_,FH_W):0;
+      var wisx_=typeof od_fb==='function'&&typeof SX_W!=='undefined'?od_fb(w_,SX_W):0;
+      function _addOd(lbl,p){if(p>0)od_subParts.push({label:lbl,price:Math.ceil(p*_od_mkF2)});}
+      if(r.cas==='135mm')_addOd('Cassette 135mm'+(r.casFix?' ('+r.casFix+')':''),isFH_?(FH_CAS135?FH_CAS135[wifh_]:0):(SX_CAS135?SX_CAS135[Math.min(wisx_,SX_CAS135.length-1)]:0));
+      else if(r.cas==='150mm')_addOd('Cassette 150mm'+(r.casFix?' ('+r.casFix+')':''),isFH_?(FH_CAS150?FH_CAS150[wifh_]:0):(SX_CAS150?SX_CAS150[Math.min(wisx_,SX_CAS150.length-1)]:0));
+      if(isFH_){
+        if(r.addCrank)_addOd('Crank Handle'+(r.crankHandle&&r.crankHandle!=='None'?' ('+r.crankHandle+')':'')+(r.ctrl?' · '+r.ctrl:''),typeof PRICE_FH_CRANK!=='undefined'?PRICE_FH_CRANK:0);
+        if(r.addSideChan)_addOd('Side Channels',typeof PRICE_FH_SIDECHAN!=='undefined'?PRICE_FH_SIDECHAN:0);
+        if(r.addRCKit)_addOd('RC Kit',typeof FH_RCKIT!=='undefined'?FH_RCKIT[wifh_]:0);
+        if(r.addIntBracket)_addOd('Intermediate Bracket',typeof PRICE_FH_INTBRACKET!=='undefined'?PRICE_FH_INTBRACKET:0);
+        if(r.addHoldDown)_addOd('Hold Down'+(r.holdDownType?' ('+r.holdDownType+')':''),typeof PRICE_FH_HOLDDOWN!=='undefined'?PRICE_FH_HOLDDOWN:0);
+      }
+      if(isSX_){
+        if(r.addCrank)_addOd('Crank Handle'+(r.crankHandle&&r.crankHandle!=='None'?' ('+r.crankHandle+')':'')+(r.ctrl?' · '+r.ctrl:''),typeof PRICE_SX_CRANK!=='undefined'?PRICE_SX_CRANK:0);
+        if(r.addPullPole)_addOd('Pull Pole 1.5m',typeof PRICE_SX_PULLPOLE!=='undefined'?PRICE_SX_PULLPOLE:0);
+      }
+      if(r.mot&&r.mot!=='None'){
+        _addOd('Motor: '+r.mot,(typeof od_MOTOR_P!=='undefined'?od_MOTOR_P[r.mot]:0)||0);
+        if(r.motAdp)_addOd('Motor Adapter',typeof od_MOTOR_ADAPTER_P!=='undefined'?od_MOTOR_ADAPTER_P:0);
+      }
+      if(r.rem&&r.rem!=='None')_addOd('Remote: '+r.rem,(typeof od_REMOTE_P!=='undefined'?od_REMOTE_P[r.rem]:0)||0);
+      if(r.smart&&r.smart!=='None')_addOd('Smart Connect: '+r.smart,(typeof od_SMART_P!=='undefined'?od_SMART_P[r.smart]:0)||0);
+      var descX=(r.bt||'')+(r.rng?' · '+r.rng:'')+(r.col?' · '+r.col:'')+(r.tubeCol&&r.tubeCol!=='None'?' · Tube: '+r.tubeCol:'')+(r.bracketCol&&r.bracketCol!=='None'?' · Bracket: '+r.bracketCol:'');
+      if(total!=null)out.push({num:idx+1,loc:r.loc,desc:descX,basePrice:Math.ceil((base||0)*_od_mkF2),subParts:od_subParts,acc:Math.ceil((acc+mot)*_od_mkF2),total:total});
     });
   } else if(key==='curtains'&&typeof ct_rows!=='undefined'){
     ct_rows.forEach(function(rx,idx){
       if(!rx.loc)return;
-      var _ct_mkF2=1+(typeof ct_markupPct!=='undefined'?ct_markupPct:0)/100;
+      var _ct_mkF2=(1+(typeof ct_markupPct!=='undefined'?ct_markupPct:0)/100)*_mqMkF;
       var rawTot=typeof ct_rowTotal==='function'?ct_rowTotal(rx):null;
       if(rawTot==null)return;
       var total=Math.ceil(rawTot*_ct_mkF2);
-      var desc=(rx.curtainStyle||'Curtain')+(rx.t1fabName?' · '+rx.t1fabName:'');
-      var trkOvr=typeof ct_ovrVal==='function'&&typeof ct_calcTrackPrice==='function'?ct_ovrVal(rx.trkOvr,ct_calcTrackPrice(rx)):0;
+      var w_=parseInt(rx.w)||0,d_=typeof ct_effectiveDrop==='function'?ct_effectiveDrop(rx):(parseInt(rx.d)||0);
+      var isDbl=rx.trackType==='Double';
+      var p1=ct_calcPanel(w_,d_,rx.fullness,rx.fabW,rx.t1lined,rx.t1fabPrice,rx.t1linPrice,rx.curtainStyle,rx.linW||rx.fabW);
+      var e1=typeof ct_panelEffective==='function'?ct_panelEffective(p1,rx.t1fabOvr,rx.t1linOvr,rx.t1labOvr):{fab:p1.fabCost,lin:p1.linCost,lab:p1.labCost};
+      var p2=isDbl?ct_calcPanel(w_,d_,rx.fullness,rx.fabW,rx.t2lined,rx.t2fabPrice,rx.t2linPrice,rx.curtainStyle,rx.linW||rx.fabW):null;
+      var e2=isDbl?(typeof ct_panelEffective==='function'?ct_panelEffective(p2,rx.t2fabOvr,rx.t2linOvr,rx.t2labOvr):{fab:p2.fabCost,lin:p2.linCost,lab:p2.labCost}):null;
       var ct_subParts=[];
-      if(trkOvr>0)ct_subParts.push({label:'Track ('+(rx.trkModel||'')+' · '+(rx.trkColour||'')+' · '+(rx.trackType==='Double'?'DFF':(rx.trkFix||''))+')',price:Math.ceil(trkOvr*_ct_mkF2)});
-      out.push({num:idx+1,loc:rx.loc,desc:desc,basePrice:Math.ceil((rawTot-trkOvr)*_ct_mkF2),subParts:ct_subParts,acc:Math.ceil(trkOvr*_ct_mkF2),total:total});
+      function _addCt(lbl,raw){if(raw>0)ct_subParts.push({label:lbl,price:Math.ceil(raw*_ct_mkF2)});}
+      _addCt('Fabric'+(isDbl?' 1':'')+(rx.t1fabName?': '+rx.t1fabName:'')+(rx.t1fabColour?' — '+rx.t1fabColour:''),e1.fab);
+      if(rx.t1lined)_addCt('Lining'+(isDbl?' 1':'')+(rx.t1linName?': '+rx.t1linName:'')+(rx.t1linColour?' — '+rx.t1linColour:''),e1.lin);
+      _addCt('Labour'+(isDbl?' 1':''),e1.lab);
+      if(isDbl){
+        _addCt('Fabric 2'+(rx.t2fabName?': '+rx.t2fabName:'')+(rx.t2fabColour?' — '+rx.t2fabColour:''),e2.fab);
+        if(rx.t2lined)_addCt('Lining 2'+(rx.t2linName?': '+rx.t2linName:'')+(rx.t2linColour?' — '+rx.t2linColour:''),e2.lin);
+        _addCt('Labour 2',e2.lab);
+      }
+      var trkRaw=typeof ct_calcTrackPrice==='function'?ct_calcTrackPrice(rx):0;
+      var trkOvr=typeof ct_ovrVal==='function'?ct_ovrVal(rx.trkOvr,trkRaw):trkRaw;
+      if(trkOvr>0)_addCt('Track'+(rx.trkModel?' '+rx.trkModel:'')+(rx.trkColour?' — '+rx.trkColour:'')+(rx.trackType==='Double'?' (DFF)':(rx.trkFix?' · '+rx.trkFix:'')),trkOvr);
+      var desc=(rx.curtainStyle||'Curtain');
+      out.push({num:idx+1,loc:rx.loc,desc:desc,basePrice:total,subParts:ct_subParts,acc:0,total:total});
     });
   } else if(key==='taylor'&&typeof TY_STATE!=='undefined'){
     var tyNum=1;
@@ -5102,7 +5207,7 @@ function mq_getDetailRows(key){
       if(!r.width||!r.drop)return;
       var _p=r.qty||1;var _pw=Math.round(r.width/_p);
       var res=ty_panelLookup(_pw,r.drop,r.product||'pro_bifold');
-      var _ty_mkF2=1+(typeof ty_markupPct!=='undefined'?ty_markupPct:0)/100;
+      var _ty_mkF2=(1+(typeof ty_markupPct!=='undefined'?ty_markupPct:0)/100)*_mqMkF;
       var rowPrice=res.price?Math.ceil(res.price*_p*_ty_mkF2):null;if(rowPrice==null)return;
       var prodName=(TY_PRODUCTS[r.product||'pro_bifold']||r.product||'Panel');
       out.push({num:tyNum++,loc:r.loc||('Item '+tyNum),desc:prodName+' · '+_p+'P',basePrice:rowPrice,subParts:[],acc:0,total:rowPrice});
@@ -5111,7 +5216,7 @@ function mq_getDetailRows(key){
     var sNum=1;
     SH_STATE.rows.forEach(function(r){
       if(!r.width||!r.drop)return;
-      var _sh_mkF2=1+(typeof sh_markupPct!=='undefined'?sh_markupPct:0)/100;
+      var _sh_mkF2=(1+(typeof sh_markupPct!=='undefined'?sh_markupPct:0)/100)*_mqMkF;
       var rawP=sh_calcRow(r);if(rawP==null)return;
       var p=Math.ceil(rawP*_sh_mkF2);
       var pLabel=SH_PRODUCTS.find(function(x){return x.v===r.product;});
@@ -5120,7 +5225,7 @@ function mq_getDetailRows(key){
       out.push({num:sNum++,loc:r.loc||('Item '+sNum),desc:desc,basePrice:p,subParts:[],acc:0,total:p});
     });
     SH_STATE.extrusions.forEach(function(ex){
-      var _sh_mkF2=1+(typeof sh_markupPct!=='undefined'?sh_markupPct:0)/100;
+      var _sh_mkF2=(1+(typeof sh_markupPct!=='undefined'?sh_markupPct:0)/100)*_mqMkF;
       var ep=sh_extLookup(ex.type,ex.length);if(ep==null)return;
       var eType=(SH_T.ext.types[ex.type]||{}).n||'Extrusion';
       out.push({num:sNum++,loc:'Extrusion',desc:eType+(ex.length?' · '+ex.length+'mm':''),acc:0,total:Math.ceil(ep*_sh_mkF2)});
@@ -5190,12 +5295,9 @@ function mq_renderTotals(){
   var secs=mq_getSections();
   var catSum=0;
   secs.forEach(function(s){catSum+=s.sub;});
-  var mkF=1+(MQ_STATE.markup||0)/100;
-  var markedCatSum=Math.ceil(catSum*mkF);
-  var markupAmt=markedCatSum-catSum;
   var inst=parseFloat((document.getElementById('mq_inp_install')||{}).value)||0;
   var trav=parseFloat((document.getElementById('mq_inp_travel')||{}).value)||0;
-  var sub=markedCatSum+inst+trav;
+  var sub=catSum+inst+trav;
   var vat=Math.round(sub*0.15);
   var tot=sub+vat;
   var dep60=Math.round(tot*0.6),dep35=Math.round(tot*0.35),dep5=Math.round(tot*0.05);
@@ -5211,7 +5313,6 @@ function mq_renderTotals(){
     });
     html+='<div style="display:flex;justify-content:space-between;padding:3px 0 6px 0;font-size:12px;color:#aaa;border-bottom:1px dashed rgba(255,255,255,0.12);font-style:italic"><span>'+s.label+' Subtotal</span><span>'+mq_fmtR(s.sub)+'</span></div>';
   });
-  if(markupAmt>0)html+='<div class="sline" style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;color:#F07E1E"><span>Markup ('+(MQ_STATE.markup||0)+'%)</span><span>+'+mq_fmtR(markupAmt)+'</span></div>';
   if(inst>0)html+='<div class="sline" style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;color:#eee"><span>Installation</span><span>'+mq_fmtR(inst)+'</span></div>';
   if(trav>0)html+='<div class="sline" style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;color:#eee"><span>Travel</span><span>'+mq_fmtR(trav)+'</span></div>';
   html+='<div style="border-top:1px solid #666;margin-top:8px;padding-top:8px">'
@@ -7865,6 +7966,35 @@ function ty_exportPDF(isOrder){
 
 // Copy TBD logo to header display element
 (function(){var _ht=document.getElementById('hdrTBDLogo');var _li=document.getElementById('logoImg');if(_ht&&_li){_ht.src=_li.src;}})();
+
+// Snap to quote summary on first input per section
+(function(){
+  var _snapped={};
+  function _snapSetup(sectionId,targetId){
+    var sec=document.getElementById(sectionId);
+    if(!sec)return;
+    sec.addEventListener('input',function(e){
+      if(_snapped[sectionId])return;
+      var t=e.target;
+      if(t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA')&&t.value!==''){
+        _snapped[sectionId]=true;
+        var el=document.getElementById(targetId);
+        if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+      }
+    });
+  }
+  _snapSetup('indoor-section','summaryContainer');
+  _snapSetup('outdoor-section','od_summaryContainer');
+  _snapSetup('curtain-section','ct_summaryContainer');
+  _snapSetup('shutter-section','sh_totals_container');
+  _snapSetup('taylor-section','ty_totals_container');
+  _snapSetup('master-section','mq_totals_container');
+  // Reset snap flag when switching sections so first input in any newly-visited section snaps again
+  var _origSwitch=window.switchAppMode;
+  if(typeof _origSwitch==='function'){
+    window.switchAppMode=function(mode){_origSwitch(mode);_snapped={};};
+  }
+})();
 </script>
 
 </body>
