@@ -1479,9 +1479,7 @@ function rowHTML(r,idx){
   if(r.bt==="Double Roller"){
     h+='<span class="bcard-sel" style="font-size:11px;color:#999;text-align:center;border:none;background:none">\u25BC fabrics</span>';
   } else {
-    var _dlId='fab_dl_'+r.id;
-    h+='<input class="bcard-sel" style="background-image:none;padding-right:7px" list="'+_dlId+'" value="'+esc(r.rng||'')+'" placeholder="Fabric..." oninput="var _v=this.value,_r=getRow('+r.id+');_r.rng=_v;updatePrices()">'
-      +'<datalist id="'+_dlId+'">'+rgs.map(function(f){return'<option value="'+esc(f)+'">';}).join('')+'</datalist>';
+    h+='<input class="bcard-sel" type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="background-image:none;padding-right:7px" value="'+esc(r.rng||'')+'" placeholder="Fabric..." data-fabs="'+esc(rgs.join('|'))+'" data-rid="'+r.id+'" oninput="var _r=getRow('+r.id+');_r.rng=this.value;_fabDropFilter(this);updatePrices()" onfocus="_fabDropShow(this)" onblur="setTimeout(_fabDropHide,180)">';
   }
   h+='<span class="bcard-price'+(total==null?' empty':'')+'" id="price_'+r.id+'">'+(total!=null?fmt(total):'\u2014')+'</span>';
   h+='<span class="bcard-arrow" id="arrow_'+r.id+'" onclick="toggleRow('+r.id+')">'+(expanded===r.id?'\u25B2':'\u25BC')+'</span></div>';
@@ -1630,6 +1628,39 @@ function rowHTML(r,idx){
   h+='</div></div>';
   return h;
 }
+// ── iOS-friendly fabric autocomplete (replaces native <datalist> which blocks keyboard) ──
+var _fabDropInp=null;
+function _fabDropShow(inp){_fabDropInp=inp;_fabDropFilter(inp);}
+function _fabDropHide(){var dd=document.getElementById('_fabDrop');if(dd)dd.style.display='none';_fabDropInp=null;}
+function _fabDropFilter(inp){
+  var dd=document.getElementById('_fabDrop');
+  if(!dd){dd=document.createElement('div');dd.id='_fabDrop';dd.style.cssText='position:absolute;background:#fff;border:1px solid #d0d0d0;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.18);max-height:240px;overflow-y:auto;z-index:99999;font-size:13px;display:none;-webkit-overflow-scrolling:touch;font-family:inherit';document.body.appendChild(dd);}
+  var fabs=(inp.getAttribute('data-fabs')||'').split('|').filter(function(x){return x;});
+  var v=(inp.value||'').toLowerCase().trim();
+  var ms=v?fabs.filter(function(f){return f.toLowerCase().indexOf(v)>=0;}):fabs.slice(0);
+  if(!ms.length){dd.style.display='none';return;}
+  dd.setAttribute('data-rid',inp.getAttribute('data-rid'));
+  dd.innerHTML=ms.map(function(f){var fe=String(f).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');return '<div class="_fabDrop-item" data-val="'+fe+'" style="padding:10px 14px;cursor:pointer;border-bottom:1px solid #f0f0f0;color:#1a1a1a">'+fe+'</div>';}).join('');
+  var r=inp.getBoundingClientRect();
+  dd.style.left=(r.left+(window.scrollX||window.pageXOffset||0))+'px';
+  dd.style.top=(r.bottom+(window.scrollY||window.pageYOffset||0)+2)+'px';
+  dd.style.minWidth=Math.max(r.width,180)+'px';
+  dd.style.display='block';
+}
+if(!window._fabDropBound){window._fabDropBound=true;document.addEventListener('pointerdown',function(e){
+  var dd=document.getElementById('_fabDrop');if(!dd||dd.style.display==='none')return;
+  var it=e.target&&e.target.closest&&e.target.closest('._fabDrop-item');
+  if(!it){if(!dd.contains(e.target)){var t=e.target;var isFi=t&&t.getAttribute&&t.getAttribute('data-fabs')!=null;if(!isFi)_fabDropHide();}return;}
+  e.preventDefault();
+  var rid=dd.getAttribute('data-rid');var val=it.getAttribute('data-val');
+  var ta=document.createElement('textarea');ta.innerHTML=val;val=ta.value;
+  var r=rid&&typeof getRow==='function'?getRow(parseInt(rid)):null;if(r)r.rng=val;
+  if(_fabDropInp){_fabDropInp.value=val;if(_fabDropInp.blur)_fabDropInp.blur();}
+  _fabDropHide();
+  if(typeof updatePrices==='function')updatePrices();
+  if(typeof renderAllRows==='function')renderAllRows();
+},true);}
+
 function renderAllRows(){
   var c=document.getElementById("rowsContainer");
   // Preserve typing context — skip innerHTML swap if user is still editing a row field
@@ -3904,7 +3935,8 @@ function ct_buildCard(r){
           :'<div class="ct-calc-row"><span class="ct-calc-lbl">Drops<small>('+((w/1000).toFixed(2))+'m \u00d7 '+r.fullness+' \u00f7 '+(p.cantRailroad?'1.4 (labour equiv)':r.fabW)+' = '+(p.cantRailroad?(w/1000*r.fullness/1.4).toFixed(2):(w/1000*r.fullness/r.fabW).toFixed(2))+' \u2192 '+p.drops+')</small></span><span class="ct-calc-val">'+p.drops+' drops</span></div>')
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Meterage<small>(('+((d/1000).toFixed(2))+'m + 0.3) \u00d7 '+p.fabDrops+')</small></span><span class="ct-calc-val">'+p.meterage.toFixed(2)+' m</span></div>'
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Cost<small>('+p.meterage.toFixed(2)+'m \u00d7 '+ct_fmtR(r.t1fabPrice)+'/m)</small></span><span class="ct-calc-val">'+ovrInp('t1fabOvr',p.fabCost)+'</span></div>'
-        +(r.t1lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Cost<small>('+p.meterage.toFixed(2)+'m \u00d7 '+ct_fmtR(r.t1linPrice)+'/m)</small></span><span class="ct-calc-val">'+ovrInp('t1linOvr',p.linCost)+'</span></div>':'')
+        +(r.t1lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Meterage<small>(('+((d/1000).toFixed(2))+'m + 0.3) \u00d7 \u2308'+((w/1000)*r.fullness/(r.linW||r.fabW)).toFixed(2)+'\u2309 @ lining W '+(r.linW||r.fabW)+'m)</small></span><span class="ct-calc-val">'+p.linMeterage.toFixed(2)+' m</span></div>':'')
+        +(r.t1lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Cost<small>('+p.linMeterage.toFixed(2)+'m \u00d7 '+ct_fmtR(r.t1linPrice)+'/m)</small></span><span class="ct-calc-val">'+ovrInp('t1linOvr',p.linCost)+'</span></div>':'')
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Labour Cost<small>('+p.drops+' drops \u00d7 '+ct_fmtR(isPinch?(r.t1lined?ct_labourPPLined:ct_labourPPUnlined):(r.t1lined?ct_labourLined:ct_labourUnlined))+'/drop '+(r.t1lined?'lined':'unlined')+(p.longDrop?' +20% (drop &gt; 3000mm)':'')+')</small></span><span class="ct-calc-val">'+ovrInp('t1labOvr',p.labCost)+'</span></div>'
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Track — '+r.trkModel+' '+(isSomfy?r.trkSomfyType:r.trkFix)+' '+w+'mm · '+r.trkColour+'</span><span class="ct-calc-val">'+ovrInp('trkOvr',ct_calcTrackPrice(r))+'</span></div>'
         +ct_optBreakdown(r)
@@ -3922,15 +3954,17 @@ function ct_buildCard(r){
         +(isPinch
           ?'<div class="ct-calc-row"><span class="ct-calc-lbl">Drops<small>(('+((w/1000).toFixed(2))+'m + 0.2) \u00d7 '+r.fullness+' \u00f7 '+r.fabW+' = '+(((w/1000)+0.2)*r.fullness/r.fabW).toFixed(2)+' \u2192 '+p1.drops+')</small></span><span class="ct-calc-val">'+p1.drops+' drops</span></div>'
           :'<div class="ct-calc-row"><span class="ct-calc-lbl">Drops<small>('+((w/1000).toFixed(2))+'m \u00d7 '+r.fullness+' \u00f7 '+(p1.cantRailroad?'1.4 (labour equiv)':r.fabW)+' = '+(p1.cantRailroad?(w/1000*r.fullness/1.4).toFixed(2):(w/1000*r.fullness/r.fabW).toFixed(2))+' \u2192 '+p1.drops+')</small></span><span class="ct-calc-val">'+p1.drops+' drops</span></div>')
-        +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Meterage</span><span class="ct-calc-val">'+p1.meterage.toFixed(2)+' m</span></div>'
+        +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Meterage<small>(fab W '+r.fabW+'m)</small></span><span class="ct-calc-val">'+p1.meterage.toFixed(2)+' m</span></div>'
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Cost</span><span class="ct-calc-val">'+ovrInp('t1fabOvr',p1.fabCost)+'</span></div>'
-        +(r.t1lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Cost</span><span class="ct-calc-val">'+ovrInp('t1linOvr',p1.linCost)+'</span></div>':'')
+        +(r.t1lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Meterage<small>(lining W '+(r.linW||r.fabW)+'m)</small></span><span class="ct-calc-val">'+p1.linMeterage.toFixed(2)+' m</span></div>':'')
+        +(r.t1lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Cost<small>('+p1.linMeterage.toFixed(2)+'m × '+ct_fmtR(r.t1linPrice)+'/m)</small></span><span class="ct-calc-val">'+ovrInp('t1linOvr',p1.linCost)+'</span></div>':'')
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Labour Cost<small>('+p1.drops+' \u00d7 '+ct_fmtR(isPinch?(r.t1lined?ct_labourPPLined:ct_labourPPUnlined):(r.t1lined?ct_labourLined:ct_labourUnlined))+'/drop'+(p1.longDrop?' +20% (drop &gt; 3000mm)':'')+')</small></span><span class="ct-calc-val">'+ovrInp('t1labOvr',p1.labCost)+'</span></div>'
         +'<div style="font-size:11px;font-weight:700;color:#F07E1E;margin:8px 0 2px">\uD83D\uDFE3 TRACK 2 '+(r.t2lined?'(LINED)':'(UNLINED)')+'</div>'
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Drops (same window)</span><span class="ct-calc-val">'+p2.drops+' drops</span></div>'
-        +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Meterage</span><span class="ct-calc-val">'+p2.meterage.toFixed(2)+' m</span></div>'
+        +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Meterage<small>(fab W '+r.fabW+'m)</small></span><span class="ct-calc-val">'+p2.meterage.toFixed(2)+' m</span></div>'
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric Cost</span><span class="ct-calc-val">'+ovrInp('t2fabOvr',p2.fabCost)+'</span></div>'
-        +(r.t2lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Cost</span><span class="ct-calc-val">'+ovrInp('t2linOvr',p2.linCost)+'</span></div>':'')
+        +(r.t2lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Meterage<small>(lining W '+(r.linW||r.fabW)+'m)</small></span><span class="ct-calc-val">'+p2.linMeterage.toFixed(2)+' m</span></div>':'')
+        +(r.t2lined?'<div class="ct-calc-row"><span class="ct-calc-lbl">Lining Cost<small>('+p2.linMeterage.toFixed(2)+'m × '+ct_fmtR(r.t2linPrice)+'/m)</small></span><span class="ct-calc-val">'+ovrInp('t2linOvr',p2.linCost)+'</span></div>':'')
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Labour Cost<small>'+(p2.longDrop?' (+20% (drop &gt; 3000mm))':'')+'</small></span><span class="ct-calc-val">'+ovrInp('t2labOvr',p2.labCost)+'</span></div>'
         +'<div style="font-size:11px;font-weight:700;color:#555;margin:8px 0 2px">TRACK HARDWARE</div>'
         +'<div class="ct-calc-row"><span class="ct-calc-lbl">Track — '+r.trkModel+' DFF '+w+'mm · '+r.trkColour+'</span><span class="ct-calc-val">'+ovrInp('trkOvr',trkP)+'</span></div>'
@@ -4346,7 +4380,7 @@ function ct_updatePrices(){
       var s='';
       if(prefix)s+='<div class="ct-calc-row" style="font-size:11px;font-weight:700;color:#888;margin-top:6px"><span>'+prefix+'</span><span></span></div>';
       s+='<div class="ct-calc-row"><span class="ct-calc-lbl">Fabric<small>('+p.drops+' drops \u00d7 '+p.meterage.toFixed(1)+'m'+(p.railroaded?' railroaded':'')+')</small></span><span class="ct-calc-val">'+ct_fmtR(p.fabCost)+'</span></div>';
-      if(lined)s+='<div class="ct-calc-row"><span class="ct-calc-lbl">Lining<small>('+p.meterage.toFixed(1)+'m)</small></span><span class="ct-calc-val">'+ct_fmtR(p.linCost)+'</span></div>';
+      if(lined)s+='<div class="ct-calc-row"><span class="ct-calc-lbl">Lining<small>('+p.linMeterage.toFixed(1)+'m)</small></span><span class="ct-calc-val">'+ct_fmtR(p.linCost)+'</span></div>';
       s+='<div class="ct-calc-row"><span class="ct-calc-lbl">Labour<small>('+p.drops+' drops'+(p.longDrop?' +20% drop &gt; 3000mm':'')+')</small></span><span class="ct-calc-val">'+ct_fmtR(p.labCost)+'</span></div>';
       return s;
     }
@@ -4554,14 +4588,14 @@ function ct_pwaExportPDF(isOrd){
       if(isDbl){
         var t1fS=(r.t1fabName||'-')+(r.t1fabColour?' - '+r.t1fabColour:'')+'   Mtg: '+p1.meterage+'m';
         wLbl('T1 Fabric:',t1fS,R,14,PW/2-18,rby);rby+=LH;
-        if(r.t1lined){var t1lS=(r.t1linName||'-')+(r.t1linColour?' - '+r.t1linColour:'');wLbl('T1 Lining:',t1lS,R,14,PW/2-18,rby);rby+=LH;}
+        if(r.t1lined){var t1lS=(r.t1linName||'-')+(r.t1linColour?' - '+r.t1linColour:'')+'   Mtg: '+p1.linMeterage+'m';wLbl('T1 Lining:',t1lS,R,14,PW/2-18,rby);rby+=LH;}
         var t2fS=(r.t2fabName||'-')+(r.t2fabColour?' - '+r.t2fabColour:'')+'   Mtg: '+p2.meterage+'m';
         wLbl('T2 Fabric:',t2fS,R,14,PW/2-18,rby);rby+=LH;
-        if(r.t2lined){var t2lS=(r.t2linName||'-')+(r.t2linColour?' - '+r.t2linColour:'');wLbl('T2 Lining:',t2lS,R,14,PW/2-18,rby);rby+=LH;}
+        if(r.t2lined){var t2lS=(r.t2linName||'-')+(r.t2linColour?' - '+r.t2linColour:'')+'   Mtg: '+p2.linMeterage+'m';wLbl('T2 Lining:',t2lS,R,14,PW/2-18,rby);rby+=LH;}
       } else {
         var fabS=(r.t1fabName||'-')+(r.t1fabColour?' - '+r.t1fabColour:'')+'   Mtg: '+p1.meterage+'m';
         wLbl('Fabric:',fabS,R,14,PW/2-18,rby);rby+=LH;
-        if(r.t1lined){var linS=(r.t1linName||'-')+(r.t1linColour?' - '+r.t1linColour:'');wLbl('Lining:',linS,R,14,PW/2-18,rby);rby+=LH;}
+        if(r.t1lined){var linS=(r.t1linName||'-')+(r.t1linColour?' - '+r.t1linColour:'')+'   Mtg: '+p1.linMeterage+'m';wLbl('Lining:',linS,R,14,PW/2-18,rby);rby+=LH;}
       }
       if(r.notes){
         doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(120,120,120);
@@ -4615,12 +4649,12 @@ function ct_pwaExportPDF(isOrd){
       if(isDbl){
         var p1=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
         var p2=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t2lined,r.t2fabPrice,r.t2linPrice,r.curtainStyle,r.linW||r.fabW);
-        bodyData.push([lt+' '+(r.loc||''),'Trk1 '+(r.t1lined?'Lined':'Unlined')+' \u00b7 '+r.trkModel+' '+r.trkColour+' DFF'+(fabLabel1?'\n'+fabLabel1:''),p1.drops,p1.meterage,'R'+Math.round(p1.fabCost),'R'+Math.round(p1.linCost),'R'+Math.round(p1.labCost),'-','R'+Math.round(p1.subtotal)]);
-        bodyData.push(['','Trk2 '+(r.t2lined?'Lined':'Unlined')+(fabLabel2?'\n'+fabLabel2:''),p2.drops,p2.meterage,'R'+Math.round(p2.fabCost),'R'+Math.round(p2.linCost),'R'+Math.round(p2.labCost),'R'+Math.round(trkOnlyOvr),'R'+Math.round(total)]);
+        bodyData.push([lt+' '+(r.loc||''),'Trk1 '+(r.t1lined?'Lined':'Unlined')+' \u00b7 '+r.trkModel+' '+r.trkColour+' DFF'+(fabLabel1?'\n'+fabLabel1:''),p1.drops,p1.meterage,'R'+Math.round(p1.fabCost),'R'+Math.round(p1.linCost)+(r.t1lined?'\n('+p1.linMeterage+'m)':''),'R'+Math.round(p1.labCost),'-','R'+Math.round(p1.subtotal)]);
+        bodyData.push(['','Trk2 '+(r.t2lined?'Lined':'Unlined')+(fabLabel2?'\n'+fabLabel2:''),p2.drops,p2.meterage,'R'+Math.round(p2.fabCost),'R'+Math.round(p2.linCost)+(r.t2lined?'\n('+p2.linMeterage+'m)':''),'R'+Math.round(p2.labCost),'R'+Math.round(trkOnlyOvr),'R'+Math.round(total)]);
         pushOptSubs(r,trkP);
       } else {
         var p=ct_calcPanel(parseInt(r.w)||0,ct_effectiveDrop(r),r.fullness,r.fabW,r.t1lined,r.t1fabPrice,r.t1linPrice,r.curtainStyle,r.linW||r.fabW);
-        bodyData.push([lt+' '+(r.loc||''),styleLabel+(fabLabel1?'\n'+fabLabel1:'')+(r.notes?'\nNotes: '+r.notes:''),p.drops,p.meterage,'R'+Math.round(p.fabCost),'R'+Math.round(p.linCost),'R'+Math.round(p.labCost),'R'+Math.round(trkOnlyOvr),'R'+Math.round(total)]);
+        bodyData.push([lt+' '+(r.loc||''),styleLabel+(fabLabel1?'\n'+fabLabel1:'')+(r.notes?'\nNotes: '+r.notes:''),p.drops,p.meterage,'R'+Math.round(p.fabCost),'R'+Math.round(p.linCost)+(r.t1lined?'\n('+p.linMeterage+'m)':''),'R'+Math.round(p.labCost),'R'+Math.round(trkOnlyOvr),'R'+Math.round(total)]);
         pushOptSubs(r,trkP);
       }
     }
