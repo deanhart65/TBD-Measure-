@@ -1515,7 +1515,7 @@ function rowHTML(r,idx){
   h+='<div class="bcard-body'+(expanded===r.id?' open':'')+'" id="det_'+r.id+'">';
   h+='<div class="mob-type" style="margin-top:10px"><label class="lbl">Type</label><select onchange="getRow('+r.id+').bt=this.value;getRow('+r.id+').rng=\'\';rebuildRow('+r.id+')">'+opts(TYPES,r.bt)+'</select></div>';
   var _noFab=(r.bt==="Wood Venetian"||r.bt==="Wood Alloy"||r.bt==="35mm Aluminium"||r.bt==="Retro Venetian");
-  if(r.bt!=="Double Roller"&&rgs.length>0&&!_noFab){h+='<div class="mob-fab" style="margin-top:10px"><label class="lbl">Fabric</label><select onchange="getRow('+r.id+').rng=this.value;updatePrices()"><option value="">Select fabric...</option>'+opts(rgs,r.rng)+'</select></div>';}
+  if(r.bt!=="Double Roller"&&rgs.length>0&&!_noFab){h+='<div class="mob-fab" style="margin-top:10px"><label class="lbl">Fabric</label><input type="text" inputmode="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" value="'+esc(r.rng||'')+'" placeholder="Type or pick fabric..." data-fabs="'+esc(rgs.join('|'))+'" data-rid="'+r.id+'" style="width:100%;padding:8px 10px;font-size:13px;border:1.5px solid #e0e0e0;border-radius:6px;background:#fafaf8;color:#1a1a1a;outline:none;-webkit-appearance:none;font-family:inherit;box-sizing:border-box" oninput="var _r=getRow('+r.id+');_r.rng=this.value;_fabDropFilter(this);updatePrices()" onfocus="_fabDropShow(this)" onblur="setTimeout(_fabDropHide,180)"></div>';}
   if(r.bt==="Double Roller"){
     var scOpts=DR_SC;
     h+='<div style="background:#faf5f0;border-radius:8px;padding:10px;margin-top:10px;border:1px solid #f0ddd0"><div style="font-size:12px;font-weight:700;color:#F07E1E;margin-bottom:6px">Blockout Fabric</div>';
@@ -1630,11 +1630,21 @@ function rowHTML(r,idx){
 }
 // ── iOS-friendly fabric autocomplete (replaces native <datalist> which blocks keyboard) ──
 var _fabDropInp=null;
-function _fabDropShow(inp){_fabDropInp=inp;_fabDropFilter(inp);}
+// Pre-create dropdown element so onfocus doesn't mutate DOM (which can suppress iOS keyboard)
+function _fabDropEnsure(){
+  var dd=document.getElementById('_fabDrop');
+  if(dd)return dd;
+  dd=document.createElement('div');dd.id='_fabDrop';
+  dd.style.cssText='position:absolute;background:#fff;border:1px solid #d0d0d0;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.18);max-height:240px;overflow-y:auto;z-index:99999;font-size:13px;display:none;-webkit-overflow-scrolling:touch;font-family:inherit';
+  (document.body||document.documentElement).appendChild(dd);
+  return dd;
+}
+if(document.readyState!=='loading')_fabDropEnsure();else document.addEventListener('DOMContentLoaded',_fabDropEnsure);
+// Defer dropdown render so iOS keyboard activates first, then dropdown appears
+function _fabDropShow(inp){_fabDropInp=inp;setTimeout(function(){if(document.activeElement===inp)_fabDropFilter(inp);},80);}
 function _fabDropHide(){var dd=document.getElementById('_fabDrop');if(dd)dd.style.display='none';_fabDropInp=null;}
 function _fabDropFilter(inp){
-  var dd=document.getElementById('_fabDrop');
-  if(!dd){dd=document.createElement('div');dd.id='_fabDrop';dd.style.cssText='position:absolute;background:#fff;border:1px solid #d0d0d0;border-radius:6px;box-shadow:0 6px 16px rgba(0,0,0,.18);max-height:240px;overflow-y:auto;z-index:99999;font-size:13px;display:none;-webkit-overflow-scrolling:touch;font-family:inherit';document.body.appendChild(dd);}
+  var dd=_fabDropEnsure();
   var fabs=(inp.getAttribute('data-fabs')||'').split('|').filter(function(x){return x;});
   var v=(inp.value||'').toLowerCase().trim();
   var ms=v?fabs.filter(function(f){return f.toLowerCase().indexOf(v)>=0;}):fabs.slice(0);
