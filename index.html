@@ -7976,19 +7976,20 @@ function ty_exportPDF(isOrder){
     sec.addEventListener('input',function(e){
       if(_snapped[sectionId])return;
       var t=e.target;
-      if(t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA')&&t.value!==''){
+      if(t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA')&&t.value!==''&&!(/_(nm|pn|cl|em|ad|md)$|^c_(nm|pn|cl|em|ad|md)$|^pwaJob/.test(t.id||''))){
         _snapped[sectionId]=true;
         var el=document.getElementById(targetId);
         if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
       }
     });
   }
-  _snapSetup('indoor-section','summaryContainer');
-  _snapSetup('outdoor-section','od_summaryContainer');
-  _snapSetup('curtain-section','ct_summaryContainer');
-  _snapSetup('shutter-section','sh_totals_container');
-  _snapSetup('taylor-section','ty_totals_container');
-  _snapSetup('master-section','mq_totals_container');
+  // Snap disabled — caused unwanted auto-scroll on data entry
+  // _snapSetup('indoor-section','summaryContainer');
+  // _snapSetup('outdoor-section','od_summaryContainer');
+  // _snapSetup('curtain-section','ct_summaryContainer');
+  // _snapSetup('shutter-section','sh_totals_container');
+  // _snapSetup('taylor-section','ty_totals_container');
+  // _snapSetup('master-section','mq_totals_container');
   // Reset snap flag when switching sections so first input in any newly-visited section snaps again
   var _origSwitch=window.switchAppMode;
   if(typeof _origSwitch==='function'){
